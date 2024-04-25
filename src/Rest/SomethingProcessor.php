@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Rest;
 
-use Dbp\Relay\CoreBundle\Rest\AbstractDataProcessor;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Entity\Something;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\SomethingService;
+use Dbp\Relay\CoreBundle\Rest\AbstractDataProcessor;
 
 class SomethingProcessor extends AbstractDataProcessor
 {
