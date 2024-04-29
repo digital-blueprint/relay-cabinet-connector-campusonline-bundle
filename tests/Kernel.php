@@ -16,7 +16,7 @@ use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class Kernel extends BaseKernel
 {
@@ -34,7 +34,7 @@ class Kernel extends BaseKernel
         yield new DbpRelayCoreBundle();
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routes)
+    protected function configureRoutes(RoutingConfigurator $routes)
     {
         $routes->import('@DbpRelayCoreBundle/Resources/config/routing.yaml');
     }
@@ -48,6 +48,12 @@ class Kernel extends BaseKernel
             'annotations' => false,
         ]);
 
-        $container->extension('dbp_relay_cabinet_connector_campusonline', []);
+        $container->extension('dbp_relay_cabinet_connector_campusonline', [
+            'api_url' => '',
+            'client_id' => '',
+            'client_secret' => '',
+            'data_service_name_person_data' => '',
+            'data_service_name_active_studies' => '',
+        ]);
     }
 }

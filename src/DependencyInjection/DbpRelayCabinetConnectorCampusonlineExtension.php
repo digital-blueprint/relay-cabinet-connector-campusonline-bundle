@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\DependencyInjection;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\SomethingService;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Dbp\Relay\CoreBundle\Extension\ExtensionTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,7 +23,7 @@ class DbpRelayCabinetConnectorCampusonlineExtension extends ConfigurableExtensio
         );
         $loader->load('services.yaml');
 
-        $definition = $container->getDefinition(SomethingService::class);
+        $definition = $container->getDefinition(ConfigurationService::class);
         $definition->addMethodCall('setConfig', [$mergedConfig]);
     }
 }
