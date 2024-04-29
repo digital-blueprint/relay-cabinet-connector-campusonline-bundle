@@ -1,9 +1,4 @@
 services:
-  Dbp\Relay\CabinetConnectorCampusonlineBundle\Rest\:
-    resource: '../../Rest'
-    autowire: true
-    autoconfigure: true
-
   Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\:
     resource: '../../Service'
     autowire: true

@@ -23,8 +23,6 @@ class DbpRelayCabinetConnectorCampusonlineExtension extends ConfigurableExtensio
         );
         $loader->load('services.yaml');
 
-        $this->addResourceClassDirectory($container, __DIR__.'/../Entity');
-
         $definition = $container->getDefinition(SomethingService::class);
         $definition->addMethodCall('setConfig', [$mergedConfig]);
     }
