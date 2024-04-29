@@ -1,4 +1,4 @@
-# DbpRelayCabinetBundle
+# DbpRelayCabinetConnectorCampusonlineBundle
 
 [GitHub](https://github.com/digital-blueprint/relay-cabinet-connector-campusonline-bundle) |
 [Packagist](https://packagist.org/packages/dbp/relay-cabinet-connector-campusonline-bundle) |
