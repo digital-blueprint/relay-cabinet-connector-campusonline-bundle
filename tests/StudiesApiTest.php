@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\ActiveStudiesApi\ActiveStudiesApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\ActiveStudiesApi\StudyStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\StudiesApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\StudyStatus;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
-class ActiveStudiesApiTest extends TestCase
+class StudiesApiTest extends TestCase
 {
-    private ActiveStudiesApi $api;
+    private StudiesApi $api;
 
     public function setUp(): void
     {
@@ -24,9 +24,9 @@ class ActiveStudiesApiTest extends TestCase
             'api_url' => '',
             'client_id' => '',
             'client_secret' => '',
-            'data_service_name_active_studies' => '',
+            'data_service_name_studies' => '',
         ]);
-        $this->api = new ActiveStudiesApi($config);
+        $this->api = new StudiesApi($config);
         $this->mockResponses([]);
     }
 
@@ -36,7 +36,7 @@ class ActiveStudiesApiTest extends TestCase
         $this->api->setClientHandler($stack, 'nope');
     }
 
-    public function testGetActiveStudiesNoneFound()
+    public function testGetStudiesNoneFound()
     {
         $RESPONSE = '
 {
@@ -50,10 +50,10 @@ class ActiveStudiesApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $this->assertCount(0, $this->api->getActiveStudies(4242));
+        $this->assertCount(0, $this->api->getStudies(4242));
     }
 
-    public function testGetActiveStudies()
+    public function testGetStudies()
     {
         $RESPONSE = '
 {
@@ -95,7 +95,7 @@ class ActiveStudiesApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $studies = $this->api->getActiveStudies(123456);
+        $studies = $this->api->getStudies(123456);
         $this->assertCount(1, $studies);
         $study = $studies[0];
         $this->assertSame(123456, $study->getStudentPersonNumber());

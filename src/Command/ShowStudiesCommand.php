@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\ActiveStudiesApi\ActiveStudiesApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\PersonDataApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\StudiesApi;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ShowActiveStudiesCommand extends Command
+class ShowStudiesCommand extends Command
 {
     private ConfigurationService $config;
 
@@ -34,8 +34,8 @@ class ShowActiveStudiesCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('dbp:relay:cabinet-connector-campusonline:show-active-studies');
-        $this->setDescription('Show active studies for an obfuscated ID');
+        $this->setName('dbp:relay:cabinet-connector-campusonline:show-studies');
+        $this->setDescription('Show studies for an obfuscated ID');
         $this->addArgument('obfuscated-id', InputArgument::REQUIRED, 'obfuscated id');
     }
 
@@ -68,16 +68,16 @@ class ShowActiveStudiesCommand extends Command
 
         $nr = $personData->getStudentPersonNumber();
 
-        $activeStudiesApi = new ActiveStudiesApi($config);
+        $studiesApi = new StudiesApi($config);
         if ($this->clientHandler !== null) {
-            $connection = $activeStudiesApi->getApi()->getConnection();
+            $connection = $studiesApi->getApi()->getConnection();
             $connection->setClientHandler($this->clientHandler);
             $connection->setToken($this->token);
         }
 
-        $studies = $activeStudiesApi->getActiveStudies($nr);
+        $studies = $studiesApi->getStudies($nr);
         if (count($studies) === 0) {
-            $io->info('No active studies');
+            $io->info('No studies');
 
             return Command::SUCCESS;
         }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\ActiveStudiesApi\ActiveStudiesApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\PersonDataApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\StudiesApi;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,14 +66,14 @@ class ShowJsonCommand extends Command
         }
 
         $nr = $personData->getStudentPersonNumber();
-        $activeStudiesApi = new ActiveStudiesApi($config);
+        $studiesApi = new StudiesApi($config);
         if ($this->clientHandler !== null) {
-            $connection = $activeStudiesApi->getApi()->getConnection();
+            $connection = $studiesApi->getApi()->getConnection();
             $connection->setClientHandler($this->clientHandler);
             $connection->setToken($this->token);
         }
 
-        $studies = $activeStudiesApi->getActiveStudies($nr);
+        $studies = $studiesApi->getStudies($nr);
 
         $studiesData = [];
         foreach ($studies as $study) {
@@ -106,7 +106,7 @@ class ShowJsonCommand extends Command
                     'en' => $personData->getStudentStatus()->getName('en'),
                 ],
             ],
-            'activeStudies' => $studiesData,
+            'studies' => $studiesData,
             'nationality' => [
                 'key' => (string) $personData->getNationality()->value,
                 'translations' => [

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\ActiveStudiesApi\SchoolType;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\Nationality;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\SchoolType;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Utils\CountryUtils;
 use Monolog\Test\TestCase;
 

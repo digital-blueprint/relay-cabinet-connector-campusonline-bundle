@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\ActiveStudiesApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi;
 
 class SchoolType
 {

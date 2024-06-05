@@ -23,9 +23,9 @@ class ConfigurationService
         return $this->config['data_service_name_person_data'];
     }
 
-    public function getDataServiceNameActiveStudies(): string
+    public function getDataServiceNameStudies(): string
     {
-        return $this->config['data_service_name_active_studies'];
+        return $this->config['data_service_name_studies'];
     }
 
     public function getClientId(): string

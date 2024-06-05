@@ -53,7 +53,7 @@ class Kernel extends BaseKernel
             'client_id' => '',
             'client_secret' => '',
             'data_service_name_person_data' => '',
-            'data_service_name_active_studies' => '',
+            'data_service_name_studies' => '',
         ]);
     }
 }

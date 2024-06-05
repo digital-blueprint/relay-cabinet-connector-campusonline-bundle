@@ -12,6 +12,6 @@ dbp_relay_cabinet_connector_campusonline:
     client_secret:        ~ # Required, Example: my-secret
     # The data service name for the PersonData CO API
     data_service_name_person_data: ~ # Required, Example: loc_apiDmsStudPersMv
-    # The data service name for the ActiveStudies CO API
-    data_service_name_active_studies: ~ # Required, Example: loc_apiDmsStudien
+    # The data service name for the Studies CO API
+    data_service_name_studies: ~ # Required, Example: loc_apiDmsStudien
 ```
