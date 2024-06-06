@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi;
 
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\SyncApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\SyncApi;
 
-class StudiesApi
+class PersonDataApi
 {
     private ConfigurationService $config;
 
@@ -32,26 +32,20 @@ class StudiesApi
         if ($this->api === null) {
             $config = $this->config;
 
-            $this->api = SyncApi::create($config->getApiUrl(), $config->getDataServiceNameStudies(), $config->getClientId(), $config->getClientSecret());
+            $this->api = SyncApi::create($config->getApiUrl(), $config->getDataServiceNamePersonData(), $config->getClientId(), $config->getClientSecret());
         }
 
         return $this->api;
     }
 
-    /**
-     * Returns 0 or more studies for a specific person.
-     *
-     * @return Study[]
-     */
-    public function getStudies(int $studentPersonNumber): array
+    public function getPersonData(string $obfuscatedId): ?PersonData
     {
         $api = $this->getApi();
-        $resources = $api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
-        $studies = [];
-        foreach ($resources as $resource) {
-            $studies[] = new Study($resource->content);
+        $resource = $api->getResource('IdentNrObfuscated', $obfuscatedId);
+        if ($resource === null) {
+            return null;
         }
 
-        return $studies;
+        return new PersonData($resource->content);
     }
 }

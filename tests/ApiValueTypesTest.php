@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\Nationality;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\SchoolType;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\Utils\CountryUtils;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\Nationality;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\SchoolType;
 use Monolog\Test\TestCase;
 
 class ApiValueTypesTest extends TestCase

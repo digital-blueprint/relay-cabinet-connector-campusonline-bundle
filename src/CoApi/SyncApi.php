@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi;
 
 use Dbp\CampusonlineApi\Helpers\ApiException;
 use Dbp\CampusonlineApi\Rest\Connection;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Utils;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi;
 
 use Symfony\Component\Intl\Countries;
 

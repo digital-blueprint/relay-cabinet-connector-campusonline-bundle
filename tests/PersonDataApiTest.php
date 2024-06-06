@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\Gender;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\PersonalStatus;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\PersonDataApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\StudentStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\Gender;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\PersonalStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\PersonDataApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\StudentStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

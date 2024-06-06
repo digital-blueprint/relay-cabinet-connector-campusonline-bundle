@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudiesApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudyStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\StudiesApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi\StudyStatus;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;

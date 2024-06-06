@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi\PersonDataApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\PersonDataApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

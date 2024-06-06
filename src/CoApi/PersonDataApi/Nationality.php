@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\PersonDataApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\Utils\CountryUtils;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
 
 /**
  * Represents a country, or some other special area (like "EU/EEA (without Austria)").

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\StudiesApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\Utils\CountryUtils;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
 
 /**
  * Represents a country.
