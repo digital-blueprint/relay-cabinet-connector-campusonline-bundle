@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.2.0
 
 * Port to the new CO APIs
 * The config option `data_service_name_active_studies` was renamed to `data_service_name_studies`
