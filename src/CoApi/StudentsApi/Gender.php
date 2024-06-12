@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 
 enum Gender: string
 {
@@ -65,5 +65,16 @@ enum Gender: string
         ];
 
         return ($translations[$locale] ?? $translations['en'])[$this->value];
+    }
+
+    public function forJson(): array
+    {
+        return [
+            'key' => $this->value,
+            'translations' => [
+                'de' => $this->getName('de'),
+                'en' => $this->getName('en'),
+            ],
+        ];
     }
 }

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\PersonDataApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudiesApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\SyncApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -50,34 +49,32 @@ class ShowJsonCommand extends Command
         $obfuscatedId = $input->getArgument('obfuscated-id');
         $config = $this->config;
 
-        $personDataApi = new PersonDataApi($config);
-
+        $api = new SyncApi($config);
         if ($this->clientHandler !== null) {
-            $connection = $personDataApi->getApi()->getConnection();
-            $connection->setClientHandler($this->clientHandler);
-            $connection->setToken($this->token);
+            $api->setClientHandler($this->clientHandler, $this->token);
         }
 
-        $personData = $personDataApi->getPersonData($obfuscatedId);
-        if ($personData === null) {
-            $io->getErrorStyle()->error('person data not found');
+        $studentsApi = $api->getStudentsApi();
+
+        $student = $studentsApi->getStudentForObfuscatedId($obfuscatedId);
+        if ($student === null && is_numeric($obfuscatedId)) {
+            $student = $studentsApi->getStudentForPersonNumber((int) $obfuscatedId);
+        }
+        if ($student === null) {
+            $io->getErrorStyle()->error('student data not found');
 
             return Command::FAILURE;
         }
 
-        $nr = $personData->getStudentPersonNumber();
-        $studiesApi = new StudiesApi($config);
-        if ($this->clientHandler !== null) {
-            $connection = $studiesApi->getApi()->getConnection();
-            $connection->setClientHandler($this->clientHandler);
-            $connection->setToken($this->token);
-        }
+        $nr = $student->getStudentPersonNumber();
 
+        $studiesApi = $api->getStudiesApi();
         $studies = $studiesApi->getStudies($nr);
 
         $studiesData = [];
         foreach ($studies as $study) {
             $entry = [
+                'id' => $study->getStudyNumber(),
                 'key' => $study->getStudyKey(),
                 'name' => $study->getStudyName(),
                 'type' => $study->getStudyType(),
@@ -86,34 +83,42 @@ class ShowJsonCommand extends Command
             $studiesData[] = $entry;
         }
 
+        $applicationsApi = $api->getApplicationsApi();
+
+        $applications = $applicationsApi->getApplications($nr);
+
+        $applicationsData = [];
+        foreach ($applications as $application) {
+            $entry = [
+                'id' => $application->getApplicationNumber(),
+                'studyId' => $application->getStudyNumber(),
+                'studentPersonNumber' => $application->getStudentPersonNumber(),
+                'applicationNumber' => $application->getApplicationNumber(),
+                'studyKey' => $application->getStudyKey(),
+                'studyName' => $application->getStudyName(),
+                'studyType' => $application->getStudyType(),
+                'startSemester' => $application->getStartSemester(),
+                'qualificationCertificateDate' => $application->getQualificationCertificateDate(),
+                'qualificationIssuingCountry' => $application->getQualificationIssuingCountry()->forJson(),
+                'qualificationType' => $application->getQualification()->forJson(),
+            ];
+            $applicationsData[] = $entry;
+        }
+
+        $exmatriculationStatus = $student->getExmatriculationStatus();
+
         // This is just a test and WIP
         $data = [
-            'id' => $obfuscatedId,
-            'givenName' => $personData->getGivenName(),
-            'familyName' => $personData->getFamilyName(),
-            'studentPersonNumber' => (string) $personData->getStudentPersonNumber(),
-            'gender' => [
-                'key' => $personData->getGender()->value,
-                'translations' => [
-                    'de' => $personData->getGender()->getName('de'),
-                    'en' => $personData->getGender()->getName('en'),
-                ],
-            ],
-            'studentStatus' => [
-                'key' => $personData->getStudentStatus()->value,
-                'translations' => [
-                    'de' => $personData->getStudentStatus()->getName('de'),
-                    'en' => $personData->getStudentStatus()->getName('en'),
-                ],
-            ],
+            'id' => $student->getIdentNumberObfuscated(),
+            'givenName' => $student->getGivenName(),
+            'familyName' => $student->getFamilyName(),
+            'studentPersonNumber' => (string) $student->getStudentPersonNumber(),
+            'gender' => $student->getGender()->forJson(),
+            'studentStatus' => $student->getStudentStatus()->forJson(),
             'studies' => $studiesData,
-            'nationality' => [
-                'key' => (string) $personData->getNationality()->value,
-                'translations' => [
-                    'de' => $personData->getNationality()->getName('de'),
-                    'en' => $personData->getNationality()->getName('en'),
-                ],
-            ],
+            'applications' => $applicationsData,
+            'nationality' => $student->getNationality()->forJson(),
+            'exmatriculationStatus' => $exmatriculationStatus !== null ? $exmatriculationStatus->forJson() : null,
         ];
 
         $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
 
-class Study
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseResource;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Country;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ExmatriculationStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
+
+class Study extends BaseResource
 {
-    public array $data;
-
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
-
     private function getDateValue(string $name): ?string
     {
         $obj = $this->data[$name] ?? null;
         assert($obj !== null);
 
         return $obj['value'];
+    }
+
+    /**
+     * Example: 252221.
+     */
+    public function getStudyNumber(): int
+    {
+        return $this->data['STSTUDIUMNR'];
     }
 
     /**
@@ -100,11 +106,11 @@ class Study
     /**
      * Example: "41".
      */
-    public function getStudyQualificationType(): ?SchoolType
+    public function getStudyQualificationType(): ?HigherEducationEntranceQualification
     {
         $id = $this->data['STUDYQUALIFICATIONTYPE'];
 
-        return $id !== null ? SchoolType::fromId($id) : null;
+        return $id !== null ? HigherEducationEntranceQualification::fromId($id) : null;
     }
 
     /**
@@ -131,5 +137,23 @@ class Study
     public function getStudyQualificationStateString(): ?string
     {
         return $this->data['STUDYQUALIFICATIONSTATE'];
+    }
+
+    /**
+     * Example: "EZ".
+     */
+    public function getStudyExmatriculationType(): ?ExmatriculationStatus
+    {
+        $coId = $this->data['STUDYEXMATRICULATIONTYPE'];
+
+        return $coId !== null ? ExmatriculationStatus::fromId($coId) : null;
+    }
+
+    /**
+     * TODO: ???
+     */
+    public function getAdditionalCertificate(): ?string
+    {
+        return $this->data['ADDITIONALCERTIFICATE'];
     }
 }

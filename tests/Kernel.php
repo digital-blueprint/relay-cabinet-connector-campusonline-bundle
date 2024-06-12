@@ -52,8 +52,9 @@ class Kernel extends BaseKernel
             'api_url' => '',
             'client_id' => '',
             'client_secret' => '',
-            'data_service_name_person_data' => '',
+            'data_service_name_students' => '',
             'data_service_name_studies' => '',
+            'data_service_name_applications' => '',
         ]);
     }
 }

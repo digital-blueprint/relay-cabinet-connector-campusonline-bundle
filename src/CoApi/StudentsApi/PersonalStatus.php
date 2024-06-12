@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 
 enum PersonalStatus: string
 {

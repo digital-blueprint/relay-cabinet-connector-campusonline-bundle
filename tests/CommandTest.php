@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\Command\ShowPersonDataCommand;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\Command\ShowStudentCommand;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
@@ -14,14 +14,14 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class CommandTest extends KernelTestCase
 {
-    private ShowPersonDataCommand $command;
+    private ShowStudentCommand $command;
 
     public function setUp(): void
     {
         $kernel = static::createKernel();
         $application = new Application($kernel);
-        $command = $application->find('dbp:relay:cabinet-connector-campusonline:show-person-data');
-        assert($command instanceof ShowPersonDataCommand);
+        $command = $application->find('dbp:relay:cabinet-connector-campusonline:show-student');
+        assert($command instanceof ShowStudentCommand);
         $this->command = $command;
     }
 

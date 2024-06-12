@@ -18,14 +18,19 @@ class ConfigurationService
         return $this->config['api_url'];
     }
 
-    public function getDataServiceNamePersonData(): string
+    public function getDataServiceStudents(): string
     {
-        return $this->config['data_service_name_person_data'];
+        return $this->config['data_service_name_students'];
     }
 
     public function getDataServiceNameStudies(): string
     {
         return $this->config['data_service_name_studies'];
+    }
+
+    public function getDataServiceNameApplications(): string
+    {
+        return $this->config['data_service_name_applications'];
     }
 
     public function getClientId(): string

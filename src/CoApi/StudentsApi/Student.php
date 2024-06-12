@@ -2,17 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 
-class PersonData
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseResource;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Country;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ExmatriculationStatus;
+
+class Student extends BaseResource
 {
-    public array $data;
-
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
-
     private function getDateValue(string $name): ?string
     {
         $obj = $this->data[$name] ?? null;
@@ -124,6 +121,24 @@ class PersonData
     }
 
     /**
+     * Example: 40.
+     */
+    public function getAdmissionQualificationState(): ?Country
+    {
+        $coId = $this->data['ADMISSIONQUALIFICATIONSTATE'];
+
+        return $coId !== null ? Country::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "067612345678".
+     */
+    public function getTelephoneNumber(): ?string
+    {
+        return $this->data['TELEPHONE'];
+    }
+
+    /**
      * Example: "1970-01-01".
      */
     public function getSchoolCertificateDate(): ?string
@@ -166,9 +181,19 @@ class PersonData
     /**
      * Example: 168.
      */
-    public function getHomeAddressCountry(): ?int
+    public function getHomeAddressCountry(): ?Country
     {
-        return $this->data['HOMEADDRESSCOUNTRY'];
+        $coId = $this->data['HOMEADDRESSCOUNTRY'];
+
+        return $coId !== null ? Country::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "067612345678".
+     */
+    public function getHomeAddressTelephoneNumber(): ?string
+    {
+        return $this->data['HOMEADDRESSTELEPHONE'];
     }
 
     /**
@@ -206,9 +231,19 @@ class PersonData
     /**
      * Example: 168.
      */
-    public function getStudentAddressCountry(): ?int
+    public function getStudentAddressCountry(): ?Country
     {
-        return $this->data['STUDADDRESSCOUNTRY'];
+        $coId = $this->data['STUDADDRESSCOUNTRY'];
+
+        return $coId !== null ? Country::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "067612345678".
+     */
+    public function getStudentAddressTelephoneNumber(): ?string
+    {
+        return $this->data['STUDADDRESSTELEPHONE'];
     }
 
     /**
@@ -259,6 +294,26 @@ class PersonData
     }
 
     /**
+     * Example: "Ausländer gleichgestellt".
+     *
+     * Also called "Beitragsstatus"
+     */
+    public function getTuitionStatus(): ?string
+    {
+        return $this->data['TUITIONSTATUS'];
+    }
+
+    /**
+     * Example: "L Lehrgang".
+     *
+     * Also called "Befreiungsart"
+     */
+    public function getTuitionExemptionType(): ?string
+    {
+        return $this->data['TUITIONEXEMPTIONTYPE'];
+    }
+
+    /**
      * Example: "1970-01-01".
      */
     public function getImmatriculationDate(): string
@@ -267,19 +322,37 @@ class PersonData
     }
 
     /**
-     * Example: ??? Always null.
+     * Example: "EZ".
      */
-    public function getExmatriculationStatus(): ?string
+    public function getExmatriculationStatus(): ?ExmatriculationStatus
     {
-        return $this->data['EXMATRICULATIONSTATUS'];
+        $coId = $this->data['EXMATRICULATIONSTATUS'];
+
+        return $coId !== null ? ExmatriculationStatus::fromId($coId) : null;
     }
 
     /**
-     * Example: ??? Always null.
+     * Example: "2023-10-31".
      */
     public function getExmatriculationDate(): ?string
     {
         return $this->getDateValue('EXMATRICULATIONDATE');
+    }
+
+    /**
+     * TODO: ??? null.
+     */
+    public function getTermStart(): ?string
+    {
+        return $this->data['TERMSTART'];
+    }
+
+    /**
+     * TODO: ??? null.
+     */
+    public function getTermEnd(): ?string
+    {
+        return $this->data['TERMEND'];
     }
 
     /**

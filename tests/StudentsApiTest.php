@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\Gender;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\PersonalStatus;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\PersonDataApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\StudentStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Gender;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\PersonalStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\StudentStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\SyncApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
-class PersonDataApiTest extends TestCase
+class StudentsApiTest extends TestCase
 {
-    private PersonDataApi $api;
+    private SyncApi $api;
 
     public function setUp(): void
     {
@@ -26,9 +26,9 @@ class PersonDataApiTest extends TestCase
             'api_url' => '',
             'client_id' => '',
             'client_secret' => '',
-            'data_service_name_person_data' => '',
+            'data_service_name_students' => '',
         ]);
-        $this->api = new PersonDataApi($config);
+        $this->api = new SyncApi($config);
         $this->mockResponses([]);
     }
 
@@ -38,7 +38,7 @@ class PersonDataApiTest extends TestCase
         $this->api->setClientHandler($stack, 'nope');
     }
 
-    public function testGetPersonDataNotFound()
+    public function testGetStudentNotFound()
     {
         $RESPONSE = '
 {
@@ -52,10 +52,10 @@ class PersonDataApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $this->assertNull($this->api->getPersonData('nope'));
+        $this->assertNull($this->api->getStudentsApi()->getStudentForObfuscatedId('nope'));
     }
 
-    public function testGetPersonDataFull()
+    public function testGetStudentFull()
     {
         $RESPONSE = '
 {
@@ -65,8 +65,10 @@ class PersonDataApiTest extends TestCase
         {
             "link": [],
             "content": {
-                "type": "model-CO_LOC_DS.API_DMS_STUD_PERS_MV",
-                "API_DMS_STUD_PERS_MV": {
+                "type": "model-eg.dataservices.tugrazonline",
+                "DMSStudents": {
+                    "SOURCE": "LiveSync[Single|Normal]",
+                    "TIMESTAMP": "13.06.2024T14:00:34",
                     "STPERSONNR": 123123,
                     "STUDID": "00712345",
                     "GIVENNAME": "Max",
@@ -84,28 +86,36 @@ class PersonDataApiTest extends TestCase
                     "SCHOOLCERTIFICATEDATE": {
                         "value": "2010-12-24"
                     },
+                    "ADMISSIONQUALIFICATIONSTATE": 40,
+                    "TELEPHONE": "067612345677",
                     "HOMEADDRESSNOTE": "c/o Erika Mustermann",
                     "HOMEADDRESSSTREET": "Hauptstraße 34",
                     "HOMEADDRESSPLACE": "Altenmarkt bei Sankt Gallen",
                     "HOMEADDRESSPOSTCODE": "8934",
                     "HOMEADDRESSCOUNTRY": 11,
+                    "HOMEADDRESSTELEPHONE": "067612345678",
                     "STUDADDRESSNOTE": "c/o Erika Mustermann",
                     "STUDADDRESSSTREET": "Hauptstraße 42",
                     "STUDADDRESSPLACE": "Waizenkirchen",
                     "STUDADDRESSPOSTCODE": "4730",
                     "STUDADDRESSCOUNTRY": 11,
+                    "STUDADDRESSTELEPHONE": "067612345676",
                     "EMAILADDRESSTU": "max.mustermann@student.tugraz.at",
                     "EMAILADDRESSCONFIRMED": "max.mustermann@example.com",
                     "EMAILADDRESSTEMPORARY": "max.mustermann.temp@example.com",
                     "PERSTUSTATUS": "Voranmeldung",
                     "STUDTUSTATUS": "E",
+                    "TUITIONSTATUS": "Ausländer gleichgestellt",
+                    "TUITIONEXEMPTIONTYPE": "L Lehrgang",
                     "IMMATRICULATIONDATE": {
                         "value": "2010-12-24"
                     },
-                    "EXMATRICULATIONSTATUS": null,
+                    "EXMATRICULATIONSTATUS": "EZ",
                     "EXMATRICULATIONDATE": {
-                        "value": null
+                        "value": "2023-10-31"
                     },
+                    "TERMSTART": null,
+                    "TERMEND": null,
                     "ACADEMICTITLEPRECEDING": "Ing.",
                     "ACADEMICTITLEFOLLOWING": "Bsc",
                     "FORMERFAMILYNAME": "Normalverbraucher",
@@ -123,7 +133,10 @@ class PersonDataApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $data = $this->api->getPersonData('F06BCC80D6FC0BDE575B16FB2E3790D5');
+        $data = $this->api->getStudentsApi()->getStudentForObfuscatedId('F06BCC80D6FC0BDE575B16FB2E3790D5');
+
+        $this->assertSame('LiveSync[Single|Normal]', $data->getSource());
+        $this->assertSame('13.06.2024T14:00:34', $data->getTimestamp());
 
         $this->assertSame('1970-01-01', $data->getBirthDate());
         $this->assertSame(Gender::NonBinary, $data->getGender());
@@ -144,29 +157,37 @@ class PersonDataApiTest extends TestCase
         $this->assertSame('Hauptstraße 34', $data->getHomeAddressStreet());
         $this->assertSame('Altenmarkt bei Sankt Gallen', $data->getHomeAddressPlace());
         $this->assertSame('8934', $data->getHomeAddressPostCode());
-        $this->assertSame(11, $data->getHomeAddressCountry());
+        $this->assertSame('EGY', $data->getHomeAddressCountry()->getAlpha3Code());
         $this->assertSame('c/o Erika Mustermann', $data->getStudentAddressNote());
         $this->assertSame('Hauptstraße 42', $data->getStudentAddressStreet());
         $this->assertSame('Waizenkirchen', $data->getStudentAddressPlace());
         $this->assertSame('4730', $data->getStudentAddressPostCode());
-        $this->assertSame(11, $data->getStudentAddressCountry());
+        $this->assertSame('EGY', $data->getStudentAddressCountry()->getAlpha3Code());
         $this->assertSame('max.mustermann@student.tugraz.at', $data->getEmailAddressUniversity());
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
         $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
-        $this->assertSame(null, $data->getExmatriculationStatus());
-        $this->assertSame(null, $data->getExmatriculationDate());
+        $this->assertSame('ex lege (EZ)', $data->getExmatriculationStatus()->getName());
+        $this->assertSame('2023-10-31', $data->getExmatriculationDate());
         $this->assertSame('Ing.', $data->getAcademicTitlePreceding());
         $this->assertSame('Bsc', $data->getAcademicTitleFollowing());
         $this->assertSame('Normalverbraucher', $data->getFormerFamilyName());
         $this->assertSame('1223010170', $data->getSocialSecurityNumber());
         $this->assertSame('Kxl/ufp/HOufd8y/+3n6qZ1Cn7E=', $data->getSectorSpecificPersonalIdentifier());
         $this->assertSame('max.mustermann.temp@example.com', $data->getEmailAddressTemporary());
+        $this->assertSame(null, $data->getTermStart());
+        $this->assertSame(null, $data->getTermEnd());
+        $this->assertSame('067612345677', $data->getTelephoneNumber());
+        $this->assertSame('067612345678', $data->getHomeAddressTelephoneNumber());
+        $this->assertSame('067612345676', $data->getStudentAddressTelephoneNumber());
+        $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
+        $this->assertSame('Ausländer gleichgestellt', $data->getTuitionStatus());
+        $this->assertSame('L Lehrgang', $data->getTuitionExemptionType());
     }
 
-    public function testGetPersonDataMinimal()
+    public function testGetStudentMinimal()
     {
         $RESPONSE = '
 {
@@ -176,8 +197,10 @@ class PersonDataApiTest extends TestCase
         {
             "link": [],
             "content": {
-                "type": "model-CO_LOC_DS.API_DMS_STUD_PERS_MV",
-                "API_DMS_STUD_PERS_MV": {
+                "type": "model-eg.dataservices.tugrazonline",
+                "DMSStudents": {
+                    "SOURCE": "LiveSync[Single|Normal]",
+                    "TIMESTAMP": "13.06.2024T14:00:34",
                     "STPERSONNR": 123123,
                     "STUDID": null,
                     "GIVENNAME": "Max",
@@ -195,21 +218,27 @@ class PersonDataApiTest extends TestCase
                     "SCHOOLCERTIFICATEDATE": {
                         "value": null
                     },
+                    "ADMISSIONQUALIFICATIONSTATE": 40,
+                    "TELEPHONE": null,
                     "HOMEADDRESSNOTE": null,
                     "HOMEADDRESSSTREET": null,
                     "HOMEADDRESSPLACE": null,
                     "HOMEADDRESSPOSTCODE": null,
                     "HOMEADDRESSCOUNTRY": null,
+                    "HOMEADDRESSTELEPHONE": null,
                     "STUDADDRESSNOTE": null,
                     "STUDADDRESSSTREET": null,
                     "STUDADDRESSPLACE": null,
                     "STUDADDRESSPOSTCODE": null,
                     "STUDADDRESSCOUNTRY": null,
+                    "STUDADDRESSTELEPHONE": null,
                     "EMAILADDRESSTU": null,
                     "EMAILADDRESSCONFIRMED": null,
                     "EMAILADDRESSTEMPORARY": null,
                     "PERSTUSTATUS": "Voranmeldung",
                     "STUDTUSTATUS": "E",
+                    "TUITIONSTATUS": null,
+                    "TUITIONEXEMPTIONTYPE": null,
                     "IMMATRICULATIONDATE": {
                         "value": "2010-12-24"
                     },
@@ -217,6 +246,8 @@ class PersonDataApiTest extends TestCase
                     "EXMATRICULATIONDATE": {
                         "value": null
                     },
+                    "TERMSTART": null,
+                    "TERMEND": null,
                     "ACADEMICTITLEPRECEDING": null,
                     "ACADEMICTITLEFOLLOWING": null,
                     "FORMERFAMILYNAME": null,
@@ -234,7 +265,7 @@ class PersonDataApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $data = $this->api->getPersonData('F06BCC80D6FC0BDE575B16FB2E3790D5');
+        $data = $this->api->getStudentsApi()->getStudentForObfuscatedId('F06BCC80D6FC0BDE575B16FB2E3790D5');
 
         // These seem to be always present (based on manual testing only)
         $this->assertSame('1970-01-01', $data->getBirthDate());
@@ -250,6 +281,7 @@ class PersonDataApiTest extends TestCase
         $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
+        $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
 
         // These are all optional
         $this->assertSame(null, $data->getStudentId());
@@ -277,5 +309,12 @@ class PersonDataApiTest extends TestCase
         $this->assertSame(null, $data->getSocialSecurityNumber());
         $this->assertSame(null, $data->getSectorSpecificPersonalIdentifier());
         $this->assertSame(null, $data->getEmailAddressTemporary());
+        $this->assertSame(null, $data->getTermStart());
+        $this->assertSame(null, $data->getTermEnd());
+        $this->assertSame(null, $data->getTelephoneNumber());
+        $this->assertSame(null, $data->getHomeAddressTelephoneNumber());
+        $this->assertSame(null, $data->getStudentAddressTelephoneNumber());
+        $this->assertSame(null, $data->getTuitionStatus());
+        $this->assertSame(null, $data->getTuitionExemptionType());
     }
 }

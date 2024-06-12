@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi;
 
-class SchoolType
+/**
+ * This means "Hochschulzugangsberechtigung".
+ */
+class HigherEducationEntranceQualification
 {
     public string $value;
 
@@ -253,9 +256,18 @@ class SchoolType
         $this->value = $value;
     }
 
-    public static function fromId(string $id): SchoolType
+    public static function fromId(string $id): HigherEducationEntranceQualification
     {
         return new self($id);
+    }
+
+    public static function fromDisplayText(string $string): HigherEducationEntranceQualification
+    {
+        if (preg_match('/^\d+/', $string, $matches)) {
+            return self::fromId($matches[0]);
+        } else {
+            throw new \RuntimeException('Invalid format');
+        }
     }
 
     public function getName(string $locale = 'en'): string
@@ -273,5 +285,16 @@ class SchoolType
 
         // Unknown, fall back to manual and include the ID in the name
         return $getTranslated(self::UNKOWN, $locale).' ('.$this->value.')';
+    }
+
+    public function forJson(): array
+    {
+        return [
+            'key' => $this->value,
+            'translations' => [
+                'de' => $this->getName('de'),
+                'en' => $this->getName('en'),
+            ],
+        ];
     }
 }

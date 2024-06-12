@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ApplicationsApi;
 
 use Dbp\CampusonlineApi\Rest\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 
-class StudiesApi
+class ApplicationsApi
 {
     private BaseApi $api;
 
@@ -17,18 +17,16 @@ class StudiesApi
     }
 
     /**
-     * Returns 0 or more studies for a specific person.
-     *
-     * @return Study[]
+     * @return Application[]
      */
-    public function getStudies(int $studentPersonNumber): array
+    public function getApplications(int $studentPersonNumber): array
     {
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
-        $studies = [];
+        $applications = [];
         foreach ($resources as $resource) {
-            $studies[] = new Study($resource->data);
+            $applications[] = new Application($resource->data);
         }
 
-        return $studies;
+        return $applications;
     }
 }

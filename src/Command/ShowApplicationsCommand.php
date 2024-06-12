@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ShowStudiesCommand extends Command
+class ShowApplicationsCommand extends Command
 {
     private ConfigurationService $config;
 
@@ -33,8 +33,8 @@ class ShowStudiesCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('dbp:relay:cabinet-connector-campusonline:show-studies');
-        $this->setDescription('Show studies for an obfuscated ID');
+        $this->setName('dbp:relay:cabinet-connector-campusonline:show-applications');
+        $this->setDescription('Show applications of a student');
         $this->addArgument('obfuscated-id', InputArgument::REQUIRED, 'obfuscated id');
     }
 
@@ -51,11 +51,13 @@ class ShowStudiesCommand extends Command
         $config = $this->config;
 
         $api = new SyncApi($config);
+
         if ($this->clientHandler !== null) {
             $api->setClientHandler($this->clientHandler, $this->token);
         }
 
         $studentsApi = $api->getStudentsApi();
+
         $student = $studentsApi->getStudentForObfuscatedId($obfuscatedId);
         if ($student === null && is_numeric($obfuscatedId)) {
             $student = $studentsApi->getStudentForPersonNumber((int) $obfuscatedId);
@@ -69,19 +71,19 @@ class ShowStudiesCommand extends Command
 
         $nr = $student->getStudentPersonNumber();
 
-        $studiesApi = $api->getStudiesApi();
+        $applicationsApi = $api->getApplicationsApi();
+        $applications = $applicationsApi->getApplications($nr);
 
-        $studies = $studiesApi->getStudies($nr);
-        if (count($studies) === 0) {
+        if (count($applications) === 0) {
             $io->info('No studies');
 
             return Command::SUCCESS;
         }
 
-        foreach ($studies as $study) {
+        foreach ($applications as $application) {
             $table = new Table($output);
             $table->setHeaders(['Key', 'Value']);
-            $data = $study->data;
+            $data = $application->data;
             ksort($data);
             foreach ($data as $key => $value) {
                 if (is_array($value)) {

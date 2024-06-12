@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\PersonDataApi\Nationality;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\SchoolType;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Nationality;
 use Monolog\Test\TestCase;
 
 class ApiValueTypesTest extends TestCase
@@ -44,8 +44,8 @@ class ApiValueTypesTest extends TestCase
 
     public function testSchoolType()
     {
-        $this->assertSame('IB Diploma (foreign country)', SchoolType::fromId('46')->getName());
-        $this->assertSame('IB Diploma (Ausland)', SchoolType::fromId('46')->getName('de'));
-        $this->assertSame('Unbekannt (1234)', SchoolType::fromId('1234')->getName('de'));
+        $this->assertSame('IB Diploma (foreign country)', HigherEducationEntranceQualification::fromId('46')->getName());
+        $this->assertSame('IB Diploma (Ausland)', HigherEducationEntranceQualification::fromId('46')->getName('de'));
+        $this->assertSame('Unbekannt (1234)', HigherEducationEntranceQualification::fromId('1234')->getName('de'));
     }
 }
