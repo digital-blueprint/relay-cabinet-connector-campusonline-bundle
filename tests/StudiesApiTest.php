@@ -50,7 +50,7 @@ class StudiesApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $this->assertCount(0, $this->api->getStudiesApi()->getStudies(4242));
+        $this->assertCount(0, $this->api->getStudiesApi()->getStudiesForPersonNumber(4242));
     }
 
     public function testGetStudies()
@@ -100,7 +100,7 @@ class StudiesApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
         ]);
 
-        $studies = $this->api->getStudiesApi()->getStudies(123456);
+        $studies = $this->api->getStudiesApi()->getStudiesForPersonNumber(123456);
         $this->assertCount(1, $studies);
         $study = $studies[0];
         $this->assertSame(123456, $study->getStudentPersonNumber());

@@ -9,6 +9,7 @@
         "api-platform/core": "^2.7.11 || ^3.2",
         "dbp/campusonline-api": "^0.3.18",
         "dbp/relay-core-bundle": "^0.1.156",
+        "kevinrob/guzzle-cache-middleware": "^5.1",
         "symfony/config": "^5.4 | ^6.4",
         "symfony/dependency-injection": "^5.4 | ^6.4",
         "symfony/framework-bundle": "^5.4.30 | ^6.4",

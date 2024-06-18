@@ -24,10 +24,12 @@ class CoApi implements LoggerAwareInterface
         $this->connection = new Connection($this->config->getApiUrl(), $this->config->getClientId(), $this->config->getClientSecret());
     }
 
-    public function setClientHandler(?object $handler, string $token): void
+    public function setClientHandler(?object $handler, ?string $token): void
     {
         $this->connection->setClientHandler($handler);
-        $this->connection->setToken($token);
+        if ($token !== null) {
+            $this->connection->setToken($token);
+        }
     }
 
     public function getStudiesApi(): StudiesApi

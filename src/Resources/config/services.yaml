@@ -8,3 +8,14 @@ services:
     resource: '../../Command'
     autowire: true
     autoconfigure: true
+
+  Dbp\Relay\CabinetConnectorCampusonlineBundle\Command\SyncCommand:
+    autowire: true
+    autoconfigure: true
+    calls:
+      - setCache: [ '@dbp.relay.cabinet_connector_campusonline.cache.sync' ]
+
+  dbp.relay.cabinet_connector_campusonline.cache.sync:
+    parent: cache.app
+    tags:
+      - { name: 'cache.pool', default_lifetime: 60 }

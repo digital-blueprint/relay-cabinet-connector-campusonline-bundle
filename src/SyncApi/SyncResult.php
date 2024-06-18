@@ -6,25 +6,19 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
 
 class SyncResult
 {
-    public function __construct(private array $results, private bool $complete, private string $cursor)
+    /**
+     * @param array<string, array> $results
+     */
+    public function __construct(private array $results, private string $cursor)
     {
     }
 
     /**
-     * The added/changed items.
+     * @return array<string, array>
      */
     public function getResults(): array
     {
         return $this->results;
-    }
-
-    /**
-     * Whether all entries have been synced at least once. Any future syncs using the same cursor
-     * will only return entries that have changed.
-     */
-    public function isComplete(): bool
-    {
-        return $this->complete;
     }
 
     /**

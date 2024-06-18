@@ -19,12 +19,27 @@ class ApplicationsApi
     /**
      * @return Application[]
      */
-    public function getApplications(int $studentPersonNumber): array
+    public function getApplicationsForPersonNumber(int $studentPersonNumber): array
     {
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
         $applications = [];
         foreach ($resources as $resource) {
             $applications[] = new Application($resource->data);
+        }
+
+        return $applications;
+    }
+
+    /**
+     * @return array<int, Application[]>
+     */
+    public function getAllApplications(?string $lastSyncDate = null): array
+    {
+        $resources = $this->api->getResourceCollection($lastSyncDate);
+        $applications = [];
+        foreach ($resources as $resource) {
+            $application = new Application($resource->data);
+            $applications[$application->getStudentPersonNumber()][] = $application;
         }
 
         return $applications;

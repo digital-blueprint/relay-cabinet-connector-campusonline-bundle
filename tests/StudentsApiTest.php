@@ -135,8 +135,8 @@ class StudentsApiTest extends TestCase
 
         $data = $this->api->getStudentsApi()->getStudentForObfuscatedId('F06BCC80D6FC0BDE575B16FB2E3790D5');
 
-        $this->assertSame('LiveSync[Single|Normal]', $data->getSource());
-        $this->assertSame('13.06.2024T14:00:34', $data->getTimestamp());
+        $this->assertSame('LiveSync[Single|Normal]', $data->getSyncSource());
+        $this->assertSame('13.06.2024T14:00:34', $data->getSyncTimestamp());
 
         $this->assertSame('1970-01-01', $data->getBirthDate());
         $this->assertSame(Gender::NonBinary, $data->getGender());

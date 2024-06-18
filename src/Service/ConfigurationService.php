@@ -42,4 +42,9 @@ class ConfigurationService
     {
         return $this->config['client_secret'];
     }
+
+    public function getExcludeInactive(): bool
+    {
+        return $this->config['exclude_inactive'];
+    }
 }

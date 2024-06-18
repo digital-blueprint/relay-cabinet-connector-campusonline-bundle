@@ -30,6 +30,7 @@ class JsonConverter
 
         $applicationsData = [];
         foreach ($applications as $application) {
+            $country = $application->getQualificationIssuingCountry();
             $entry = [
                 'id' => $application->getApplicationNumber(),
                 'studyId' => $application->getStudyNumber(),
@@ -40,13 +41,12 @@ class JsonConverter
                 'studyType' => $application->getStudyType(),
                 'startSemester' => $application->getStartSemester(),
                 'qualificationCertificateDate' => $application->getQualificationCertificateDate(),
-                'qualificationIssuingCountry' => $application->getQualificationIssuingCountry()->forJson(),
-                'qualificationType' => $application->getQualification()->forJson(),
+                'qualificationIssuingCountry' => $country?->forJson(),
+                'qualificationType' => $application->getQualification()?->forJson(),
             ];
             $applicationsData[] = $entry;
         }
 
-        $exmatriculationStatus = $student->getExmatriculationStatus();
         $data = [
             'id' => $student->getIdentNumberObfuscated(),
             'givenName' => $student->getGivenName(),
@@ -57,7 +57,7 @@ class JsonConverter
             'studies' => $studiesData,
             'applications' => $applicationsData,
             'nationality' => $student->getNationality()->forJson(),
-            'exmatriculationStatus' => $exmatriculationStatus !== null ? $exmatriculationStatus->forJson() : null,
+            'exmatriculationStatus' => $student->getExmatriculationStatus()?->forJson(),
         ];
 
         return $data;

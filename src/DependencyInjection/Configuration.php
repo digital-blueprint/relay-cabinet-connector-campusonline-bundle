@@ -46,6 +46,11 @@ class Configuration implements ConfigurationInterface
                         ->info('The data service name for the Applications CO API')
                         ->example('loc_api-dms.dmsapplicants')
                     ->end()
+                    ->booleanNode('exclude_inactive')
+                        ->defaultFalse()
+                        ->info('Set to exclude inactive students and studies (useful for testing with less data)')
+                        ->example('true')
+                    ->end()
                 ->end()
             ->end();
 

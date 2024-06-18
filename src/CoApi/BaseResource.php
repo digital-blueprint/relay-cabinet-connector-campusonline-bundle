@@ -16,7 +16,7 @@ class BaseResource
     /**
      * Example: "LiveSync[Single|Normal]" or "LiveSync".
      */
-    public function getSource(): string
+    public function getSyncSource(): string
     {
         return $this->data['SOURCE'];
     }
@@ -24,7 +24,7 @@ class BaseResource
     /**
      * Example: "13.06.2024T11:52:43".
      */
-    public function getTimestamp(): string
+    public function getSyncTimestamp(): string
     {
         return $this->data['TIMESTAMP'];
     }

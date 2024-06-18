@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Utils;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\Utils;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class Test extends KernelTestCase
@@ -18,6 +18,6 @@ class Test extends KernelTestCase
 
     public function testSourceTimestampToIso()
     {
-        $this->assertSame('2024-06-13T12:01:15', Utils::sourceTimestampToIso('13.06.2024T12:01:15'));
+        $this->assertSame('2024-06-13T12:01:15', Utils::syncTimestampToIso('13.06.2024T12:01:15'));
     }
 }

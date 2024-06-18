@@ -7,16 +7,19 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\SyncApi;
+use GuzzleHttp\HandlerStack;
+use Kevinrob\GuzzleCache\CacheMiddleware;
+use Kevinrob\GuzzleCache\Storage\Psr6CacheStorage;
+use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ShowJsonCommand extends Command implements LoggerAwareInterface
+class SyncCommand extends Command implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -27,6 +30,7 @@ class ShowJsonCommand extends Command implements LoggerAwareInterface
      */
     private $clientHandler;
     private ?string $token;
+    private ?CacheItemPoolInterface $cachePool;
 
     public function __construct(ConfigurationService $config)
     {
@@ -39,9 +43,13 @@ class ShowJsonCommand extends Command implements LoggerAwareInterface
 
     protected function configure(): void
     {
-        $this->setName('dbp:relay:cabinet-connector-campusonline:show-json');
-        $this->setDescription('Show JSON for an obfuscated ID');
-        $this->addArgument('obfuscated-id', InputArgument::REQUIRED, 'obfuscated id');
+        $this->setName('dbp:relay:cabinet-connector-campusonline:sync');
+        $this->setDescription('Run a full sync');
+    }
+
+    public function setCache(?CacheItemPoolInterface $cachePool)
+    {
+        $this->cachePool = $cachePool;
     }
 
     public function setClientHandler(?callable $handler, string $token): void
@@ -52,30 +60,29 @@ class ShowJsonCommand extends Command implements LoggerAwareInterface
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $obfuscatedId = $input->getArgument('obfuscated-id');
         $config = $this->config;
 
         $api = new CoApi($config);
-        $api->setLogger($this->logger);
         if ($this->clientHandler !== null) {
             $api->setClientHandler($this->clientHandler, $this->token);
         }
 
+        // Cache everything for now to make development easier
+        $cacheMiddleWare = new CacheMiddleware(
+            new GreedyCacheStrategy(
+                new Psr6CacheStorage($this->cachePool),
+                3600 * 24.
+            )
+        );
+
+        $stack = HandlerStack::create();
+        $stack->push($cacheMiddleWare, 'cache');
+
+        $api->setClientHandler($stack, null);
+        $api->setLogger($this->logger);
+
         $sync = new SyncApi($api);
-        $data = $sync->getSingleForObfuscatedId($obfuscatedId);
-        if ($data === null && is_numeric($obfuscatedId)) {
-            $data = $sync->getSingleForPersonNumber((int) $obfuscatedId);
-        }
-
-        if ($data === null) {
-            $io->getErrorStyle()->error('student data not found');
-
-            return Command::FAILURE;
-        }
-
-        $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $output->writeln($json);
+        $sync->getAll($this->config->getExcludeInactive());
 
         return Command::SUCCESS;
     }

@@ -74,7 +74,7 @@ class ApplicationsApiTest extends TestCase
         ]);
 
         $applicationsApi = $this->api->getApplicationsApi();
-        $applications = $applicationsApi->getApplications(123456);
+        $applications = $applicationsApi->getApplicationsForPersonNumber(123456);
         $this->assertCount(1, $applications);
         $application = $applications[0];
         $this->assertSame(12345, $application->getApplicationNumber());
@@ -83,8 +83,8 @@ class ApplicationsApiTest extends TestCase
         $this->assertSame('foreign secondary school leaving exam', $application->getQualification()->getName());
         $this->assertSame(123456, $application->getStudentPersonNumber());
         $this->assertSame(null, $application->getStudyNumber());
-        $this->assertSame('13.06.2024T12:01:15', $application->getTimestamp());
-        $this->assertSame('LiveSync', $application->getSource());
+        $this->assertSame('13.06.2024T12:01:15', $application->getSyncTimestamp());
+        $this->assertSame('LiveSync', $application->getSyncSource());
         $this->assertSame('1970-01-01', $application->getQualificationCertificateDate());
         $this->assertSame('BIH', $application->getQualificationIssuingCountry()->getAlpha3Code());
         $this->assertSame('21W', $application->getStartSemester());

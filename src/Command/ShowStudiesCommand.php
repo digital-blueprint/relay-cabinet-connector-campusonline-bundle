@@ -78,7 +78,7 @@ class ShowStudiesCommand extends Command implements LoggerAwareInterface
 
         $studiesApi = $api->getStudiesApi();
 
-        $studies = $studiesApi->getStudies($nr);
+        $studies = $studiesApi->getStudiesForPersonNumber($nr);
         if (count($studies) === 0) {
             $io->info('No studies');
 

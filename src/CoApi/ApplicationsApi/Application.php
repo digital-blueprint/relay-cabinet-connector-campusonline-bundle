@@ -29,17 +29,21 @@ class Application extends BaseResource
     /**
      * Example: "25 - ausländische Reifeprüfung".
      */
-    public function getQualification(): HigherEducationEntranceQualification
+    public function getQualification(): ?HigherEducationEntranceQualification
     {
-        return HigherEducationEntranceQualification::fromDisplayText($this->data['APPLICANTQUALIFICATIONTYPE']);
+        $value = $this->data['APPLICANTQUALIFICATIONTYPE'];
+
+        return $value !== null ? HigherEducationEntranceQualification::fromDisplayText($value) : null;
     }
 
     /**
      * Example: 40.
      */
-    public function getQualificationIssuingCountry(): Country
+    public function getQualificationIssuingCountry(): ?Country
     {
-        return Country::fromId($this->data['APPLICANTQUALIFICATIONSTATENR']);
+        $coId = $this->data['APPLICANTQUALIFICATIONSTATENR'];
+
+        return $coId !== null ? Country::fromId($coId) : null;
     }
 
     /**
@@ -53,7 +57,7 @@ class Application extends BaseResource
     /**
      * Example: "2020-06-29".
      */
-    public function getQualificationCertificateDate(): string
+    public function getQualificationCertificateDate(): ?string
     {
         return $this->getDateValue('APPLICANTQUALIFICATIONDATE');
     }

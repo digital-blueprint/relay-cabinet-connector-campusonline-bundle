@@ -26,13 +26,44 @@ class StudentsApi
         return new Student($resource->data);
     }
 
-    public function getStudentForPersonNumber(int $stPersonNr): ?Student
+    public function getStudentForPersonNumber(int $studentPersonNumber): ?Student
     {
-        $resource = $this->api->getResource('StPersonNr', (string) $stPersonNr);
+        $resource = $this->api->getResource('StPersonNr', (string) $studentPersonNumber);
         if ($resource === null) {
             return null;
         }
 
         return new Student($resource->data);
+    }
+
+    /**
+     * @return iterable<Student>
+     */
+    public function getActiveStudents(?string $lastSyncDate = null): iterable
+    {
+        $resources = $this->api->getResourceCollection($lastSyncDate);
+        foreach ($resources as $resource) {
+            $student = new Student($resource->data);
+            yield $student;
+        }
+    }
+
+    /**
+     * @return iterable<Student>
+     */
+    public function getInactiveStudents(int $pageSize): iterable
+    {
+        $page = 1;
+        while (1) {
+            $resources = $this->api->getResourceCollection(syncOnlyInactive: true, page: $page, pageSize: $pageSize);
+            if ($resources === []) {
+                break;
+            }
+            foreach ($resources as $resource) {
+                $student = new Student($resource->data);
+                yield $student;
+            }
+            ++$page;
+        }
     }
 }

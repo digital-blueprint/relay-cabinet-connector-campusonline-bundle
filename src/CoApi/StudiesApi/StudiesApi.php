@@ -21,12 +21,50 @@ class StudiesApi
      *
      * @return Study[]
      */
-    public function getStudies(int $studentPersonNumber): array
+    public function getStudiesForPersonNumber(int $studentPersonNumber): array
     {
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
         $studies = [];
         foreach ($resources as $resource) {
             $studies[] = new Study($resource->data);
+        }
+
+        return $studies;
+    }
+
+    /**
+     * @return array<int, Study[]>
+     */
+    public function getActiveStudies(?string $lastSyncDate = null): array
+    {
+        $resources = $this->api->getResourceCollection($lastSyncDate);
+        $studies = [];
+        foreach ($resources as $resource) {
+            $study = new Study($resource->data);
+            $studies[$study->getStudentPersonNumber()][] = $study;
+        }
+
+        return $studies;
+    }
+
+    /**
+     * @return array<int, Study[]>
+     */
+    public function getInactiveStudies(int $pageSize): array
+    {
+        $studies = [];
+
+        $page = 1;
+        while (1) {
+            $resources = $this->api->getResourceCollection(syncOnlyInactive: true, page: $page, pageSize: $pageSize);
+            if ($resources === []) {
+                break;
+            }
+            foreach ($resources as $resource) {
+                $study = new Study($resource->data);
+                $studies[$study->getStudentPersonNumber()][] = $study;
+            }
+            ++$page;
         }
 
         return $studies;

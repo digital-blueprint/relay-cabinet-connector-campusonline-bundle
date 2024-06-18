@@ -79,7 +79,7 @@ class ShowApplicationsCommand extends Command implements LoggerAwareInterface
         $nr = $student->getStudentPersonNumber();
 
         $applicationsApi = $api->getApplicationsApi();
-        $applications = $applicationsApi->getApplications($nr);
+        $applications = $applicationsApi->getApplicationsForPersonNumber($nr);
 
         if (count($applications) === 0) {
             $io->info('No studies');

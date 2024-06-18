@@ -51,6 +51,10 @@ class BaseApi
             throw new \RuntimeException('invalid filter');
         }
 
+        if ($syncOnlyInactive && $lastSyncDate !== null) {
+            throw new \RuntimeException('lastSyncDate only works for active resources');
+        }
+
         $params = $filters;
         if ($page !== null) {
             $params['PageNr'] = $page;
