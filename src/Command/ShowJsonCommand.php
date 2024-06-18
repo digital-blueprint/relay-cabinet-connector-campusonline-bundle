@@ -6,6 +6,7 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\JsonConverter;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
@@ -77,56 +78,10 @@ class ShowJsonCommand extends Command implements LoggerAwareInterface
 
         $studiesApi = $api->getStudiesApi();
         $studies = $studiesApi->getStudies($nr);
-
-        $studiesData = [];
-        foreach ($studies as $study) {
-            $entry = [
-                'id' => $study->getStudyNumber(),
-                'key' => $study->getStudyKey(),
-                'name' => $study->getStudyName(),
-                'type' => $study->getStudyType(),
-                'curriculumVersion' => $study->getStudyCurriculumVersion(),
-            ];
-            $studiesData[] = $entry;
-        }
-
         $applicationsApi = $api->getApplicationsApi();
-
         $applications = $applicationsApi->getApplications($nr);
 
-        $applicationsData = [];
-        foreach ($applications as $application) {
-            $entry = [
-                'id' => $application->getApplicationNumber(),
-                'studyId' => $application->getStudyNumber(),
-                'studentPersonNumber' => $application->getStudentPersonNumber(),
-                'applicationNumber' => $application->getApplicationNumber(),
-                'studyKey' => $application->getStudyKey(),
-                'studyName' => $application->getStudyName(),
-                'studyType' => $application->getStudyType(),
-                'startSemester' => $application->getStartSemester(),
-                'qualificationCertificateDate' => $application->getQualificationCertificateDate(),
-                'qualificationIssuingCountry' => $application->getQualificationIssuingCountry()->forJson(),
-                'qualificationType' => $application->getQualification()->forJson(),
-            ];
-            $applicationsData[] = $entry;
-        }
-
-        $exmatriculationStatus = $student->getExmatriculationStatus();
-
-        // This is just a test and WIP
-        $data = [
-            'id' => $student->getIdentNumberObfuscated(),
-            'givenName' => $student->getGivenName(),
-            'familyName' => $student->getFamilyName(),
-            'studentPersonNumber' => (string) $student->getStudentPersonNumber(),
-            'gender' => $student->getGender()->forJson(),
-            'studentStatus' => $student->getStudentStatus()->forJson(),
-            'studies' => $studiesData,
-            'applications' => $applicationsData,
-            'nationality' => $student->getNationality()->forJson(),
-            'exmatriculationStatus' => $exmatriculationStatus !== null ? $exmatriculationStatus->forJson() : null,
-        ];
+        $data = JsonConverter::convertToJsonObject($student, $studies, $applications);
 
         $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $output->writeln($json);
