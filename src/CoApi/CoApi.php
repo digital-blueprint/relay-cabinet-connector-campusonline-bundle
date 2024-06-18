@@ -12,7 +12,7 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
-class SyncApi implements LoggerAwareInterface
+class CoApi implements LoggerAwareInterface
 {
     private ConfigurationService $config;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudyStatus;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\SyncApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class StudiesApiTest extends TestCase
 {
-    private SyncApi $api;
+    private CoApi $api;
 
     public function setUp(): void
     {
@@ -26,7 +26,7 @@ class StudiesApiTest extends TestCase
             'client_secret' => '',
             'data_service_name_studies' => '',
         ]);
-        $this->api = new SyncApi($config);
+        $this->api = new CoApi($config);
         $this->mockResponses([]);
     }
 

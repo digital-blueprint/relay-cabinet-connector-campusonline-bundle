@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\SyncApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -55,7 +55,7 @@ class ShowJsonCommand extends Command implements LoggerAwareInterface
         $obfuscatedId = $input->getArgument('obfuscated-id');
         $config = $this->config;
 
-        $api = new SyncApi($config);
+        $api = new CoApi($config);
         $api->setLogger($this->logger);
         if ($this->clientHandler !== null) {
             $api->setClientHandler($this->clientHandler, $this->token);
