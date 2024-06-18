@@ -9,8 +9,10 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ApplicationsApi\Applicati
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\StudentsApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudiesApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
-class SyncApi
+class SyncApi implements LoggerAwareInterface
 {
     private ConfigurationService $config;
 
@@ -41,5 +43,10 @@ class SyncApi
     public function getStudentsApi(): StudentsApi
     {
         return new StudentsApi($this->connection, $this->config->getDataServiceStudents());
+    }
+
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->connection->setLogger($logger);
     }
 }

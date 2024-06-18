@@ -6,6 +6,9 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\SyncApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,8 +16,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ShowApplicationsCommand extends Command
+class ShowApplicationsCommand extends Command implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private ConfigurationService $config;
 
     /**
@@ -29,6 +34,7 @@ class ShowApplicationsCommand extends Command
         $this->config = $config;
         $this->clientHandler = null;
         $this->token = null;
+        $this->logger = new NullLogger();
     }
 
     protected function configure(): void
@@ -51,6 +57,7 @@ class ShowApplicationsCommand extends Command
         $config = $this->config;
 
         $api = new SyncApi($config);
+        $api->setLogger($this->logger);
 
         if ($this->clientHandler !== null) {
             $api->setClientHandler($this->clientHandler, $this->token);
