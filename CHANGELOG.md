@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.0
+
+* config: data_service_name_person_data renamed to data_service_name_students
+* config: added new required data_service_name_applications
+* All commands now fall back to the person ID if the obfuscated isn't found
+* Add new applications API
+* Adjust other APIs for new attributes and adjust the mock tests to the new response format
+* Command dbp:relay:cabinet-connector-campusonline:show-person-data renamed to
+  dbp:relay:cabinet-connector-campusonline:show-student
+
 ## v0.2.0
 
 * Port to the new CO APIs
