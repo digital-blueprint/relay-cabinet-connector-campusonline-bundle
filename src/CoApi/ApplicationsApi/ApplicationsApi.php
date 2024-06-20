@@ -16,6 +16,11 @@ class ApplicationsApi
         $this->api = new BaseApi($connection, $dataServiceName);
     }
 
+    public function checkConnection(): void
+    {
+        $this->api->getResource('StPersonNr', '0');
+    }
+
     /**
      * @return Application[]
      */

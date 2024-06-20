@@ -26,6 +26,11 @@ class StudentsApi
         return new Student($resource->data);
     }
 
+    public function checkConnection(): void
+    {
+        $this->api->getResource('StPersonNr', '0');
+    }
+
     public function getStudentForPersonNumber(int $studentPersonNumber): ?Student
     {
         $resource = $this->api->getResource('StPersonNr', (string) $studentPersonNumber);
