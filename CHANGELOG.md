@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.1
+
+* New dbp:relay:cabinet-connector-campusonline:sync command which fetches all data (only
+  for testing for now)
+* Added a new config option `exclude_inactive` which allows to limit the sync to active records
+* Added a basic health check for all used CO APIs.
+* Added logging for all outgoing requests
+* Various minor fixes and improvements
+
 ## v0.3.0
 
 * config: data_service_name_person_data renamed to data_service_name_students
