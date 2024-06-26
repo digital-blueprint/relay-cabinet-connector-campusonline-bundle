@@ -67,20 +67,22 @@ class SyncCommand extends Command implements LoggerAwareInterface
             $api->setClientHandler($this->clientHandler, $this->token);
         }
 
-        // Cache everything for now to make development easier
-        $cacheMiddleWare = new CacheMiddleware(
-            new GreedyCacheStrategy(
-                new Psr6CacheStorage($this->cachePool),
-                3600 * 24.
-            )
-        );
+        if ($this->config->getCacheEnabled()) {
+            // Cache everything for now to make development easier
+            $cacheMiddleWare = new CacheMiddleware(
+                new GreedyCacheStrategy(
+                    new Psr6CacheStorage($this->cachePool),
+                    3600 * 24.
+                )
+            );
 
-        $stack = HandlerStack::create();
-        $stack->push($cacheMiddleWare, 'cache');
+            $stack = HandlerStack::create();
+            $stack->push($cacheMiddleWare, 'cache');
 
-        $api->setClientHandler($stack, null);
+            $api->setClientHandler($stack, null);
+        }
+
         $api->setLogger($this->logger);
-
         $sync = new SyncApi($api);
         $sync->getAll($this->config->getExcludeInactive());
 

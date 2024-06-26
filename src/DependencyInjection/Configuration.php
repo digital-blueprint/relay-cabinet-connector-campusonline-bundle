@@ -51,6 +51,11 @@ class Configuration implements ConfigurationInterface
                         ->info('Set to exclude inactive students and studies (useful for testing with less data)')
                         ->example('true')
                     ->end()
+                    ->booleanNode('cache')
+                        ->defaultFalse()
+                        ->info('Enable caching for easier development')
+                        ->example('true')
+                    ->end()
                 ->end()
             ->end();
 

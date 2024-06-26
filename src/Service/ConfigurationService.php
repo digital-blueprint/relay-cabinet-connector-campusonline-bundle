@@ -47,4 +47,9 @@ class ConfigurationService
     {
         return $this->config['exclude_inactive'];
     }
+
+    public function getCacheEnabled(): bool
+    {
+        return $this->config['cache'];
+    }
 }

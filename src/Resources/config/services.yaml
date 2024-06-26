@@ -23,6 +23,8 @@ services:
   Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\PersonSync:
     autowire: true
     autoconfigure: true
+    calls:
+      - setCache: [ '@dbp.relay.cabinet_connector_campusonline.cache.sync' ]
 
   Dbp\Relay\CabinetBundle\PersonSync\PersonSyncInterface:
     '@Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\PersonSync'
