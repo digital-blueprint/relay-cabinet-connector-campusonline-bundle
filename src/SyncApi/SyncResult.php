@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
 
-class SyncResult
+use Dbp\Relay\CabinetBundle\PersonSync\PersonSyncResultInterface;
+
+class SyncResult implements PersonSyncResultInterface
 {
     /**
      * @param array<string, array> $results
@@ -16,7 +18,7 @@ class SyncResult
     /**
      * @return array<string, array>
      */
-    public function getResults(): array
+    public function getPersons(): array
     {
         return $this->results;
     }

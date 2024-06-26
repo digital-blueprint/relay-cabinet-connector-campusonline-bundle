@@ -163,7 +163,7 @@ class SyncApi
         // incremental sync right away
         $incrementalSyncResult = $this->getAllSince($cursor->encode());
         $cursor = $incrementalSyncResult->getCursor();
-        $res = array_merge($res, $incrementalSyncResult->getResults());
+        $res = array_merge($res, $incrementalSyncResult->getPersons());
 
         return new SyncResult($res, $cursor);
     }

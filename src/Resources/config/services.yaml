@@ -19,3 +19,10 @@ services:
     parent: cache.app
     tags:
       - { name: 'cache.pool', default_lifetime: 60 }
+
+  Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\PersonSync:
+    autowire: true
+    autoconfigure: true
+
+  Dbp\Relay\CabinetBundle\PersonSync\PersonSyncInterface:
+    '@Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\PersonSync'
