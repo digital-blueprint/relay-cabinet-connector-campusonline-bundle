@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.2
+
+* Implement new cabinet service interface
+
 ## v0.3.1
 
 * New dbp:relay:cabinet-connector-campusonline:sync command which fetches all data (only
