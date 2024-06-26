@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.3
+
+* Make exclude_inactive work with the PersonSyncInterface
+
 ## v0.3.2
 
 * Implement new cabinet service interface
