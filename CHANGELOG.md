@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.4
+
+* Add "cache" config option to enable/disable caching. Useful for testing/development.
+
 ## v0.3.3
 
 * Make exclude_inactive work with the PersonSyncInterface
