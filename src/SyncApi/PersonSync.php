@@ -12,11 +12,13 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 class PersonSync implements PersonSyncInterface
 {
     private SyncApi $syncApi;
+    private ConfigurationService $config;
 
     public function __construct(ConfigurationService $config)
     {
         $coApi = new CoApi($config);
         $this->syncApi = new SyncApi($coApi);
+        $this->config = $config;
     }
 
     public function getPerson(string $id): ?array
@@ -27,7 +29,7 @@ class PersonSync implements PersonSyncInterface
     public function getAllPersons(?string $cursor = null): PersonSyncResultInterface
     {
         if ($cursor === null) {
-            return $this->syncApi->getAll();
+            return $this->syncApi->getAll($this->config->getExcludeInactive());
         } else {
             return $this->syncApi->getAllSince($cursor);
         }
