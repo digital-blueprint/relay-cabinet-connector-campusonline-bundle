@@ -57,6 +57,7 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
 
         $coApi->setLogger($this->logger);
         $syncApi = new SyncApi($coApi);
+        $syncApi->setLogger($this->logger);
 
         return $syncApi;
     }

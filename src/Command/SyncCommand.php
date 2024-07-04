@@ -17,7 +17,9 @@ use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SyncCommand extends Command implements LoggerAwareInterface
 {
@@ -45,6 +47,7 @@ class SyncCommand extends Command implements LoggerAwareInterface
     {
         $this->setName('dbp:relay:cabinet-connector-campusonline:sync');
         $this->setDescription('Run a sync');
+        $this->addOption('--full', mode: InputOption::VALUE_NONE);
     }
 
     public function setCache(?CacheItemPoolInterface $cachePool)
@@ -60,6 +63,15 @@ class SyncCommand extends Command implements LoggerAwareInterface
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $io = new SymfonyStyle($input, $output);
+        $full = $input->getOption('full');
+
+        $item = $this->cachePool->getItem('cursor');
+        $cursor = null;
+        if ($item->isHit() && !$full) {
+            $cursor = $item->get();
+        }
+
         $config = $this->config;
 
         $api = new CoApi($config);
@@ -84,7 +96,19 @@ class SyncCommand extends Command implements LoggerAwareInterface
 
         $api->setLogger($this->logger);
         $sync = new SyncApi($api);
-        $sync->getAll($this->config->getExcludeInactive());
+        $sync->setLogger($this->logger);
+
+        if ($cursor === null) {
+            $res = $sync->getAll($this->config->getExcludeInactive());
+        } else {
+            $res = $sync->getAllSince($cursor);
+        }
+
+        $io->info('Synced '.count($res->getPersons()).' persons');
+
+        $item->set($res->getCursor());
+        $item->expiresAfter(3600 * 24);
+        $this->cachePool->save($item);
 
         return Command::SUCCESS;
     }
