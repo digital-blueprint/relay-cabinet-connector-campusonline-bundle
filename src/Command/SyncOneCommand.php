@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ShowJsonCommand extends Command implements LoggerAwareInterface
+class SyncOneCommand extends Command implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -39,7 +39,7 @@ class ShowJsonCommand extends Command implements LoggerAwareInterface
 
     protected function configure(): void
     {
-        $this->setName('dbp:relay:cabinet-connector-campusonline:show-json');
+        $this->setName('dbp:relay:cabinet-connector-campusonline:sync-one');
         $this->setDescription('Show JSON for an obfuscated ID');
         $this->addArgument('obfuscated-id', InputArgument::REQUIRED, 'obfuscated id');
     }
