@@ -99,8 +99,7 @@ class SyncApi implements LoggerAwareInterface
                 Utils::updateMinSyncTimestamp($application, $newCursor->lastSyncApplications);
             }
             if (!array_key_exists($nr, $changedStudents)) {
-                $student = $api->getStudentsApi()->getStudentForPersonNumber($nr);
-                $changedStudents[$nr] = $student;
+                $changedStudents[$nr] = null;
             }
         }
         $this->logger->info($changedApplicationsCount.' changed applications affecting '.$changedApplicationStudentsCount.' students');
@@ -118,8 +117,7 @@ class SyncApi implements LoggerAwareInterface
                 Utils::updateMinSyncTimestamp($study, $newCursor->lastSyncActiveStudies);
             }
             if (!array_key_exists($nr, $changedStudents)) {
-                $student = $api->getStudentsApi()->getStudentForPersonNumber($nr);
-                $changedStudents[$nr] = $student;
+                $changedStudents[$nr] = null;
             }
         }
         $this->logger->info($changedStudiesCount.' changed studies affecting '.$changedStudyStudentsCount.' students');
@@ -128,7 +126,10 @@ class SyncApi implements LoggerAwareInterface
 
         $this->logger->info('Fetching related data for all '.count($changedStudents).' affected students');
         $res = [];
-        foreach ($changedStudents as $student) {
+        foreach ($changedStudents as $nr => $student) {
+            if ($student === null) {
+                $student = $api->getStudentsApi()->getStudentForPersonNumber($nr);
+            }
             $res[$student->getIdentNumberObfuscated()] = $this->getSingleForStudent($student);
         }
 
