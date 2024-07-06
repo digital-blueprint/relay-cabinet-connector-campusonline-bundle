@@ -373,16 +373,16 @@
         },
         {
             "name": "dbp/relay-base-person-bundle",
-            "version": "v0.2.29",
+            "version": "v0.2.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-base-person-bundle.git",
-                "reference": "770c3d009ec5d7ef42abfed529f5983ac45fab16"
+                "reference": "0e4df97a9bd2008793dad4d261515084f7e88e2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-base-person-bundle/zipball/770c3d009ec5d7ef42abfed529f5983ac45fab16",
-                "reference": "770c3d009ec5d7ef42abfed529f5983ac45fab16",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-base-person-bundle/zipball/0e4df97a9bd2008793dad4d261515084f7e88e2b",
+                "reference": "0e4df97a9bd2008793dad4d261515084f7e88e2b",
                 "shasum": ""
             },
             "require": {
@@ -421,9 +421,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-base-person-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-base-person-bundle/tree/v0.2.29"
+                "source": "https://github.com/digital-blueprint/relay-base-person-bundle/tree/v0.2.30"
             },
-            "time": "2024-05-08T14:49:55+00:00"
+            "time": "2024-07-04T10:44:49+00:00"
         },
         {
             "name": "dbp/relay-blob-library",
@@ -481,16 +481,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "a2e0375c2196ccefbfd0d9488a15d9f02d12afe9"
+                "reference": "3c6b858fc39db0978e840c0e7fd5ee88c0d21faa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/a2e0375c2196ccefbfd0d9488a15d9f02d12afe9",
-                "reference": "a2e0375c2196ccefbfd0d9488a15d9f02d12afe9",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/3c6b858fc39db0978e840c0e7fd5ee88c0d21faa",
+                "reference": "3c6b858fc39db0978e840c0e7fd5ee88c0d21faa",
                 "shasum": ""
             },
             "require": {
@@ -509,6 +509,7 @@
                 "ext-simplexml": "*",
                 "ext-soap": "*",
                 "php": ">=8.1",
+                "psr/cache": "^3.0",
                 "psr/log": "^1.1.4 || ^2.0 || ^3.0",
                 "symfony/config": "^5.4 || ^6.4",
                 "symfony/console": "^5.4 || ^6.4",
@@ -547,22 +548,22 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.1.2"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.1.3"
             },
-            "time": "2024-06-26T14:05:18+00:00"
+            "time": "2024-07-02T14:30:25+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "v0.1.168",
+            "version": "v0.1.170",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-core-bundle.git",
-                "reference": "ee0af73ddf8bca28ff93d201412d405de5cebf6e"
+                "reference": "5998191b7ac5ef04c0ecdd1783f62262112f6a62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/ee0af73ddf8bca28ff93d201412d405de5cebf6e",
-                "reference": "ee0af73ddf8bca28ff93d201412d405de5cebf6e",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/5998191b7ac5ef04c0ecdd1783f62262112f6a62",
+                "reference": "5998191b7ac5ef04c0ecdd1783f62262112f6a62",
                 "shasum": ""
             },
             "require": {
@@ -645,9 +646,9 @@
             "description": "The core bundle of the Relay API gateway",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-core-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.168"
+                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.170"
             },
-            "time": "2024-06-25T11:42:22+00:00"
+            "time": "2024-07-04T10:25:13+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -8875,16 +8876,16 @@
         },
         {
             "name": "web-token/jwt-library",
-            "version": "3.4.4",
+            "version": "3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-library.git",
-                "reference": "48cb17a2c3622ffab69f0d48753e132e1cf23ba6"
+                "reference": "1a25c8ced3e2b3c31d32dcfad215cbd8cb812f28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/48cb17a2c3622ffab69f0d48753e132e1cf23ba6",
-                "reference": "48cb17a2c3622ffab69f0d48753e132e1cf23ba6",
+                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/1a25c8ced3e2b3c31d32dcfad215cbd8cb812f28",
+                "reference": "1a25c8ced3e2b3c31d32dcfad215cbd8cb812f28",
                 "shasum": ""
             },
             "require": {
@@ -8957,7 +8958,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-token/jwt-library/issues",
-                "source": "https://github.com/web-token/jwt-library/tree/3.4.4"
+                "source": "https://github.com/web-token/jwt-library/tree/3.4.6"
             },
             "funding": [
                 {
@@ -8969,7 +8970,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-06-24T16:31:57+00:00"
+            "time": "2024-07-02T16:35:11+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -10957,16 +10958,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.24",
+            "version": "10.5.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5f124e3e3e561006047b532fd0431bf5bb6b9015"
+                "reference": "831bf82312be6037e811833ddbea0b8de60ea314"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5f124e3e3e561006047b532fd0431bf5bb6b9015",
-                "reference": "5f124e3e3e561006047b532fd0431bf5bb6b9015",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/831bf82312be6037e811833ddbea0b8de60ea314",
+                "reference": "831bf82312be6037e811833ddbea0b8de60ea314",
                 "shasum": ""
             },
             "require": {
@@ -11038,7 +11039,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.24"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.25"
             },
             "funding": [
                 {
@@ -11054,7 +11055,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-20T13:09:54+00:00"
+            "time": "2024-07-03T05:49:17+00:00"
         },
         {
             "name": "react/cache",
