@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.5
+
+* Rename show-json command to sync-one
+* In the sync command cache the cursor and add a "--full" option to start a full sync
+* studies: include more fields in the JSON output
+* studies: add support for parsing additionalCertificates
+
 ## v0.3.4
 
 * Add "cache" config option to enable/disable caching. Useful for testing/development.
