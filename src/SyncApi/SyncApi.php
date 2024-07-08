@@ -62,6 +62,18 @@ class SyncApi implements LoggerAwareInterface
         return $this->getSingleForStudent($student);
     }
 
+    public function getSome(array $ids, ?string $cursor = null): SyncResult
+    {
+        $res = [];
+        foreach ($ids as $id) {
+            $res[] = $this->getSingleForObfuscatedId($id);
+        }
+
+        $newCursor = new Cursor();
+
+        return new SyncResult($res, $newCursor->encode());
+    }
+
     /**
      * Can be used after calling getAll() to get incremental updates by passing the cursor
      * returned by getAll().
@@ -73,8 +85,8 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info('Starting a partial sync');
         $api = $this->coApi;
         $oldCursor = Cursor::decode($newCursor);
-        if ($oldCursor->lastSyncActiveStudents === null || $oldCursor->lastSyncActiveStudies === null || $oldCursor->lastSyncActiveStudies === null) {
-            throw new \RuntimeException('invalid cursor');
+        if ($oldCursor->lastSyncActiveStudents === null || $oldCursor->lastSyncActiveStudies === null || $oldCursor->lastSyncApplications === null) {
+            return $this->getAll();
         }
 
         $newCursor = new Cursor();

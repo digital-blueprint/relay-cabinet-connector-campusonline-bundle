@@ -62,11 +62,6 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
         return $syncApi;
     }
 
-    public function getPerson(string $id): ?array
-    {
-        return $this->getSyncApi()->getSingleForObfuscatedId($id);
-    }
-
     public function getAllPersons(?string $cursor = null): PersonSyncResultInterface
     {
         if ($cursor === null) {
@@ -74,5 +69,10 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
         } else {
             return $this->getSyncApi()->getAllSince($cursor);
         }
+    }
+
+    public function getPersons(array $ids, ?string $cursor = null): PersonSyncResultInterface
+    {
+        return $this->getSyncApi()->getSome($ids, $cursor);
     }
 }

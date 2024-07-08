@@ -8,7 +8,7 @@
         "ext-json": "*",
         "api-platform/core": "^2.7.11 || ^3.2",
         "dbp/campusonline-api": "^0.3.18",
-        "dbp/relay-cabinet-bundle": "^0.1.0",
+        "dbp/relay-cabinet-bundle": "^0.2.0",
         "dbp/relay-core-bundle": "^0.1.156",
         "kevinrob/guzzle-cache-middleware": "^5.1",
         "symfony/config": "^5.4 | ^6.4",

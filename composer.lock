@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7626114f4851e0ee2069f2be0770e29a",
+    "content-hash": "04b6f66cf69daab2fcf60e1f14049521",
     "packages": [
         {
             "name": "api-platform/core",
@@ -481,16 +481,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.1.3",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "3c6b858fc39db0978e840c0e7fd5ee88c0d21faa"
+                "reference": "f8a2c0a354f1b4293f5f9a0e828f5c5c4e44212f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/3c6b858fc39db0978e840c0e7fd5ee88c0d21faa",
-                "reference": "3c6b858fc39db0978e840c0e7fd5ee88c0d21faa",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/f8a2c0a354f1b4293f5f9a0e828f5c5c4e44212f",
+                "reference": "f8a2c0a354f1b4293f5f9a0e828f5c5c4e44212f",
                 "shasum": ""
             },
             "require": {
@@ -548,9 +548,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.1.3"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.0"
             },
-            "time": "2024-07-02T14:30:25+00:00"
+            "time": "2024-07-08T13:31:43+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
