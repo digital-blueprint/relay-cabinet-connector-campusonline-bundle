@@ -75,4 +75,21 @@ enum StudyStatus: string
      * geschlossen (Antrag oder ex lege).
      */
     case ClosedByApplicationOrLaw = 'Z';
+
+    /**
+     * fehler.
+     */
+    case Error = 'f';
+
+    /**
+     * logisch gelöscht.
+     */
+    case LogicallyDeleted = 'G';
+
+    public function forJson(): array
+    {
+        return [
+            'key' => $this->value,
+        ];
+    }
 }

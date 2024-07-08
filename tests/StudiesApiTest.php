@@ -88,7 +88,7 @@ class StudiesApiTest extends TestCase
                     },
                     "STUDYQUALIFICATIONSTATENR": 168,
                     "STUDYQUALIFICATIONSTATE": "Österreich",
-                    "ADDITIONALCERTIFICATE": null
+                    "ADDITIONALCERTIFICATE": "EDG | EGR"
                 }
             }
         }
@@ -118,6 +118,74 @@ class StudiesApiTest extends TestCase
         $this->assertSame('41', $study->getStudyQualificationType()->value);
         $this->assertSame('EZ', $study->getStudyExmatriculationType()->value);
         $this->assertSame('ex lege (EZ)', $study->getStudyExmatriculationType()->getName());
-        $this->assertSame(null, $study->getAdditionalCertificate());
+        $this->assertSame(['EDG', 'EGR'], $study->getAdditionalCertificate()->values);
+    }
+
+    public function testGetStudiesMinimal()
+    {
+        $RESPONSE = '
+{
+    "type": "resources",
+    "link": [],
+    "resource": [
+        {
+            "link": [],
+            "content": {
+                "type": "model-eg.dataservices.tugrazonline",
+                "DMSStudies": {
+                    "SOURCE": "LiveSync[Single|Normal]",
+                    "TIMESTAMP": "13.06.2024T13:08:15",
+                    "STSTUDIUMNR": 253324,
+                    "STPERSONNR": 123456,
+                    "STUDYKEY": "UF 066 921",
+                    "STUDYTYPE": "Masterstudium",
+                    "STUDYNAME": "Masterstudium; Computer Science",
+                    "STUDYSEMESTER": 6,
+                    "STUDYSTATUS": "I",
+                    "STUDYCURRICULUMVERSION": null,
+                    "STUDYIMMATRICULATIONDATE": {
+                        "value": "2021-01-01"
+                    },
+                    "STUDYEXMATRICULATIONDATE": {
+                        "value": null
+                    },
+                    "STUDYEXMATRICULATIONTYPE": null,
+                    "STUDYQUALIFICATIONTYPE": null,
+                    "STUDYQUALIFICATIONDATE": {
+                        "value": null
+                    },
+                    "STUDYQUALIFICATIONSTATENR": null,
+                    "STUDYQUALIFICATIONSTATE": null,
+                    "ADDITIONALCERTIFICATE": null
+                }
+            }
+        }
+    ]
+}
+        ';
+
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
+        ]);
+
+        $studies = $this->api->getStudiesApi()->getStudiesForPersonNumber(123456);
+        $this->assertCount(1, $studies);
+        $study = $studies[0];
+        $this->assertSame(123456, $study->getStudentPersonNumber());
+        $this->assertSame('UF 066 921', $study->getStudyKey());
+        $this->assertSame('Masterstudium', $study->getStudyType());
+        $this->assertSame('Masterstudium; Computer Science', $study->getStudyName());
+        $this->assertSame(6, $study->getStudySemester());
+        $this->assertSame('2021-01-01', $study->getStudyImmatriculationDate());
+        $this->assertSame(null, $study->getStudyCurriculumVersion());
+        $this->assertSame(null, $study->getStudyExmatriculationDate());
+        $this->assertSame(null, $study->getStudyQualificationDate());
+        $this->assertSame(null, $study->getStudyQualificationStateString());
+        $this->assertSame(null, $study->getStudyQualificationState());
+        $this->assertSame(StudyStatus::Registered, $study->getStudyStatus());
+        $this->assertSame(null, $study->getStudyQualificationType());
+        $this->assertSame(null, $study->getStudyExmatriculationType());
+        $this->assertSame(null, $study->getStudyExmatriculationType());
+        $this->assertSame([], $study->getAdditionalCertificate()->values);
     }
 }

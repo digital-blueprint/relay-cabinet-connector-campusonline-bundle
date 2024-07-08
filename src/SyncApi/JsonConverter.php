@@ -20,10 +20,20 @@ class JsonConverter
         foreach ($studies as $study) {
             $entry = [
                 'id' => $study->getStudyNumber(),
+                'studentPersonNumber' => $study->getStudentPersonNumber(),
                 'key' => $study->getStudyKey(),
-                'name' => $study->getStudyName(),
                 'type' => $study->getStudyType(),
+                'name' => $study->getStudyName(),
+                'semester' => $study->getStudySemester(),
+                'status' => $study->getStudyStatus()->forJson(),
                 'curriculumVersion' => $study->getStudyCurriculumVersion(),
+                'immatriculationDate' => $study->getStudyImmatriculationDate(),
+                'exmatriculationDate' => $study->getStudyExmatriculationDate(),
+                'qualificationType' => $study->getStudyQualificationType()?->forJson(),
+                'qualificationDate' => $study->getStudyQualificationDate(),
+                'qualificationState' => $study->getStudyQualificationState()?->forJson(),
+                'exmatriculationType' => $study->getStudyExmatriculationType()?->forJson(),
+                'additionalCertificates' => $study->getAdditionalCertificate()?->forJson(),
             ];
             $studiesData[] = $entry;
         }

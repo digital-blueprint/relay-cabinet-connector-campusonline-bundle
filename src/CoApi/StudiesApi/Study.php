@@ -150,10 +150,12 @@ class Study extends BaseResource
     }
 
     /**
-     * TODO: ???
+     * Examples: 'EDG', 'ED', 'ZDG', 'EDG | EGR', 'EBE', 'EDG | EDG', 'AZP', 'EL', 'EBU', 'ZBU'.
      */
-    public function getAdditionalCertificate(): ?string
+    public function getAdditionalCertificate(): AdditionalExams
     {
-        return $this->data['ADDITIONALCERTIFICATE'];
+        $value = $this->data['ADDITIONALCERTIFICATE'];
+
+        return new AdditionalExams($value);
     }
 }
