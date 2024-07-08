@@ -68,6 +68,8 @@ class SyncApi implements LoggerAwareInterface
      */
     public function getAllSince(string $newCursor): SyncResult
     {
+        // FIXME: This can return data that is older then the one fetched via getSingle*()
+        // FIXME: We have to keep track of the IDs and sync timestamps somehow and filter those out
         $this->logger->info('Starting a partial sync');
         $api = $this->coApi;
         $oldCursor = Cursor::decode($newCursor);
@@ -124,6 +126,8 @@ class SyncApi implements LoggerAwareInterface
         // If there were no updates, keep the old sync date
         $newCursor->lastSyncActiveStudies ??= $oldCursor->lastSyncActiveStudies;
 
+        // FIXME: if there are too many requests to be made here we should fall back to a full sync
+        // FIXME: We have to figure out what a reasonable threshold is.
         $this->logger->info('Fetching related data for all '.count($changedStudents).' affected students');
         $res = [];
         foreach ($changedStudents as $nr => $student) {
