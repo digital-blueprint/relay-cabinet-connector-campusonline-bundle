@@ -7,6 +7,7 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseResource;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Country;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ExmatriculationStatus;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
 
 class Student extends BaseResource
 {
@@ -103,9 +104,9 @@ class Student extends BaseResource
     /**
      * Example: "38".
      */
-    public function getAdmissionQualificationTypeNumber(): string
+    public function getAdmissionQualificationType(): HigherEducationEntranceQualification
     {
-        return $this->data['ADMISSIONQUALIFICATIONTYPENR'];
+        return HigherEducationEntranceQualification::fromId($this->data['ADMISSIONQUALIFICATIONTYPENR']);
     }
 
     /**
@@ -115,7 +116,7 @@ class Student extends BaseResource
      *   - "Realgymnasium"
      *   - "Studienberechtigungsprüfung"
      */
-    public function getAdmissionQualificationType(): string
+    public function getAdmissionQualificationTypeString(): string
     {
         return $this->data['ADMISSIONQUALIFICATIONTYPE'];
     }
@@ -390,7 +391,7 @@ class Student extends BaseResource
     }
 
     /**
-     * TODO: ??? null.
+     * Example: "23W".
      */
     public function getTermStart(): ?string
     {
@@ -398,7 +399,7 @@ class Student extends BaseResource
     }
 
     /**
-     * TODO: ??? null.
+     * Example: "24S".
      */
     public function getTermEnd(): ?string
     {

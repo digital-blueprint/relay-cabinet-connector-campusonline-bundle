@@ -120,8 +120,8 @@ class StudentsApiTest extends TestCase
                     "EXMATRICULATIONDATE": {
                         "value": "2023-10-31"
                     },
-                    "TERMSTART": null,
-                    "TERMEND": null,
+                    "TERMSTART": "23W",
+                    "TERMEND": "24S",
                     "ACADEMICTITLEPRECEDING": "Ing.",
                     "ACADEMICTITLEFOLLOWING": "Bsc",
                     "FORMERFAMILYNAME": "Normalverbraucher",
@@ -159,8 +159,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame(11, $data->getNationality()->value);
         $this->assertSame(168, $data->getNationalitySecondary()->value);
         $this->assertSame('Österreich', $data->getNationalitySecondaryString());
-        $this->assertSame('02', $data->getAdmissionQualificationTypeNumber());
-        $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationType());
+        $this->assertSame('02', $data->getAdmissionQualificationType()->value);
+        $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationTypeString());
         $this->assertSame('2010-12-24', $data->getSchoolCertificateDate());
         $this->assertSame('c/o Erika Mustermann', $data->getHomeAddressNote());
         $this->assertSame('Hauptstraße 34', $data->getHomeAddressStreet());
@@ -188,8 +188,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame('1223010170', $data->getSocialSecurityNumber());
         $this->assertSame('Kxl/ufp/HOufd8y/+3n6qZ1Cn7E=', $data->getSectorSpecificPersonalIdentifier());
         $this->assertSame('max.mustermann.temp@example.com', $data->getEmailAddressTemporary());
-        $this->assertSame(null, $data->getTermStart());
-        $this->assertSame(null, $data->getTermEnd());
+        $this->assertSame('23W', $data->getTermStart());
+        $this->assertSame('24S', $data->getTermEnd());
         $this->assertSame('067612345677', $data->getTelephoneNumber());
         $this->assertSame('067612345678', $data->getHomeAddressTelephoneNumber());
         $this->assertSame('067612345676', $data->getStudentAddressTelephoneNumber());
@@ -301,8 +301,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame('Max', $data->getGivenName());
         $this->assertSame('Mustermann', $data->getFamilyName());
         $this->assertSame('F06BCC80D6FC0BDE575B16FB2E3790D5', $data->getIdentNumberObfuscated());
-        $this->assertSame('02', $data->getAdmissionQualificationTypeNumber());
-        $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationType());
+        $this->assertSame('02', $data->getAdmissionQualificationType()->value);
+        $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationTypeString());
         $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
         $this->assertSame('nicht zugelassen', $data->getStudentStatusString());

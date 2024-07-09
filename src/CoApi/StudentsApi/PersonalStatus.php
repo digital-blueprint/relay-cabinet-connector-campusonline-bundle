@@ -19,4 +19,9 @@ enum PersonalStatus: string
     case PreRegistration = 'Voranmeldung';
 
     case PreRegistrationWithoutUniversityStatistics = 'Voranmeldung ohne Hochschulstatistik';
+
+    public function forJson(): string
+    {
+        return $this->value;
+    }
 }
