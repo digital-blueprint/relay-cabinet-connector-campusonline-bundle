@@ -125,9 +125,17 @@ class Student extends BaseResource
      */
     public function getAdmissionQualificationState(): ?Country
     {
-        $coId = $this->data['ADMISSIONQUALIFICATIONSTATE'];
+        $coId = $this->data['ADMISSIONQUALIFICATIONSTATENR'];
 
         return $coId !== null ? Country::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "Bosnien und Herzegowina".
+     */
+    public function getAdmissionQualificationStateString(): ?string
+    {
+        return $this->data['ADMISSIONQUALIFICATIONSTATE'];
     }
 
     /**
@@ -183,9 +191,17 @@ class Student extends BaseResource
      */
     public function getHomeAddressCountry(): ?Country
     {
-        $coId = $this->data['HOMEADDRESSCOUNTRY'];
+        $coId = $this->data['HOMEADDRESSCOUNTRYNR'];
 
         return $coId !== null ? Country::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "Österreich".
+     */
+    public function getHomeAddressCountryString(): ?string
+    {
+        return $this->data['HOMEADDRESSCOUNTRY'];
     }
 
     /**
@@ -233,9 +249,17 @@ class Student extends BaseResource
      */
     public function getStudentAddressCountry(): ?Country
     {
-        $coId = $this->data['STUDADDRESSCOUNTRY'];
+        $coId = $this->data['STUDADDRESSCOUNTRYNR'];
 
         return $coId !== null ? Country::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "Österreich".
+     */
+    public function getStudentAddressCountryString(): ?string
+    {
+        return $this->data['STUDADDRESSCOUNTRY'];
     }
 
     /**
@@ -280,7 +304,7 @@ class Student extends BaseResource
      */
     public function getPersonalStatus(): PersonalStatus
     {
-        return PersonalStatus::from($this->data['PERSTUSTATUS']);
+        return PersonalStatus::from($this->data['PERSSTATUS']);
     }
 
     /**
@@ -290,7 +314,17 @@ class Student extends BaseResource
      */
     public function getStudentStatus(): StudentStatus
     {
-        return StudentStatus::from($this->data['STUDTUSTATUS']);
+        return StudentStatus::from($this->data['STUDSTATUSKEY']);
+    }
+
+    /**
+     * Example: "nicht zugelassen".
+     *
+     * Also called "Hörerstatus"
+     */
+    public function getStudentStatusString(): string
+    {
+        return $this->data['STUDSTATUS'];
     }
 
     /**
@@ -326,9 +360,25 @@ class Student extends BaseResource
      */
     public function getExmatriculationStatus(): ?ExmatriculationStatus
     {
-        $coId = $this->data['EXMATRICULATIONSTATUS'];
+        $coId = $this->data['EXMATRICULATIONSTATUSKEY'];
 
         return $coId !== null ? ExmatriculationStatus::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "ex lege".
+     */
+    public function getExmatriculationStatusString(): ?string
+    {
+        return $this->data['EXMATRICULATIONSTATUS'];
+    }
+
+    /**
+     * Example: "22".
+     */
+    public function getImmatriculationSemester(): string
+    {
+        return $this->data['IMMATRICULATIONSEMESTER'];
     }
 
     /**
@@ -408,6 +458,22 @@ class Student extends BaseResource
      */
     public function getGender(): Gender
     {
-        return Gender::from($this->data['GENDER']);
+        return Gender::from($this->data['GENDERKEY']);
+    }
+
+    /**
+     * Example: "Weiblich".
+     */
+    public function getGenderString(): string
+    {
+        return $this->data['GENDER'];
+    }
+
+    /**
+     * ???
+     */
+    public function getNote(): ?string
+    {
+        return $this->data['NOTE'];
     }
 }

@@ -86,31 +86,37 @@ class StudentsApiTest extends TestCase
                     "SCHOOLCERTIFICATEDATE": {
                         "value": "2010-12-24"
                     },
-                    "ADMISSIONQUALIFICATIONSTATE": 40,
+                    "ADMISSIONQUALIFICATIONSTATENR": 40,
+                    "ADMISSIONQUALIFICATIONSTATE": "Bosnien und Herzegowina",
                     "TELEPHONE": "067612345677",
                     "HOMEADDRESSNOTE": "c/o Erika Mustermann",
                     "HOMEADDRESSSTREET": "Hauptstraße 34",
                     "HOMEADDRESSPLACE": "Altenmarkt bei Sankt Gallen",
                     "HOMEADDRESSPOSTCODE": "8934",
-                    "HOMEADDRESSCOUNTRY": 11,
+                    "HOMEADDRESSCOUNTRYNR": 11,
+                    "HOMEADDRESSCOUNTRY": "Ägypten",
                     "HOMEADDRESSTELEPHONE": "067612345678",
                     "STUDADDRESSNOTE": "c/o Erika Mustermann",
                     "STUDADDRESSSTREET": "Hauptstraße 42",
                     "STUDADDRESSPLACE": "Waizenkirchen",
                     "STUDADDRESSPOSTCODE": "4730",
-                    "STUDADDRESSCOUNTRY": 11,
+                    "STUDADDRESSCOUNTRYNR": 11,
+                    "STUDADDRESSCOUNTRY": "Ägypten",
                     "STUDADDRESSTELEPHONE": "067612345676",
                     "EMAILADDRESSTU": "max.mustermann@student.tugraz.at",
                     "EMAILADDRESSCONFIRMED": "max.mustermann@example.com",
                     "EMAILADDRESSTEMPORARY": "max.mustermann.temp@example.com",
-                    "PERSTUSTATUS": "Voranmeldung",
-                    "STUDTUSTATUS": "E",
+                    "PERSSTATUS": "Voranmeldung",
+                    "STUDSTATUSKEY": "E",
+                    "STUDSTATUS": "nicht zugelassen",
                     "TUITIONSTATUS": "Ausländer gleichgestellt",
                     "TUITIONEXEMPTIONTYPE": "L Lehrgang",
                     "IMMATRICULATIONDATE": {
                         "value": "2010-12-24"
                     },
-                    "EXMATRICULATIONSTATUS": "EZ",
+                    "IMMATRICULATIONSEMESTER": "21W",
+                    "EXMATRICULATIONSTATUSKEY": "EZ",
+                    "EXMATRICULATIONSTATUS": "ex lege",
                     "EXMATRICULATIONDATE": {
                         "value": "2023-10-31"
                     },
@@ -121,7 +127,9 @@ class StudentsApiTest extends TestCase
                     "FORMERFAMILYNAME": "Normalverbraucher",
                     "SOCIALSECURITYNR": "1223010170",
                     "BPK": "Kxl/ufp/HOufd8y/+3n6qZ1Cn7E=",
-                    "GENDER": "X"
+                    "GENDERKEY": "M",
+                    "GENDER": "Männlich",
+                    "NOTE": "some note"
                 }
             }
         }
@@ -139,7 +147,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame('13.06.2024T14:00:34', $data->getSyncTimestamp());
 
         $this->assertSame('1970-01-01', $data->getBirthDate());
-        $this->assertSame(Gender::NonBinary, $data->getGender());
+        $this->assertSame(Gender::Male, $data->getGender());
+        $this->assertSame('Männlich', $data->getGenderString());
         $this->assertSame('Ägypten', $data->getNationalityString());
         $this->assertSame(123123, $data->getStudentPersonNumber());
 
@@ -168,8 +177,10 @@ class StudentsApiTest extends TestCase
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
         $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
+        $this->assertSame('nicht zugelassen', $data->getStudentStatusString());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
         $this->assertSame('ex lege (EZ)', $data->getExmatriculationStatus()->getName());
+        $this->assertSame('ex lege', $data->getExmatriculationStatusString());
         $this->assertSame('2023-10-31', $data->getExmatriculationDate());
         $this->assertSame('Ing.', $data->getAcademicTitlePreceding());
         $this->assertSame('Bsc', $data->getAcademicTitleFollowing());
@@ -185,6 +196,11 @@ class StudentsApiTest extends TestCase
         $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
         $this->assertSame('Ausländer gleichgestellt', $data->getTuitionStatus());
         $this->assertSame('L Lehrgang', $data->getTuitionExemptionType());
+        $this->assertSame('Bosnien und Herzegowina', $data->getAdmissionQualificationStateString());
+        $this->assertSame('Ägypten', $data->getHomeAddressCountryString());
+        $this->assertSame('Ägypten', $data->getStudentAddressCountryString());
+        $this->assertSame('21W', $data->getImmatriculationSemester());
+        $this->assertSame('some note', $data->getNote());
     }
 
     public function testGetStudentMinimal()
@@ -218,30 +234,36 @@ class StudentsApiTest extends TestCase
                     "SCHOOLCERTIFICATEDATE": {
                         "value": null
                     },
-                    "ADMISSIONQUALIFICATIONSTATE": 40,
+                    "ADMISSIONQUALIFICATIONSTATENR": 40,
+                    "ADMISSIONQUALIFICATIONSTATE": "Bosnien und Herzegowina",
                     "TELEPHONE": null,
                     "HOMEADDRESSNOTE": null,
                     "HOMEADDRESSSTREET": null,
                     "HOMEADDRESSPLACE": null,
                     "HOMEADDRESSPOSTCODE": null,
+                    "HOMEADDRESSCOUNTRYNR": null,
                     "HOMEADDRESSCOUNTRY": null,
                     "HOMEADDRESSTELEPHONE": null,
                     "STUDADDRESSNOTE": null,
                     "STUDADDRESSSTREET": null,
                     "STUDADDRESSPLACE": null,
                     "STUDADDRESSPOSTCODE": null,
+                    "STUDADDRESSCOUNTRYNR": null,
                     "STUDADDRESSCOUNTRY": null,
                     "STUDADDRESSTELEPHONE": null,
                     "EMAILADDRESSTU": null,
                     "EMAILADDRESSCONFIRMED": null,
                     "EMAILADDRESSTEMPORARY": null,
-                    "PERSTUSTATUS": "Voranmeldung",
-                    "STUDTUSTATUS": "E",
+                    "PERSSTATUS": "Voranmeldung",
+                    "STUDSTATUSKEY": "E",
+                    "STUDSTATUS": "nicht zugelassen",
                     "TUITIONSTATUS": null,
                     "TUITIONEXEMPTIONTYPE": null,
                     "IMMATRICULATIONDATE": {
                         "value": "2010-12-24"
                     },
+                    "IMMATRICULATIONSEMESTER": "21W",
+                    "EXMATRICULATIONSTATUSKEY": null,
                     "EXMATRICULATIONSTATUS": null,
                     "EXMATRICULATIONDATE": {
                         "value": null
@@ -253,7 +275,9 @@ class StudentsApiTest extends TestCase
                     "FORMERFAMILYNAME": null,
                     "SOCIALSECURITYNR": null,
                     "BPK": null,
-                    "GENDER": "X"
+                    "GENDERKEY": "M",
+                    "GENDER": "Männlich",
+                    "NOTE": null
                 }
             }
         }
@@ -269,7 +293,8 @@ class StudentsApiTest extends TestCase
 
         // These seem to be always present (based on manual testing only)
         $this->assertSame('1970-01-01', $data->getBirthDate());
-        $this->assertSame(Gender::NonBinary, $data->getGender());
+        $this->assertSame(Gender::Male, $data->getGender());
+        $this->assertSame('Männlich', $data->getGenderString());
         $this->assertSame(11, $data->getNationality()->value);
         $this->assertSame('Ägypten', $data->getNationalityString());
         $this->assertSame(123123, $data->getStudentPersonNumber());
@@ -280,8 +305,11 @@ class StudentsApiTest extends TestCase
         $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationType());
         $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
+        $this->assertSame('nicht zugelassen', $data->getStudentStatusString());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
         $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
+        $this->assertSame('Bosnien und Herzegowina', $data->getAdmissionQualificationStateString());
+        $this->assertSame('21W', $data->getImmatriculationSemester());
 
         // These are all optional
         $this->assertSame(null, $data->getStudentId());
@@ -293,15 +321,18 @@ class StudentsApiTest extends TestCase
         $this->assertSame(null, $data->getHomeAddressPlace());
         $this->assertSame(null, $data->getHomeAddressPostCode());
         $this->assertSame(null, $data->getHomeAddressCountry());
+        $this->assertSame(null, $data->getHomeAddressCountryString());
         $this->assertSame(null, $data->getStudentAddressNote());
         $this->assertSame(null, $data->getStudentAddressStreet());
         $this->assertSame(null, $data->getStudentAddressPlace());
         $this->assertSame(null, $data->getStudentAddressPostCode());
         $this->assertSame(null, $data->getStudentAddressCountry());
+        $this->assertSame(null, $data->getStudentAddressCountryString());
         $this->assertSame(null, $data->getEmailAddressUniversity());
         $this->assertSame(null, $data->getEmailAddressConfirmed());
         $this->assertSame(null, $data->getEmailAddressConfirmed());
         $this->assertSame(null, $data->getExmatriculationStatus());
+        $this->assertSame(null, $data->getExmatriculationStatusString());
         $this->assertSame(null, $data->getExmatriculationDate());
         $this->assertSame(null, $data->getAcademicTitlePreceding());
         $this->assertSame(null, $data->getAcademicTitleFollowing());
@@ -316,5 +347,6 @@ class StudentsApiTest extends TestCase
         $this->assertSame(null, $data->getStudentAddressTelephoneNumber());
         $this->assertSame(null, $data->getTuitionStatus());
         $this->assertSame(null, $data->getTuitionExemptionType());
+        $this->assertSame(null, $data->getNote());
     }
 }

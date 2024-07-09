@@ -73,16 +73,21 @@ class StudiesApiTest extends TestCase
                     "STUDYTYPE": "Masterstudium",
                     "STUDYNAME": "Masterstudium; Computer Science",
                     "STUDYSEMESTER": 6,
-                    "STUDYSTATUS": "I",
+                    "STUDYSTATUSKEY": "I",
+                    "STUDYSTATUS": "gemeldet",
                     "STUDYCURRICULUMVERSION": "2022W",
                     "STUDYIMMATRICULATIONDATE": {
                         "value": "2021-01-01"
                     },
+                    "STUDYIMMATRICULATIONSEMESTER": "20S",
                     "STUDYEXMATRICULATIONDATE": {
                         "value": "2022-01-01"
                     },
-                    "STUDYEXMATRICULATIONTYPE": "EZ",
-                    "STUDYQUALIFICATIONTYPE": "41",
+                    "STUDYEXMATRICULATIONSEMESTER": "24S",
+                    "STUDYEXMATRICULATIONTYPEKEY": "EZ",
+                    "STUDYEXMATRICULATIONTYPE": "auf Antrag",
+                    "STUDYQUALIFICATIONTYPENR": "41",
+                    "STUDYQUALIFICATIONTYPE": "Master-/Diplomst.eigene Univ.",
                     "STUDYQUALIFICATIONDATE": {
                         "value": "2010-01-01"
                     },
@@ -115,10 +120,16 @@ class StudiesApiTest extends TestCase
         $this->assertSame('Österreich', $study->getStudyQualificationStateString());
         $this->assertSame('AUT', $study->getStudyQualificationState()->getAlpha3Code());
         $this->assertSame(StudyStatus::Registered, $study->getStudyStatus());
+        $this->assertSame('gemeldet', $study->getStudyStatusString());
         $this->assertSame('41', $study->getStudyQualificationType()->value);
         $this->assertSame('EZ', $study->getStudyExmatriculationType()->value);
         $this->assertSame('ex lege (EZ)', $study->getStudyExmatriculationType()->getName());
         $this->assertSame(['EDG', 'EGR'], $study->getAdditionalCertificate()->values);
+        $this->assertSame('gemeldet', $study->getStudyStatusString());
+        $this->assertSame('auf Antrag', $study->getStudyExmatriculationTypeString());
+        $this->assertSame('20S', $study->getStudyImmatriculationSemester());
+        $this->assertSame('24S', $study->getStudyExmatriculationSemester());
+        $this->assertSame('Master-/Diplomst.eigene Univ.', $study->getStudyQualificationTypeString());
     }
 
     public function testGetStudiesMinimal()
@@ -141,15 +152,20 @@ class StudiesApiTest extends TestCase
                     "STUDYTYPE": "Masterstudium",
                     "STUDYNAME": "Masterstudium; Computer Science",
                     "STUDYSEMESTER": 6,
-                    "STUDYSTATUS": "I",
+                    "STUDYSTATUSKEY": "I",
+                    "STUDYSTATUS": "gemeldet",
                     "STUDYCURRICULUMVERSION": null,
                     "STUDYIMMATRICULATIONDATE": {
                         "value": "2021-01-01"
                     },
+                    "STUDYIMMATRICULATIONSEMESTER": "20S",
                     "STUDYEXMATRICULATIONDATE": {
                         "value": null
                     },
+                    "STUDYEXMATRICULATIONSEMESTER": null,
+                    "STUDYEXMATRICULATIONTYPEKEY": null,
                     "STUDYEXMATRICULATIONTYPE": null,
+                    "STUDYQUALIFICATIONTYPENR": null,
                     "STUDYQUALIFICATIONTYPE": null,
                     "STUDYQUALIFICATIONDATE": {
                         "value": null
@@ -185,7 +201,11 @@ class StudiesApiTest extends TestCase
         $this->assertSame(StudyStatus::Registered, $study->getStudyStatus());
         $this->assertSame(null, $study->getStudyQualificationType());
         $this->assertSame(null, $study->getStudyExmatriculationType());
-        $this->assertSame(null, $study->getStudyExmatriculationType());
         $this->assertSame([], $study->getAdditionalCertificate()->values);
+        $this->assertSame('gemeldet', $study->getStudyStatusString());
+        $this->assertSame(null, $study->getStudyExmatriculationTypeString());
+        $this->assertSame('20S', $study->getStudyImmatriculationSemester());
+        $this->assertSame(null, $study->getStudyExmatriculationSemester());
+        $this->assertSame(null, $study->getStudyQualificationTypeString());
     }
 }

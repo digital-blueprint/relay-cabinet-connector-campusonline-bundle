@@ -85,7 +85,7 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info('Starting a partial sync');
         $api = $this->coApi;
         $oldCursor = Cursor::decode($newCursor);
-        if ($oldCursor->lastSyncActiveStudents === null || $oldCursor->lastSyncActiveStudies === null || $oldCursor->lastSyncApplications === null) {
+        if ($oldCursor->lastSyncActiveStudents === null && $oldCursor->lastSyncActiveStudies === null && $oldCursor->lastSyncApplications === null) {
             return $this->getAll();
         }
 

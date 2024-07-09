@@ -72,7 +72,15 @@ class Study extends BaseResource
      */
     public function getStudyStatus(): StudyStatus
     {
-        return StudyStatus::from($this->data['STUDYSTATUS']);
+        return StudyStatus::from($this->data['STUDYSTATUSKEY']);
+    }
+
+    /**
+     * Example: "geschlossen (Antrag oder ex lege)".
+     */
+    public function getStudyStatusString(): string
+    {
+        return $this->data['STUDYSTATUS'];
     }
 
     /**
@@ -96,6 +104,14 @@ class Study extends BaseResource
     }
 
     /**
+     * Example: "20S".
+     */
+    public function getStudyImmatriculationSemester(): string
+    {
+        return $this->data['STUDYIMMATRICULATIONSEMESTER'];
+    }
+
+    /**
      * Example: "2010-01-01".
      */
     public function getStudyExmatriculationDate(): ?string
@@ -104,13 +120,29 @@ class Study extends BaseResource
     }
 
     /**
+     * Example: "24S".
+     */
+    public function getStudyExmatriculationSemester(): ?string
+    {
+        return $this->data['STUDYEXMATRICULATIONSEMESTER'];
+    }
+
+    /**
      * Example: "41".
      */
     public function getStudyQualificationType(): ?HigherEducationEntranceQualification
     {
-        $id = $this->data['STUDYQUALIFICATIONTYPE'];
+        $id = $this->data['STUDYQUALIFICATIONTYPENR'];
 
         return $id !== null ? HigherEducationEntranceQualification::fromId($id) : null;
+    }
+
+    /**
+     * Example: "Master-/Diplomst.eigene Univ.".
+     */
+    public function getStudyQualificationTypeString(): ?string
+    {
+        return $this->data['STUDYQUALIFICATIONTYPE'];
     }
 
     /**
@@ -144,9 +176,17 @@ class Study extends BaseResource
      */
     public function getStudyExmatriculationType(): ?ExmatriculationStatus
     {
-        $coId = $this->data['STUDYEXMATRICULATIONTYPE'];
+        $coId = $this->data['STUDYEXMATRICULATIONTYPEKEY'];
 
         return $coId !== null ? ExmatriculationStatus::fromId($coId) : null;
+    }
+
+    /**
+     * Example: "auf Antrag".
+     */
+    public function getStudyExmatriculationTypeString(): ?string
+    {
+        return $this->data['STUDYEXMATRICULATIONTYPE'];
     }
 
     /**
