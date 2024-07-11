@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.6
+
+* Adjust for CO API changes
+* Expose more fields via PersonSyncInterface
+
 ## v0.3.5
 
 * Rename show-json command to sync-one
