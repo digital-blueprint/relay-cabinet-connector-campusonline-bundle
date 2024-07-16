@@ -52,4 +52,13 @@ class ConfigurationService
     {
         return $this->config['cache'];
     }
+
+    /**
+     * The timezone for the timestamps returned by the CO API.
+     */
+    public function getApiTimeZone(): \DateTimeZone
+    {
+        // XXX: hardcode this for now, maybe make it configurable in the future
+        return new \DateTimeZone('Europe/Vienna');
+    }
 }

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
 
-use Dbp\CampusonlineApi\Rest\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 
 class StudiesApi
 {
     private BaseApi $api;
 
-    public function __construct(Connection $connection, string $dataServiceName)
+    public function __construct(...$args)
     {
-        $this->api = new BaseApi($connection, $dataServiceName);
+        $this->api = new BaseApi(...$args);
     }
 
     public function checkConnection(): void
@@ -31,7 +30,7 @@ class StudiesApi
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
         $studies = [];
         foreach ($resources as $resource) {
-            $studies[] = new Study($resource->data);
+            $studies[] = new Study($resource->data, $resource->syncTimeZone);
         }
 
         return $studies;
@@ -45,7 +44,7 @@ class StudiesApi
         $resources = $this->api->getResourceCollection($lastSyncDate);
         $studies = [];
         foreach ($resources as $resource) {
-            $study = new Study($resource->data);
+            $study = new Study($resource->data, $resource->syncTimeZone);
             $studies[$study->getStudentPersonNumber()][] = $study;
         }
 
@@ -66,7 +65,7 @@ class StudiesApi
                 break;
             }
             foreach ($resources as $resource) {
-                $study = new Study($resource->data);
+                $study = new Study($resource->data, $resource->syncTimeZone);
                 $studies[$study->getStudentPersonNumber()][] = $study;
             }
             ++$page;

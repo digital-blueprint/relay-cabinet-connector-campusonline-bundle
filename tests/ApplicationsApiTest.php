@@ -84,6 +84,7 @@ class ApplicationsApiTest extends TestCase
         $this->assertSame(123456, $application->getStudentPersonNumber());
         $this->assertSame(null, $application->getStudyNumber());
         $this->assertSame('13.06.2024T12:01:15', $application->getSyncTimestamp());
+        $this->assertSame(1718272875, $application->getSyncDateTime()->getTimestamp());
         $this->assertSame('LiveSync', $application->getSyncSource());
         $this->assertSame('1970-01-01', $application->getQualificationCertificateDate());
         $this->assertSame('BIH', $application->getQualificationIssuingCountry()->getAlpha3Code());

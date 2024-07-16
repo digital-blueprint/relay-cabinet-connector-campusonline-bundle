@@ -131,6 +131,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame('24S', $study->getStudyExmatriculationSemester());
         $this->assertSame('Master-/Diplomst.eigene Univ.', $study->getStudyQualificationTypeString());
         $this->assertSame(true, $study->isActive());
+        $this->assertSame(1718276895, $study->getSyncDateTime()->getTimestamp());
     }
 
     public function testGetStudiesMinimal()
@@ -209,5 +210,6 @@ class StudiesApiTest extends TestCase
         $this->assertSame(null, $study->getStudyExmatriculationSemester());
         $this->assertSame(null, $study->getStudyQualificationTypeString());
         $this->assertSame(false, $study->isActive());
+        $this->assertSame(1718276895, $study->getSyncDateTime()->getTimestamp());
     }
 }

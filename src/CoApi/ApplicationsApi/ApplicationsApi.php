@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ApplicationsApi;
 
-use Dbp\CampusonlineApi\Rest\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 
 class ApplicationsApi
 {
     private BaseApi $api;
 
-    public function __construct(Connection $connection, string $dataServiceName)
+    public function __construct(...$args)
     {
-        $this->api = new BaseApi($connection, $dataServiceName);
+        $this->api = new BaseApi(...$args);
     }
 
     public function checkConnection(): void
@@ -29,7 +28,7 @@ class ApplicationsApi
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
         $applications = [];
         foreach ($resources as $resource) {
-            $applications[] = new Application($resource->data);
+            $applications[] = new Application($resource->data, $resource->syncTimeZone);
         }
 
         return $applications;
@@ -43,7 +42,7 @@ class ApplicationsApi
         $resources = $this->api->getResourceCollection($lastSyncDate);
         $applications = [];
         foreach ($resources as $resource) {
-            $application = new Application($resource->data);
+            $application = new Application($resource->data, $resource->syncTimeZone);
             $applications[$application->getStudentPersonNumber()][] = $application;
         }
 

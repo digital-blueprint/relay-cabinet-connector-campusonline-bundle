@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 
-use Dbp\CampusonlineApi\Rest\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 
 class StudentsApi
 {
     private BaseApi $api;
 
-    public function __construct(Connection $connection, string $dataServiceName)
+    public function __construct(...$args)
     {
-        $this->api = new BaseApi($connection, $dataServiceName);
+        $this->api = new BaseApi(...$args);
     }
 
     public function getStudentForObfuscatedId(string $obfuscatedId): ?Student
@@ -23,7 +22,7 @@ class StudentsApi
             return null;
         }
 
-        return new Student($resource->data);
+        return new Student($resource->data, $resource->syncTimeZone);
     }
 
     public function checkConnection(): void
@@ -38,7 +37,7 @@ class StudentsApi
             return null;
         }
 
-        return new Student($resource->data);
+        return new Student($resource->data, $resource->syncTimeZone);
     }
 
     /**
@@ -48,7 +47,7 @@ class StudentsApi
     {
         $resources = $this->api->getResourceCollection($lastSyncDate);
         foreach ($resources as $resource) {
-            $student = new Student($resource->data);
+            $student = new Student($resource->data, $resource->syncTimeZone);
             yield $student;
         }
     }
@@ -65,7 +64,7 @@ class StudentsApi
                 break;
             }
             foreach ($resources as $resource) {
-                $student = new Student($resource->data);
+                $student = new Student($resource->data, $resource->syncTimeZone);
                 yield $student;
             }
             ++$page;

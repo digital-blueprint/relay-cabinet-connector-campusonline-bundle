@@ -12,9 +12,9 @@ class Utils
      * Converts the timestamp returned from the API to something we can use for comparison, i.e.
      * check for two values which one is newer.
      */
-    public static function syncTimestampToIso(string $timestamp): string
+    private static function syncTimestampToIso(string $timestamp): string
     {
-        $dateTime = \DateTimeImmutable::createFromFormat('d.m.Y\TH:i:s', $timestamp);
+        $dateTime = \DateTimeImmutable::createFromFormat('d.m.Y\TH:i:s', $timestamp, new \DateTimeZone('UTC'));
         if ($dateTime === false) {
             throw new \RuntimeException('Invalid timestamp format');
         }
@@ -48,6 +48,18 @@ class Utils
 
         if ($minTimestamp === null || self::compareSyncTimestamps($syncDate, $minTimestamp) < 0) {
             $minTimestamp = $syncDate;
+        }
+    }
+
+    /**
+     * Same as updateMinSyncTimestamp(), but works with DateTime.
+     */
+    public static function updateMinSyncDateTime(BaseResource $resource, ?\DateTimeInterface &$minDateTime): void
+    {
+        $syncDateTime = $resource->getSyncDateTime();
+
+        if ($minDateTime === null || $syncDateTime < $minDateTime) {
+            $minDateTime = $syncDateTime;
         }
     }
 }

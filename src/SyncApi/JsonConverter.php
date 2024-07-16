@@ -16,8 +16,11 @@ class JsonConverter
      */
     public static function convertToJsonObject(Student $student, array $studies, array $applications): array
     {
+        $syncDateTime = null;
+
         $studiesData = [];
         foreach ($studies as $study) {
+            Utils::updateMinSyncDateTime($study, $syncDateTime);
             $entry = [
                 'id' => $study->getStudyNumber(),
                 'studentPersonNumber' => $study->getStudentPersonNumber(),
@@ -42,6 +45,7 @@ class JsonConverter
 
         $applicationsData = [];
         foreach ($applications as $application) {
+            Utils::updateMinSyncDateTime($application, $syncDateTime);
             $entry = [
                 'id' => $application->getApplicationNumber(),
                 'studyId' => $application->getStudyNumber(),
@@ -57,8 +61,14 @@ class JsonConverter
             $applicationsData[] = $entry;
         }
 
+        // We take the oldest sync time of all contained objects as the last sync time (worst case).
+        // This means the returned data is at least newer then the given date time.
+        Utils::updateMinSyncDateTime($student, $syncDateTime);
+        $syncDateTimeString = $syncDateTime->format(\DateTimeInterface::ATOM);
+
         $data = [
             'id' => $student->getIdentNumberObfuscated(),
+            'syncDateTime' => $syncDateTimeString,
             'studenid' => $student->getStudentId(),
             'givenName' => $student->getGivenName(),
             'familyName' => $student->getFamilyName(),

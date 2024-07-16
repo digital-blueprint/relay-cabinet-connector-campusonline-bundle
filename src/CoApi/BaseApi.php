@@ -17,11 +17,13 @@ class BaseApi
     private string $dataService;
 
     private Connection $connection;
+    private \DateTimeZone $dateTimeZone;
 
-    public function __construct(Connection $connection, string $dataService)
+    public function __construct(Connection $connection, string $dataService, \DateTimeZone $dateTimeZone)
     {
         $this->connection = $connection;
         $this->dataService = $dataService;
+        $this->dateTimeZone = $dateTimeZone;
     }
 
     public function getConnection(): Connection
@@ -118,7 +120,7 @@ class BaseApi
                 throw new \RuntimeException('content missing');
             }
 
-            $resultList[] = new BaseResource($realContent);
+            $resultList[] = new BaseResource($realContent, $this->dateTimeZone);
         }
 
         return $resultList;

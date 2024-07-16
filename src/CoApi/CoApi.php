@@ -34,17 +34,17 @@ class CoApi implements LoggerAwareInterface
 
     public function getStudiesApi(): StudiesApi
     {
-        return new StudiesApi($this->connection, $this->config->getDataServiceNameStudies());
+        return new StudiesApi($this->connection, $this->config->getDataServiceNameStudies(), $this->config->getApiTimeZone());
     }
 
     public function getApplicationsApi(): ApplicationsApi
     {
-        return new ApplicationsApi($this->connection, $this->config->getDataServiceNameApplications());
+        return new ApplicationsApi($this->connection, $this->config->getDataServiceNameApplications(), $this->config->getApiTimeZone());
     }
 
     public function getStudentsApi(): StudentsApi
     {
-        return new StudentsApi($this->connection, $this->config->getDataServiceStudents());
+        return new StudentsApi($this->connection, $this->config->getDataServiceStudents(), $this->config->getApiTimeZone());
     }
 
     public function setLogger(LoggerInterface $logger): void
