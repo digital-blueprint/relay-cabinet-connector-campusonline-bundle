@@ -120,6 +120,14 @@ class Study extends BaseResource
     }
 
     /**
+     * Whether the record is considered "active". This mirrors the rules of the CO query.
+     */
+    public function isActive(): bool
+    {
+        return $this->getStudyExmatriculationDate() !== null;
+    }
+
+    /**
      * Example: "24S".
      */
     public function getStudyExmatriculationSemester(): ?string

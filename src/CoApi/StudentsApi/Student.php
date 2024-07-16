@@ -477,4 +477,12 @@ class Student extends BaseResource
     {
         return $this->data['NOTE'];
     }
+
+    /**
+     * Whether the record is considered "active". This mirrors the rules of the CO query.
+     */
+    public function isActive(): bool
+    {
+        return $this->getExmatriculationDate() !== null;
+    }
 }

@@ -201,6 +201,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('Ägypten', $data->getStudentAddressCountryString());
         $this->assertSame('21W', $data->getImmatriculationSemester());
         $this->assertSame('some note', $data->getNote());
+        $this->assertSame(true, $data->isActive());
     }
 
     public function testGetStudentMinimal()
@@ -310,6 +311,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
         $this->assertSame('Bosnien und Herzegowina', $data->getAdmissionQualificationStateString());
         $this->assertSame('21W', $data->getImmatriculationSemester());
+        $this->assertSame(false, $data->isActive());
 
         // These are all optional
         $this->assertSame(null, $data->getStudentId());
