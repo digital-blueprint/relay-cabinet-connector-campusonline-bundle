@@ -41,11 +41,13 @@ class StudentsApi
     }
 
     /**
+     * Returns all currently active students.
+     *
      * @return iterable<Student>
      */
-    public function getActiveStudents(?string $lastSyncDate = null): iterable
+    public function getActiveStudents(): iterable
     {
-        $resources = $this->api->getResourceCollection($lastSyncDate);
+        $resources = $this->api->getResourceCollection();
         foreach ($resources as $resource) {
             $student = new Student($resource->data, $resource->syncTimeZone);
             yield $student;
@@ -53,6 +55,26 @@ class StudentsApi
     }
 
     /**
+     * Returns all changed students from the active pool since the $lastSyncDate.
+     * In case a student enters the active pool, or leaves the active pool into the inactive one
+     * they are also included. This means this can also return inactive students in rare cases.
+     * The sync timestamp of the returned records can be a bit older than $lastSyncDate.
+     * * A null $lastSyncDate results in all active studies being returned.
+     *
+     * @return iterable<Student>
+     */
+    public function getChangedStudentsSince(?string $lastSyncDate): iterable
+    {
+        $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
+        foreach ($resources as $resource) {
+            $student = new Student($resource->data, $resource->syncTimeZone);
+            yield $student;
+        }
+    }
+
+    /**
+     * Returns all inactive students.
+     *
      * @return iterable<Student>
      */
     public function getInactiveStudents(int $pageSize): iterable

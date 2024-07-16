@@ -88,13 +88,12 @@ class SyncApi implements LoggerAwareInterface
         if ($oldCursor->lastSyncActiveStudents === null && $oldCursor->lastSyncActiveStudies === null && $oldCursor->lastSyncApplications === null) {
             return $this->getAll();
         }
-
         $newCursor = new Cursor();
 
         // Get all students that have changed
         $this->logger->info('Checking for changed students (sync timestamp: '.$oldCursor->lastSyncActiveStudents.')');
         $changedStudents = [];
-        foreach ($api->getStudentsApi()->getActiveStudents($oldCursor->lastSyncActiveStudents) as $student) {
+        foreach ($api->getStudentsApi()->getChangedStudentsSince($oldCursor->lastSyncActiveStudents) as $student) {
             Utils::updateMinSyncTimestamp($student, $newCursor->lastSyncActiveStudents);
             $changedStudents[$student->getStudentPersonNumber()] = $student;
         }
@@ -106,7 +105,7 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info('Checking for changed applications (sync timestamp: '.$oldCursor->lastSyncApplications.')');
         $changedApplicationsCount = 0;
         $changedApplicationStudentsCount = 0;
-        foreach ($api->getApplicationsApi()->getAllApplications($oldCursor->lastSyncApplications) as $nr => $entries) {
+        foreach ($api->getApplicationsApi()->getChangedApplicationsSince($oldCursor->lastSyncApplications) as $nr => $entries) {
             ++$changedApplicationStudentsCount;
             foreach ($entries as $application) {
                 ++$changedApplicationsCount;
@@ -124,7 +123,7 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info('Checking for changed studies (sync timestamp: '.$oldCursor->lastSyncActiveStudies.')');
         $changedStudiesCount = 0;
         $changedStudyStudentsCount = 0;
-        foreach ($api->getStudiesApi()->getActiveStudies($oldCursor->lastSyncActiveStudies) as $nr => $entries) {
+        foreach ($api->getStudiesApi()->getChangedStudiesSince($oldCursor->lastSyncActiveStudies) as $nr => $entries) {
             ++$changedStudyStudentsCount;
             foreach ($entries as $study) {
                 ++$changedStudiesCount;

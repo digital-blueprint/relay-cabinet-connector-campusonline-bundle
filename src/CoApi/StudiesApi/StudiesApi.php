@@ -37,11 +37,13 @@ class StudiesApi
     }
 
     /**
-     * @return array<int, Study[]>
+     * Returns all currently active studies.
+     *
+     * @return array<int, Study[]> a mapping of studentPersonNumber to Study
      */
-    public function getActiveStudies(?string $lastSyncDate = null): array
+    public function getActiveStudies(): array
     {
-        $resources = $this->api->getResourceCollection($lastSyncDate);
+        $resources = $this->api->getResourceCollection();
         $studies = [];
         foreach ($resources as $resource) {
             $study = new Study($resource->data, $resource->syncTimeZone);
@@ -52,7 +54,28 @@ class StudiesApi
     }
 
     /**
-     * @return array<int, Study[]>
+     * Returns all changed studies from the active pool since the $lastSyncDate.
+     * In case a study enters the active pool, or leaves the active pool into the inactive one
+     * they are also included. This means this can also return inactive studies in rare cases.
+     * The sync timestamp of the returned records can be a bit older than $lastSyncDate.
+     * A null $lastSyncDate results in all active studies being returned.
+     *
+     * @return array<int, Study[]> a mapping of studentPersonNumber to Study
+     */
+    public function getChangedStudiesSince(?string $lastSyncDate): array
+    {
+        $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
+        $studies = [];
+        foreach ($resources as $resource) {
+            $study = new Study($resource->data, $resource->syncTimeZone);
+            $studies[$study->getStudentPersonNumber()][] = $study;
+        }
+
+        return $studies;
+    }
+
+    /**
+     * @return array<int, Study[]> a mapping of studentPersonNumber to studies
      */
     public function getInactiveStudies(int $pageSize): array
     {

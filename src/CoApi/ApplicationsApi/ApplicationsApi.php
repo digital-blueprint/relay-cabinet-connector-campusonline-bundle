@@ -35,11 +35,32 @@ class ApplicationsApi
     }
 
     /**
-     * @return array<int, Application[]>
+     * Returns all changed applications since the $lastSyncDate.
+     * The sync timestamp of the returned records can be a bit older than $lastSyncDate.
+     *A null $lastSyncDate results in all active applications being returned.
+     *
+     * @return array<int, Application[]> a mapping of studentPersonNumber to applications
      */
-    public function getAllApplications(?string $lastSyncDate = null): array
+    public function getChangedApplicationsSince(?string $lastSyncDate): array
     {
-        $resources = $this->api->getResourceCollection($lastSyncDate);
+        $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
+        $applications = [];
+        foreach ($resources as $resource) {
+            $application = new Application($resource->data, $resource->syncTimeZone);
+            $applications[$application->getStudentPersonNumber()][] = $application;
+        }
+
+        return $applications;
+    }
+
+    /**
+     * Returns all applications.
+     *
+     * @return array<int, Application[]> a mapping of studentPersonNumber to applications
+     */
+    public function getAllApplications(): array
+    {
+        $resources = $this->api->getResourceCollection();
         $applications = [];
         foreach ($resources as $resource) {
             $application = new Application($resource->data, $resource->syncTimeZone);
