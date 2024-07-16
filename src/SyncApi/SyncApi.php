@@ -82,6 +82,8 @@ class SyncApi implements LoggerAwareInterface
     {
         // FIXME: This can return data that is older then the one fetched via getSingle*()
         // FIXME: We have to keep track of the IDs and sync timestamps somehow and filter those out
+        // FIXME: We have ignore live records for the minimum timestamp calculation, if they are the only one
+        // FIXME: we would take their timestamp and might miss some updates.
         $this->logger->info('Starting a partial sync');
         $api = $this->coApi;
         $oldCursor = Cursor::decode($newCursor);
@@ -139,6 +141,7 @@ class SyncApi implements LoggerAwareInterface
 
         // FIXME: if there are too many requests to be made here we should fall back to a full sync
         // FIXME: We have to figure out what a reasonable threshold is.
+        // FIXME: We can't ignore inactive records though, they won't be part of the active full sync anymore
         $this->logger->info('Fetching related data for all '.count($changedStudents).' affected students');
         $res = [];
         foreach ($changedStudents as $nr => $student) {
