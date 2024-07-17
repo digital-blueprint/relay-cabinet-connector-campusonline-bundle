@@ -305,7 +305,7 @@ class Student extends BaseResource
      */
     public function getPersonalStatus(): PersonalStatus
     {
-        return PersonalStatus::from($this->data['PERSSTATUS']);
+        return new PersonalStatus($this->data['PERSSTATUS']);
     }
 
     /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\PersonalStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\StudentStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
@@ -174,7 +173,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('max.mustermann@student.tugraz.at', $data->getEmailAddressUniversity());
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
-        $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
+        $this->assertSame('pre-registration', $data->getPersonalStatus()->getName());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
         $this->assertSame('nicht zugelassen', $data->getStudentStatusString());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
@@ -304,7 +303,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('F06BCC80D6FC0BDE575B16FB2E3790D5', $data->getIdentNumberObfuscated());
         $this->assertSame('02', $data->getAdmissionQualificationType()->value);
         $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationTypeString());
-        $this->assertSame(PersonalStatus::PreRegistration, $data->getPersonalStatus());
+        $this->assertSame('pre-registration', $data->getPersonalStatus()->getName());
         $this->assertSame(StudentStatus::NotAdmitted, $data->getStudentStatus());
         $this->assertSame('nicht zugelassen', $data->getStudentStatusString());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
