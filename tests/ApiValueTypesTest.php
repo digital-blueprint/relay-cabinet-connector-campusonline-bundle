@@ -6,6 +6,7 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Gender;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Nationality;
 use Monolog\Test\TestCase;
 
@@ -47,5 +48,13 @@ class ApiValueTypesTest extends TestCase
         $this->assertSame('IB Diploma (foreign country)', HigherEducationEntranceQualification::fromId('46')->getName());
         $this->assertSame('IB Diploma (Ausland)', HigherEducationEntranceQualification::fromId('46')->getName('de'));
         $this->assertSame('Unbekannt (1234)', HigherEducationEntranceQualification::fromId('1234')->getName('de'));
+    }
+
+    public function testGender()
+    {
+        $this->assertSame('Weiblich', (new Gender('W'))->getName('de'));
+        $this->assertSame('female', (new Gender('W'))->getName('fr'));
+        $this->assertSame('unknown value (P)', (new Gender('P'))->getName('fr'));
+        $this->assertSame('Unbekannter Wert (P)', (new Gender('P'))->getName('de'));
     }
 }

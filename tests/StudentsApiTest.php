@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Gender;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\PersonalStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\StudentStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
@@ -147,7 +146,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('13.06.2024T14:00:34', $data->getSyncTimestamp());
 
         $this->assertSame('1970-01-01', $data->getBirthDate());
-        $this->assertSame(Gender::Male, $data->getGender());
+        $this->assertSame('male', $data->getGender()->getName());
         $this->assertSame('Männlich', $data->getGenderString());
         $this->assertSame('Ägypten', $data->getNationalityString());
         $this->assertSame(123123, $data->getStudentPersonNumber());
@@ -295,7 +294,7 @@ class StudentsApiTest extends TestCase
 
         // These seem to be always present (based on manual testing only)
         $this->assertSame('1970-01-01', $data->getBirthDate());
-        $this->assertSame(Gender::Male, $data->getGender());
+        $this->assertSame('male', $data->getGender()->getName());
         $this->assertSame('Männlich', $data->getGenderString());
         $this->assertSame(11, $data->getNationality()->value);
         $this->assertSame('Ägypten', $data->getNationalityString());

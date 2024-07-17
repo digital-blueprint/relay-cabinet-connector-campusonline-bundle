@@ -4,67 +4,51 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 
-enum Gender: string
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Utils;
+
+class Gender
 {
-    /**
-     * Männlich.
-     */
-    case Male = 'M';
+    public string $value;
 
-    /**
-     * Weiblich.
-     */
-    case Female = 'W';
-
-    /**
-     * Divers (called "intersex" in the CO translation).
-     */
-    case NonBinary = 'X';
-
-    /**
-     * Unbekannt.
-     */
-    case Unknown = 'U';
-
-    /**
-     * Offen.
-     */
-    case Open = 'O';
-
-    /**
-     * Inter.
-     */
-    case Inter = 'I';
-
-    /**
-     * Kein Eintrag.
-     */
-    case NoRecord = 'K';
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
 
     public function getName(string $locale = 'en'): string
     {
         $translations = [
-            'de' => [
-                self::Male->value => 'Männlich',
-                self::Female->value => 'Weiblich',
-                self::NonBinary->value => 'Divers',
-                self::Unknown->value => 'Unbekannt',
-                self::Open->value => 'Offen',
-                self::Inter->value => 'Inter',
-                self::NoRecord->value => 'Kein Eintrag',
+            'M' => [
+                'de' => 'Männlich',
+                'en' => 'male',
             ],
-            'en' => [
-                self::Male->value => 'male',
-                self::Female->value => 'female',
-                self::NonBinary->value => 'non-binary',
-                self::Unknown->value => 'unknown',
-                self::Open->value => 'open',
-                self::Inter->value => 'inter',
-                self::NoRecord->value => 'no record',
+            'W' => [
+                'de' => 'Weiblich',
+                'en' => 'female',
+            ],
+            'X' => [
+                'de' => 'Divers', // (called "intersex" in the CO translation).
+                'en' => 'non-binary',
+            ],
+            'U' => [
+                'de' => 'Unbekannt',
+                'en' => 'unknown',
+            ],
+            'O' => [
+                'de' => 'Offen',
+                'en' => 'open',
+            ],
+            'I' => [
+                'de' => 'Inter',
+                'en' => 'inter',
+            ],
+            'K' => [
+                'de' => 'Kein Eintrag',
+                'en' => 'no record',
             ],
         ];
 
-        return ($translations[$locale] ?? $translations['en'])[$this->value];
+        return Utils::getTranslatedText($translations, $this->value, $locale);
     }
 
     public function forJson(): array

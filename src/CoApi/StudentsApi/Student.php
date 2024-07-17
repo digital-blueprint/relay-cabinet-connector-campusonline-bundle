@@ -459,7 +459,7 @@ class Student extends BaseResource
      */
     public function getGender(): Gender
     {
-        return Gender::from($this->data['GENDERKEY']);
+        return new Gender($this->data['GENDERKEY']);
     }
 
     /**

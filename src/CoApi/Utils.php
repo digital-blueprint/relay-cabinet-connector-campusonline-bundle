@@ -19,4 +19,26 @@ class Utils
 
         return $dateTime->setTimezone(new \DateTimeZone('UTC'));
     }
+
+    public static function getTranslatedText(array $translations, mixed $value, string $locale): string
+    {
+        $fallback = [
+            'de' => 'Unbekannter Wert',
+            'en' => 'unknown value',
+        ];
+
+        if (isset($translations[$value])) {
+            if (isset($translations[$value][$locale])) {
+                return $translations[$value][$locale];
+            } else {
+                return $translations[$value]['en'];
+            }
+        } else {
+            if (isset($fallback[$locale])) {
+                return $fallback[$locale].' ('.$value.')';
+            } else {
+                return $fallback['en'].' ('.$value.')';
+            }
+        }
+    }
 }
