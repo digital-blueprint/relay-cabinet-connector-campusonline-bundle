@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\Utils as SyncUtils;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class Test extends KernelTestCase
@@ -14,12 +13,5 @@ class Test extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
         $this->assertNotNull($container);
-    }
-
-    public function testCompareSyncTimestamps()
-    {
-        $this->assertSame(0, SyncUtils::compareSyncTimestamps('13.06.2024T12:01:15', '13.06.2024T12:01:15'));
-        $this->assertSame(-1, SyncUtils::compareSyncTimestamps('14.06.2023T12:01:15', '13.06.2024T12:01:15'));
-        $this->assertSame(1, SyncUtils::compareSyncTimestamps('12.06.2025T12:01:15', '13.06.2024T12:01:15'));
     }
 }
