@@ -10,28 +10,24 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
 class AdditionalExams
 {
     /**
-     * @var string[]
+     * @var AdditionalExam[]
      */
-    public array $values;
+    public array $items;
 
     public function __construct(?string $value)
     {
-        $this->values = $value !== null ? explode(' | ', $value) : [];
+        $parts = $value !== null ? explode(' | ', $value) : [];
+        $this->items = [];
+        foreach ($parts as $part) {
+            $this->items[] = new AdditionalExam($part);
+        }
     }
 
     public function forJson(): array
     {
         $res = [];
-
-        foreach ($this->values as $value) {
-            $res[] = [
-                'key' => $value,
-                'translations' => [
-                    // FIXME
-                    'de' => $value,
-                    'en' => $value,
-                ],
-            ];
+        foreach ($this->items as $item) {
+            $res[] = $item->forJson();
         }
 
         return $res;
