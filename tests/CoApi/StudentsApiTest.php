@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests\CoApi;
 
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Student;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
@@ -21,7 +23,7 @@ class StudentsApiTest extends TestCase
         parent::setUp();
         $config = new ConfigurationService();
         $config->setConfig([
-            'api_url' => 'https://dummy.at/dummy',
+            'api_url' => '',
             'client_id' => '',
             'client_secret' => '',
             'data_service_name_students' => '',
@@ -32,8 +34,9 @@ class StudentsApiTest extends TestCase
 
     public function testGetStudentWebUrl()
     {
-        $student = new Student(['STPERSONNR' => 1234], new \DateTimeZone('Europe/Paris'));
-        $this->assertSame('https://dummy.at/dummy/wbStEvidenz.StEvi?pStPersonNr=1234', $this->api->getStudentWebUrl($student));
+        $baseApi = new BaseApi(new Connection('https://dummy.at/dummy', 'foo', 'bar'), 'bla', new \DateTimeZone('Europe/London'));
+        $student = new Student(['STPERSONNR' => 1234], $baseApi);
+        $this->assertSame('https://dummy.at/dummy/wbStEvidenz.StEvi?pStPersonNr=1234', $student->getWebUrl());
     }
 
     private function mockResponses(array $responses)

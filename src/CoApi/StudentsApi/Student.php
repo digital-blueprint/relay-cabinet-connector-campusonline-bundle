@@ -8,6 +8,7 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseResource;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Country;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ExmatriculationStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
+use League\Uri\UriTemplate;
 
 class Student extends BaseResource
 {
@@ -484,5 +485,18 @@ class Student extends BaseResource
     public function isActive(): bool
     {
         return $this->getExmatriculationDate() !== null;
+    }
+
+    /**
+     * Returns a URL to a website for displaying and editing the source student data.
+     */
+    public function getWebUrl(): string
+    {
+        $baseUrl = $this->baseApi->getBaseUrl();
+        $uriTemplate = new UriTemplate(rtrim($baseUrl, '/').'/wbStEvidenz.StEvi{?pStPersonNr}');
+
+        return (string) $uriTemplate->expand([
+            'pStPersonNr' => $this->getStudentPersonNumber(),
+        ]);
     }
 }

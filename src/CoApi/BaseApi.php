@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi;
 
-use Dbp\CampusonlineApi\Helpers\ApiException;
-use Dbp\CampusonlineApi\Rest\Connection;
 use GuzzleHttp\Exception\GuzzleException;
 use League\Uri\UriTemplate;
 use Psr\Http\Message\ResponseInterface;
@@ -26,9 +24,9 @@ class BaseApi
         $this->dateTimeZone = $dateTimeZone;
     }
 
-    public function getConnection(): Connection
+    public function getBaseUrl(): string
     {
-        return $this->connection;
+        return $this->connection->getBaseUrl();
     }
 
     public function getResource(string $field, string $value): ?BaseResource
@@ -46,7 +44,6 @@ class BaseApi
     public function getResourceCollection(?string $lastSyncDate = null, bool $syncOnlyInactive = false, ?int $page = null, ?int $pageSize = null, array $filters = []): array
     {
         $connection = $this->connection;
-        $dataService = $connection->getDataServiceId($this->dataService);
 
         // We can only use one of the allowed ones
         if (count($filters) > 1 || (count($filters) === 1 && !in_array(array_keys($filters)[0], self::VALID_IDs, true))) {
@@ -73,7 +70,7 @@ class BaseApi
 
         $uriTemplate = new UriTemplate('pl/rest/{service}/{?%24format}{&params*}');
         $vars = [
-            'service' => $dataService,
+            'service' => $this->dataService,
             '%24format' => 'json',
             'params' => $params,
         ];
@@ -83,7 +80,7 @@ class BaseApi
         try {
             $response = $client->get($uri);
         } catch (GuzzleException $guzzleException) {
-            throw ApiException::fromGuzzleException($guzzleException);
+            throw new ApiException($guzzleException->getMessage());
         }
 
         return $this->parseResourceList($response);
@@ -120,9 +117,14 @@ class BaseApi
                 throw new \RuntimeException('content missing');
             }
 
-            $resultList[] = new BaseResource($realContent, $this->dateTimeZone);
+            $resultList[] = new BaseResource($realContent, $this);
         }
 
         return $resultList;
+    }
+
+    public function getDateTimeZone(): \DateTimeZone
+    {
+        return $this->dateTimeZone;
     }
 }

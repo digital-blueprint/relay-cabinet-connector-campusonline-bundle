@@ -7,12 +7,12 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi;
 class BaseResource
 {
     public array $data;
-    public \DateTimeZone $syncTimeZone;
+    protected BaseApi $baseApi;
 
-    public function __construct(array $data, \DateTimeZone $syncTimeZone)
+    public function __construct(array $data, BaseApi $baseApi)
     {
         $this->data = $data;
-        $this->syncTimeZone = $syncTimeZone;
+        $this->baseApi = $baseApi;
     }
 
     /**
@@ -41,6 +41,6 @@ class BaseResource
 
     public function getSyncDateTime(): \DateTimeInterface
     {
-        return Utils::syncTimestampToDateTimeUTC($this->data['TIMESTAMP'], $this->syncTimeZone);
+        return Utils::syncTimestampToDateTimeUTC($this->data['TIMESTAMP'], $this->baseApi->getDateTimeZone());
     }
 }

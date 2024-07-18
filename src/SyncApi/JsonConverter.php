@@ -23,6 +23,7 @@ class JsonConverter
             Utils::updateMinSyncDateTime($study, $syncDateTime);
             $entry = [
                 'id' => $study->getStudyNumber(),
+                'webUrl' => $study->getWebUrl(),
                 'studentPersonNumber' => $study->getStudentPersonNumber(),
                 'key' => $study->getStudyKey(),
                 'type' => $study->getStudyType(),
@@ -68,6 +69,7 @@ class JsonConverter
 
         $data = [
             'id' => $student->getIdentNumberObfuscated(),
+            'webUrl' => $student->getWebUrl(),
             'syncDateTime' => $syncDateTimeString,
             'studenid' => $student->getStudentId(),
             'givenName' => $student->getGivenName(),

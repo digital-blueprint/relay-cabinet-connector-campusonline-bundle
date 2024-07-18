@@ -22,7 +22,7 @@ class StudentsApi
             return null;
         }
 
-        return new Student($resource->data, $resource->syncTimeZone);
+        return new Student($resource->data, $this->api);
     }
 
     public function checkConnection(): void
@@ -37,7 +37,7 @@ class StudentsApi
             return null;
         }
 
-        return new Student($resource->data, $resource->syncTimeZone);
+        return new Student($resource->data, $this->api);
     }
 
     /**
@@ -49,7 +49,7 @@ class StudentsApi
     {
         $resources = $this->api->getResourceCollection();
         foreach ($resources as $resource) {
-            $student = new Student($resource->data, $resource->syncTimeZone);
+            $student = new Student($resource->data, $this->api);
             yield $student;
         }
     }
@@ -67,7 +67,7 @@ class StudentsApi
     {
         $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
         foreach ($resources as $resource) {
-            $student = new Student($resource->data, $resource->syncTimeZone);
+            $student = new Student($resource->data, $this->api);
             yield $student;
         }
     }
@@ -86,7 +86,7 @@ class StudentsApi
                 break;
             }
             foreach ($resources as $resource) {
-                $student = new Student($resource->data, $resource->syncTimeZone);
+                $student = new Student($resource->data, $this->api);
                 yield $student;
             }
             ++$page;

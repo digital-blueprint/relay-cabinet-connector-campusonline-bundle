@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests\CoApi;
 
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\Study;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
@@ -38,8 +40,9 @@ class StudiesApiTest extends TestCase
 
     public function testGetStudyWebUrl()
     {
-        $study = new Study(['STPERSONNR' => 1234, 'STSTUDIUMNR' => 5678], new \DateTimeZone('Europe/Paris'));
-        $this->assertSame('https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=1234&pStStudiumNr=5678', $this->api->getStudyWebUrl($study));
+        $baseApi = new BaseApi(new Connection('https://dummy.at/dummy', 'foo', 'bar'), 'bla', new \DateTimeZone('Europe/London'));
+        $study = new Study(['STPERSONNR' => 1234, 'STSTUDIUMNR' => 5678], $baseApi);
+        $this->assertSame('https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=1234&pStStudiumNr=5678', $study->getWebUrl());
     }
 
     public function testGetStudiesNoneFound()

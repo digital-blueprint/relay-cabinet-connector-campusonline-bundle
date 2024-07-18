@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04b6f66cf69daab2fcf60e1f14049521",
+    "content-hash": "ae22d82d31b2f3989f8091041cbac22e",
     "packages": [
         {
             "name": "api-platform/core",
@@ -319,57 +319,6 @@
                 }
             ],
             "time": "2023-12-20T15:40:13+00:00"
-        },
-        {
-            "name": "dbp/campusonline-api",
-            "version": "v0.3.20",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/digital-blueprint/campusonline-api.git",
-                "reference": "1b697dafdf35d115a48dd89f3d3e2238570e295e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/campusonline-api/zipball/1b697dafdf35d115a48dd89f3d3e2238570e295e",
-                "reference": "1b697dafdf35d115a48dd89f3d3e2238570e295e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-simplexml": "*",
-                "guzzlehttp/guzzle": "^7.3",
-                "kevinrob/guzzle-cache-middleware": "^3.5 || ^4.0 || ^5.0",
-                "league/uri": "^6.5 || ^7.4.0",
-                "league/uri-interfaces": "^2.3 || ^7.4",
-                "php": ">=8.1",
-                "psr/cache": "^1.0.1 || ^2.0.0 || ^3.0.0",
-                "psr/http-message": "^1.0 || ^2.0",
-                "psr/log": "^1.1.4 || ^2.0 || ^3.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.50",
-                "phpstan/phpstan": "^1.10.59",
-                "phpstan/phpstan-phpunit": "^1.3.16",
-                "phpunit/phpunit": "^10.1",
-                "symfony/cache": "^5.4 || ^6.4.3",
-                "symfony/phpunit-bridge": "^7.0.7",
-                "vimeo/psalm": "^5.22.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Dbp\\CampusonlineApi\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "AGPL-3.0-or-later"
-            ],
-            "support": {
-                "issues": "https://github.com/digital-blueprint/campusonline-api/issues",
-                "source": "https://github.com/digital-blueprint/campusonline-api/tree/v0.3.20"
-            },
-            "time": "2024-07-11T20:11:17+00:00"
         },
         {
             "name": "dbp/relay-base-person-bundle",

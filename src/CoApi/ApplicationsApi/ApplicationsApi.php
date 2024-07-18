@@ -28,7 +28,7 @@ class ApplicationsApi
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
         $applications = [];
         foreach ($resources as $resource) {
-            $applications[] = new Application($resource->data, $resource->syncTimeZone);
+            $applications[] = new Application($resource->data, $this->api);
         }
 
         return $applications;
@@ -46,7 +46,7 @@ class ApplicationsApi
         $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
         $applications = [];
         foreach ($resources as $resource) {
-            $application = new Application($resource->data, $resource->syncTimeZone);
+            $application = new Application($resource->data, $this->api);
             $applications[$application->getStudentPersonNumber()][] = $application;
         }
 
@@ -63,7 +63,7 @@ class ApplicationsApi
         $resources = $this->api->getResourceCollection();
         $applications = [];
         foreach ($resources as $resource) {
-            $application = new Application($resource->data, $resource->syncTimeZone);
+            $application = new Application($resource->data, $this->api);
             $applications[$application->getStudentPersonNumber()][] = $application;
         }
 

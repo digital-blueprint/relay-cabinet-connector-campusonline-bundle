@@ -4,8 +4,20 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi;
 
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
+use Psr\Log\LoggerInterface;
+
 class Utils
 {
+    public static function createLoggerMiddleware(LoggerInterface $logger): callable
+    {
+        return Middleware::log(
+            $logger,
+            new MessageFormatter('[{method}] {uri}: CODE={code}, ERROR={error}, CACHE={res_header_X-Kevinrob-Cache}')
+        );
+    }
+
     /**
      * Converts a sync timestamp to a DateTimeInterface with a UTC timezone. $timezone needs to be the timezone
      * of the sync timestamp.

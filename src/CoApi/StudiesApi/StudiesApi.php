@@ -30,7 +30,7 @@ class StudiesApi
         $resources = $this->api->getResourceCollection(filters: ['StPersonNr' => (string) $studentPersonNumber]);
         $studies = [];
         foreach ($resources as $resource) {
-            $studies[] = new Study($resource->data, $resource->syncTimeZone);
+            $studies[] = new Study($resource->data, $this->api);
         }
 
         return $studies;
@@ -46,7 +46,7 @@ class StudiesApi
         $resources = $this->api->getResourceCollection();
         $studies = [];
         foreach ($resources as $resource) {
-            $study = new Study($resource->data, $resource->syncTimeZone);
+            $study = new Study($resource->data, $this->api);
             $studies[$study->getStudentPersonNumber()][] = $study;
         }
 
@@ -67,7 +67,7 @@ class StudiesApi
         $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
         $studies = [];
         foreach ($resources as $resource) {
-            $study = new Study($resource->data, $resource->syncTimeZone);
+            $study = new Study($resource->data, $this->api);
             $studies[$study->getStudentPersonNumber()][] = $study;
         }
 
@@ -88,7 +88,7 @@ class StudiesApi
                 break;
             }
             foreach ($resources as $resource) {
-                $study = new Study($resource->data, $resource->syncTimeZone);
+                $study = new Study($resource->data, $this->api);
                 $studies[$study->getStudentPersonNumber()][] = $study;
             }
             ++$page;

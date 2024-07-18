@@ -8,6 +8,7 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseResource;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Country;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ExmatriculationStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
+use League\Uri\UriTemplate;
 
 class Study extends BaseResource
 {
@@ -205,5 +206,19 @@ class Study extends BaseResource
         $value = $this->data['ADDITIONALCERTIFICATE'];
 
         return new AdditionalExams($value);
+    }
+
+    /**
+     * Returns a URL to a website for displaying and editing the source study data.
+     */
+    public function getWebUrl(): string
+    {
+        $baseUrl = $this->baseApi->getBaseUrl();
+        $uriTemplate = new UriTemplate(rtrim($baseUrl, '/').'/wbStmStudiendaten.wbStudiendetails{?pStPersonNr,pStStudiumNr}');
+
+        return (string) $uriTemplate->expand([
+            'pStPersonNr' => $this->getStudentPersonNumber(),
+            'pStStudiumNr' => $this->getStudyNumber(),
+        ]);
     }
 }
