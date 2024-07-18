@@ -24,6 +24,14 @@ class BaseResource
     }
 
     /**
+     * Whether the resource is live, or fetched from some possibly out of date snapshot.
+     */
+    public function isLiveData(): bool
+    {
+        return \str_starts_with($this->getSyncSource(), 'LiveSync');
+    }
+
+    /**
      * Example: "13.06.2024T11:52:43".
      */
     public function getSyncTimestamp(): string

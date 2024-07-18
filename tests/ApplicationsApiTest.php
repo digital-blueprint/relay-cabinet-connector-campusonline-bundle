@@ -91,5 +91,6 @@ class ApplicationsApiTest extends TestCase
         $this->assertSame('21W', $application->getStartSemester());
         $this->assertSame('Bosnien und Herzegowina', $application->getQualificationIssuingCountryString());
         $this->assertSame('UF 033 678', $application->getStudyKey());
+        $this->assertSame(true, $application->isLiveData());
     }
 }

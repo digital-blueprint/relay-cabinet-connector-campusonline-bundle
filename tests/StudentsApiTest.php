@@ -201,6 +201,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('some note', $data->getNote());
         $this->assertSame(true, $data->isActive());
         $this->assertSame(1718280034, $data->getSyncDateTime()->getTimestamp());
+        $this->assertSame(true, $data->isLiveData());
     }
 
     public function testGetStudentMinimal()
@@ -312,6 +313,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('21W', $data->getImmatriculationSemester());
         $this->assertSame(false, $data->isActive());
         $this->assertSame(1718280034, $data->getSyncDateTime()->getTimestamp());
+        $this->assertSame(true, $data->isLiveData());
 
         // These are all optional
         $this->assertSame(null, $data->getStudentId());
