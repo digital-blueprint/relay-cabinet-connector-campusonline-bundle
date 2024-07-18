@@ -34,21 +34,21 @@ class ApiValueTypesTest extends TestCase
     {
         $this->assertSame('Europäische Union', CountryUtils::getName(249, 'de'));
         $this->assertSame('European Union', CountryUtils::getName(249, 'en'));
-        $this->assertSame('European Union', CountryUtils::getName(249, 'fr'));
+        $this->assertSame('Europäische Union', CountryUtils::getName(249, 'fr'));
     }
 
     public function testCountryGetNameUnkown()
     {
-        $this->assertSame('Unbekannt (4242)', CountryUtils::getName(4242, 'de'));
-        $this->assertSame('Unknown (4242)', CountryUtils::getName(4242, 'en'));
-        $this->assertSame('Unknown (4242)', CountryUtils::getName(4242, 'fr'));
+        $this->assertSame('Unbekannter Wert (4242)', CountryUtils::getName(4242, 'de'));
+        $this->assertSame('unknown value (4242)', CountryUtils::getName(4242, 'en'));
+        $this->assertSame('Unbekannter Wert (4242)', CountryUtils::getName(4242, 'fr'));
     }
 
     public function testSchoolType()
     {
         $this->assertSame('IB Diploma (foreign country)', HigherEducationEntranceQualification::fromId('46')->getName());
         $this->assertSame('IB Diploma (Ausland)', HigherEducationEntranceQualification::fromId('46')->getName('de'));
-        $this->assertSame('Unbekannt (1234)', HigherEducationEntranceQualification::fromId('1234')->getName('de'));
+        $this->assertSame('Unbekannter Wert (1234)', HigherEducationEntranceQualification::fromId('1234')->getName('de'));
     }
 
     public function testGender()

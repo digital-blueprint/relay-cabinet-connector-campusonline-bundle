@@ -272,19 +272,7 @@ class HigherEducationEntranceQualification
 
     public function getName(string $locale = 'en'): string
     {
-        // Falls back to "en" and then just the last value
-        $getTranslated = function (array $mapping, string $locale) {
-            return $mapping[$locale] ?? ($mapping['en'] ?? array_values($mapping)[0]);
-        };
-
-        // Get the translated value
-        $specialMapping = self::TRANSLATIONS[$this->value] ?? null;
-        if ($specialMapping !== null) {
-            return $getTranslated($specialMapping, $locale);
-        }
-
-        // Unknown, fall back to manual and include the ID in the name
-        return $getTranslated(self::UNKOWN, $locale).' ('.$this->value.')';
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
     }
 
     public function forJson(): array

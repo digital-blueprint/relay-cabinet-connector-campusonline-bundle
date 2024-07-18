@@ -592,11 +592,6 @@ class CountryUtils
         ],
     ];
 
-    private const UNKOWN = [
-        'de' => 'Unbekannt',
-        'en' => 'Unknown',
-    ];
-
     public static function getAlpha3Code(int $coId): ?string
     {
         return self::COUNTRY_MAPPING_ALPHA3[$coId] ?? null;
@@ -607,23 +602,13 @@ class CountryUtils
      */
     public static function getName(int $coId, string $locale): string
     {
+        // If it's ISO, ask the OS
         $alpha3Code = self::getAlpha3Code($coId);
         if ($alpha3Code !== null && Countries::alpha3CodeExists($alpha3Code)) {
             return Countries::getAlpha3Name($alpha3Code, $locale);
         }
 
-        // Falls back to "en" and then just the last value
-        $getTranslated = function (array $mapping, string $locale) {
-            return $mapping[$locale] ?? ($mapping['en'] ?? array_values($mapping)[0]);
-        };
-
-        // Not a country, fall back to manual translations
-        $specialMapping = self::SPECIAL_AREAS_MAPPING[$coId] ?? null;
-        if ($specialMapping !== null) {
-            return $getTranslated($specialMapping, $locale);
-        }
-
-        // Unknown, fall back to manual and include the ID in the name
-        return $getTranslated(self::UNKOWN, $locale).' ('.$coId.')';
+        // If not, fall back to the manual translations mapping, or unknown
+        return Utils::getTranslatedText(self::SPECIAL_AREAS_MAPPING, $coId, $locale);
     }
 }
