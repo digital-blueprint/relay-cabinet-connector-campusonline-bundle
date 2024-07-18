@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests\CoApi;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\Study;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -20,7 +21,7 @@ class StudiesApiTest extends TestCase
         parent::setUp();
         $config = new ConfigurationService();
         $config->setConfig([
-            'api_url' => '',
+            'api_url' => 'https://dummy.at/dummy',
             'client_id' => '',
             'client_secret' => '',
             'data_service_name_studies' => '',
@@ -33,6 +34,12 @@ class StudiesApiTest extends TestCase
     {
         $stack = HandlerStack::create(new MockHandler($responses));
         $this->api->setClientHandler($stack, 'nope');
+    }
+
+    public function testGetStudyWebUrl()
+    {
+        $study = new Study(['STPERSONNR' => 1234, 'STSTUDIUMNR' => 5678], new \DateTimeZone('Europe/Paris'));
+        $this->assertSame('https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=1234&pStStudiumNr=5678', $this->api->getStudyWebUrl($study));
     }
 
     public function testGetStudiesNoneFound()

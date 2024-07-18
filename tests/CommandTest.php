@@ -35,8 +35,10 @@ class CommandTest extends KernelTestCase
         {
             "link": [],
             "content": {
-                "type": "model-CO_LOC_DS.API_DMS_STUD_PERS_MV",
-                "API_DMS_STUD_PERS_MV": {
+                "type": "model-eg.dataservices.tugrazonline",
+                "DMSStudents": {
+                    "SOURCE": "LiveSync[Single|Normal]",
+                    "TIMESTAMP": "13.06.2024T14:00:34",
                     "STPERSONNR": 123123,
                     "STUDID": null,
                     "GIVENNAME": "Max",
@@ -54,34 +56,50 @@ class CommandTest extends KernelTestCase
                     "SCHOOLCERTIFICATEDATE": {
                         "value": null
                     },
+                    "ADMISSIONQUALIFICATIONSTATENR": 40,
+                    "ADMISSIONQUALIFICATIONSTATE": "Bosnien und Herzegowina",
+                    "TELEPHONE": null,
                     "HOMEADDRESSNOTE": null,
                     "HOMEADDRESSSTREET": null,
                     "HOMEADDRESSPLACE": null,
                     "HOMEADDRESSPOSTCODE": null,
+                    "HOMEADDRESSCOUNTRYNR": null,
                     "HOMEADDRESSCOUNTRY": null,
+                    "HOMEADDRESSTELEPHONE": null,
                     "STUDADDRESSNOTE": null,
                     "STUDADDRESSSTREET": null,
                     "STUDADDRESSPLACE": null,
                     "STUDADDRESSPOSTCODE": null,
+                    "STUDADDRESSCOUNTRYNR": null,
                     "STUDADDRESSCOUNTRY": null,
+                    "STUDADDRESSTELEPHONE": null,
                     "EMAILADDRESSTU": null,
                     "EMAILADDRESSCONFIRMED": null,
                     "EMAILADDRESSTEMPORARY": null,
-                    "PERSTUSTATUS": "Voranmeldung",
-                    "STUDTUSTATUS": "E",
+                    "PERSSTATUS": "Voranmeldung",
+                    "STUDSTATUSKEY": "E",
+                    "STUDSTATUS": "nicht zugelassen",
+                    "TUITIONSTATUS": null,
+                    "TUITIONEXEMPTIONTYPE": null,
                     "IMMATRICULATIONDATE": {
                         "value": "2010-12-24"
                     },
+                    "IMMATRICULATIONSEMESTER": "21W",
+                    "EXMATRICULATIONSTATUSKEY": null,
                     "EXMATRICULATIONSTATUS": null,
                     "EXMATRICULATIONDATE": {
                         "value": null
                     },
+                    "TERMSTART": null,
+                    "TERMEND": null,
                     "ACADEMICTITLEPRECEDING": null,
                     "ACADEMICTITLEFOLLOWING": null,
                     "FORMERFAMILYNAME": null,
                     "SOCIALSECURITYNR": null,
                     "BPK": null,
-                    "GENDER": "X"
+                    "GENDERKEY": "M",
+                    "GENDER": "Männlich",
+                    "NOTE": null
                 }
             }
         }
