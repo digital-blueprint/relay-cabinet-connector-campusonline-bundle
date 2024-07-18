@@ -256,15 +256,10 @@ class HigherEducationEntranceQualification
         $this->value = $value;
     }
 
-    public static function fromId(string $id): HigherEducationEntranceQualification
-    {
-        return new self($id);
-    }
-
     public static function fromDisplayText(string $string): HigherEducationEntranceQualification
     {
         if (preg_match('/^\d+/', $string, $matches)) {
-            return self::fromId($matches[0]);
+            return new self($matches[0]);
         } else {
             throw new \RuntimeException('Invalid format');
         }

@@ -142,7 +142,7 @@ class Study extends BaseResource
     {
         $id = $this->data['STUDYQUALIFICATIONTYPENR'];
 
-        return $id !== null ? HigherEducationEntranceQualification::fromId($id) : null;
+        return $id !== null ? new HigherEducationEntranceQualification($id) : null;
     }
 
     /**
@@ -168,7 +168,7 @@ class Study extends BaseResource
     {
         $coId = $this->data['STUDYQUALIFICATIONSTATENR'];
 
-        return $coId !== null ? Country::fromId($coId) : null;
+        return $coId !== null ? new Country($coId) : null;
     }
 
     /**

@@ -16,11 +16,6 @@ class Country
         $this->value = $coId;
     }
 
-    public static function fromId(int $id): Country
-    {
-        return new self($id);
-    }
-
     public function getAlpha3Code(): ?string
     {
         return CountryUtils::getAlpha3Code($this->value);

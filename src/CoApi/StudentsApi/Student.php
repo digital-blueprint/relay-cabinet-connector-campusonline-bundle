@@ -106,7 +106,7 @@ class Student extends BaseResource
      */
     public function getAdmissionQualificationType(): HigherEducationEntranceQualification
     {
-        return HigherEducationEntranceQualification::fromId($this->data['ADMISSIONQUALIFICATIONTYPENR']);
+        return new HigherEducationEntranceQualification($this->data['ADMISSIONQUALIFICATIONTYPENR']);
     }
 
     /**
@@ -128,7 +128,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['ADMISSIONQUALIFICATIONSTATENR'];
 
-        return $coId !== null ? Country::fromId($coId) : null;
+        return $coId !== null ? new Country($coId) : null;
     }
 
     /**
@@ -194,7 +194,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['HOMEADDRESSCOUNTRYNR'];
 
-        return $coId !== null ? Country::fromId($coId) : null;
+        return $coId !== null ? new Country($coId) : null;
     }
 
     /**
@@ -252,7 +252,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['STUDADDRESSCOUNTRYNR'];
 
-        return $coId !== null ? Country::fromId($coId) : null;
+        return $coId !== null ? new Country($coId) : null;
     }
 
     /**

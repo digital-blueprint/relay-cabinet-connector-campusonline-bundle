@@ -46,9 +46,9 @@ class ApiValueTypesTest extends TestCase
 
     public function testSchoolType()
     {
-        $this->assertSame('IB Diploma (foreign country)', HigherEducationEntranceQualification::fromId('46')->getName());
-        $this->assertSame('IB Diploma (Ausland)', HigherEducationEntranceQualification::fromId('46')->getName('de'));
-        $this->assertSame('Unbekannter Wert (1234)', HigherEducationEntranceQualification::fromId('1234')->getName('de'));
+        $this->assertSame('IB Diploma (foreign country)', (new HigherEducationEntranceQualification('46'))->getName());
+        $this->assertSame('IB Diploma (Ausland)', (new HigherEducationEntranceQualification('46'))->getName('de'));
+        $this->assertSame('Unbekannter Wert (1234)', (new HigherEducationEntranceQualification('1234'))->getName('de'));
     }
 
     public function testGender()
