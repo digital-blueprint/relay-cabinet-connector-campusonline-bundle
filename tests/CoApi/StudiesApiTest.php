@@ -18,36 +18,7 @@ class StudiesApiTest extends TestCase
 {
     private CoApi $api;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $config = new ConfigurationService();
-        $config->setConfig([
-            'api_url' => 'https://dummy.at/dummy',
-            'client_id' => '',
-            'client_secret' => '',
-            'data_service_name_studies' => '',
-        ]);
-        $this->api = new CoApi($config);
-        $this->mockResponses([]);
-    }
-
-    private function mockResponses(array $responses)
-    {
-        $stack = HandlerStack::create(new MockHandler($responses));
-        $this->api->setClientHandler($stack, 'nope');
-    }
-
-    public function testGetStudyWebUrl()
-    {
-        $baseApi = new BaseApi(new Connection('https://dummy.at/dummy', 'foo', 'bar'), 'bla', new \DateTimeZone('Europe/London'));
-        $study = new Study(['STPERSONNR' => 1234, 'STSTUDIUMNR' => 5678], $baseApi);
-        $this->assertSame('https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=1234&pStStudiumNr=5678', $study->getWebUrl());
-    }
-
-    public function testGetStudiesNoneFound()
-    {
-        $RESPONSE = '
+    private const RESPONSE_EMPTY = '
 {
     "type": "resources",
     "link": [],
@@ -55,16 +26,53 @@ class StudiesApiTest extends TestCase
 }
         ';
 
-        $this->mockResponses([
-            new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
-        ]);
+    private const RESPONSE_MINIMAL = '
+{
+    "type": "resources",
+    "link": [],
+    "resource": [
+        {
+            "link": [],
+            "content": {
+                "type": "model-eg.dataservices.tugrazonline",
+                "DMSStudies": {
+                    "SOURCE": "LiveSync[Single|Normal]",
+                    "TIMESTAMP": "13.06.2024T13:08:15",
+                    "STSTUDIUMNR": 253324,
+                    "STPERSONNR": 123456,
+                    "STUDYKEY": "UF 066 921",
+                    "STUDYTYPE": "Masterstudium",
+                    "STUDYNAME": "Masterstudium; Computer Science",
+                    "STUDYSEMESTER": 6,
+                    "STUDYSTATUSKEY": "I",
+                    "STUDYSTATUS": "gemeldet",
+                    "STUDYCURRICULUMVERSION": null,
+                    "STUDYIMMATRICULATIONDATE": {
+                        "value": "2021-01-01"
+                    },
+"STUDYIMMATRICULATIONSEMESTER": "20S",
+                    "STUDYEXMATRICULATIONDATE": {
+    "value": null
+                    },
+                    "STUDYEXMATRICULATIONSEMESTER": null,
+                    "STUDYEXMATRICULATIONTYPEKEY": null,
+                    "STUDYEXMATRICULATIONTYPE": null,
+                    "STUDYQUALIFICATIONTYPENR": null,
+                    "STUDYQUALIFICATIONTYPE": null,
+                    "STUDYQUALIFICATIONDATE": {
+    "value": null
+                    },
+                    "STUDYQUALIFICATIONSTATENR": null,
+                    "STUDYQUALIFICATIONSTATE": null,
+                    "ADDITIONALCERTIFICATE": null
+                }
+            }
+        }
+    ]
+}
+        ';
 
-        $this->assertCount(0, $this->api->getStudiesApi()->getStudiesForPersonNumber(4242));
-    }
-
-    public function testGetStudies()
-    {
-        $RESPONSE = '
+    private const RESPONSE_FULL = '
 {
     "type": "resources",
     "link": [],
@@ -110,8 +118,80 @@ class StudiesApiTest extends TestCase
 }
         ';
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $config = new ConfigurationService();
+        $config->setConfig([
+            'api_url' => 'https://dummy.at/dummy',
+            'client_id' => '',
+            'client_secret' => '',
+            'data_service_name_studies' => '',
+        ]);
+        $this->api = new CoApi($config);
+        $this->mockResponses([]);
+    }
+
+    private function mockResponses(array $responses)
+    {
+        $stack = HandlerStack::create(new MockHandler($responses));
+        $this->api->setClientHandler($stack, 'nope');
+    }
+
+    public function testGetStudyWebUrl()
+    {
+        $baseApi = new BaseApi(new Connection('https://dummy.at/dummy', 'foo', 'bar'), 'bla', new \DateTimeZone('Europe/London'));
+        $study = new Study(['STPERSONNR' => 1234, 'STSTUDIUMNR' => 5678], $baseApi);
+        $this->assertSame('https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=1234&pStStudiumNr=5678', $study->getWebUrl());
+    }
+
+    public function testGetStudiesNone()
+    {
         $this->mockResponses([
-            new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+        ]);
+
+        $this->assertCount(0, $this->api->getStudiesApi()->getStudiesForPersonNumber(4242));
+    }
+
+    public function testGetActiveStudies()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
+        ]);
+
+        $this->assertCount(0, $this->api->getStudiesApi()->getActiveStudies());
+        $this->assertCount(1, $this->api->getStudiesApi()->getActiveStudies());
+    }
+
+    public function testGetInactiveStudies()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+        ]);
+
+        $this->assertCount(0, $this->api->getStudiesApi()->getInactiveStudies(40000));
+        $this->assertCount(1, $this->api->getStudiesApi()->getInactiveStudies(40000));
+    }
+
+    public function testGetChangedStudiesSince()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
+        ]);
+
+        $this->assertCount(0, $this->api->getStudiesApi()->getChangedStudiesSince('13.06.2024T13:08:15'));
+        $this->assertCount(1, $this->api->getStudiesApi()->getChangedStudiesSince('13.06.2024T13:08:15'));
+    }
+
+    public function testGetStudies()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
         ]);
 
         $studies = $this->api->getStudiesApi()->getStudiesForPersonNumber(123456);
@@ -148,54 +228,8 @@ class StudiesApiTest extends TestCase
 
     public function testGetStudiesMinimal()
     {
-        $RESPONSE = '
-{
-    "type": "resources",
-    "link": [],
-    "resource": [
-        {
-            "link": [],
-            "content": {
-                "type": "model-eg.dataservices.tugrazonline",
-                "DMSStudies": {
-                    "SOURCE": "LiveSync[Single|Normal]",
-                    "TIMESTAMP": "13.06.2024T13:08:15",
-                    "STSTUDIUMNR": 253324,
-                    "STPERSONNR": 123456,
-                    "STUDYKEY": "UF 066 921",
-                    "STUDYTYPE": "Masterstudium",
-                    "STUDYNAME": "Masterstudium; Computer Science",
-                    "STUDYSEMESTER": 6,
-                    "STUDYSTATUSKEY": "I",
-                    "STUDYSTATUS": "gemeldet",
-                    "STUDYCURRICULUMVERSION": null,
-                    "STUDYIMMATRICULATIONDATE": {
-                        "value": "2021-01-01"
-                    },
-                    "STUDYIMMATRICULATIONSEMESTER": "20S",
-                    "STUDYEXMATRICULATIONDATE": {
-                        "value": null
-                    },
-                    "STUDYEXMATRICULATIONSEMESTER": null,
-                    "STUDYEXMATRICULATIONTYPEKEY": null,
-                    "STUDYEXMATRICULATIONTYPE": null,
-                    "STUDYQUALIFICATIONTYPENR": null,
-                    "STUDYQUALIFICATIONTYPE": null,
-                    "STUDYQUALIFICATIONDATE": {
-                        "value": null
-                    },
-                    "STUDYQUALIFICATIONSTATENR": null,
-                    "STUDYQUALIFICATIONSTATE": null,
-                    "ADDITIONALCERTIFICATE": null
-                }
-            }
-        }
-    ]
-}
-        ';
-
         $this->mockResponses([
-            new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_MINIMAL),
         ]);
 
         $studies = $this->api->getStudiesApi()->getStudiesForPersonNumber(123456);

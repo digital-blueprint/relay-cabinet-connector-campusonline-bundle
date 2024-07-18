@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests\SyncApi;
 
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ApplicationsApi\Application;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\BaseApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Connection;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Student;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\Study;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\JsonConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -78,18 +80,151 @@ class JsonConverterTest extends TestCase
         'NOTE' => 'some note',
     ];
 
+    private const STUDY_DATA = [
+        'SOURCE' => 'LiveSync[Single|Normal]',
+        'TIMESTAMP' => '13.06.2024T13:08:15',
+        'STSTUDIUMNR' => 253324,
+        'STPERSONNR' => 123456,
+        'STUDYKEY' => 'UF 066 921',
+        'STUDYTYPE' => 'Masterstudium',
+        'STUDYNAME' => 'Masterstudium; Computer Science',
+        'STUDYSEMESTER' => 6,
+        'STUDYSTATUSKEY' => 'I',
+        'STUDYSTATUS' => 'gemeldet',
+        'STUDYCURRICULUMVERSION' => '2022W',
+        'STUDYIMMATRICULATIONDATE' => [
+            'value' => '2021-01-01',
+        ],
+        'STUDYIMMATRICULATIONSEMESTER' => '20S',
+        'STUDYEXMATRICULATIONDATE' => [
+            'value' => '2022-01-01',
+        ],
+        'STUDYEXMATRICULATIONSEMESTER' => '24S',
+        'STUDYEXMATRICULATIONTYPEKEY' => 'EZ',
+        'STUDYEXMATRICULATIONTYPE' => 'auf Antrag',
+        'STUDYQUALIFICATIONTYPENR' => '41',
+        'STUDYQUALIFICATIONTYPE' => 'Master-/Diplomst.eigene Univ.',
+        'STUDYQUALIFICATIONDATE' => [
+            'value' => '2010-01-01',
+        ],
+        'STUDYQUALIFICATIONSTATENR' => 168,
+        'STUDYQUALIFICATIONSTATE' => 'Österreich',
+        'ADDITIONALCERTIFICATE' => 'EDG | EGR',
+    ];
+
+    private const APPLICATION_DATA = [
+        'SOURCE' => 'LiveSync',
+        'TIMESTAMP' => '13.06.2024T12:01:15',
+        'BEWERBUNGNR' => 12345,
+        'STPERSONNR' => 123456,
+        'STSTUDIUMNR' => null,
+        'APPLICANTSTARTOFSTUDY' => '21W',
+        'APPLICANTSTUDYTYPE' => 'Bachelorstudium',
+        'APPLICANTSTUDYNAME' => 'Bachelorstudium; Physik',
+        'APPLICANTSTUDYKEY' => 'UF 033 678',
+        'APPLICANTQUALIFICATIONTYPE' => '25 - ausländische Reifeprüfung',
+        'APPLICANTQUALIFICATIONDATE' => [
+            'value' => '1970-01-01',
+        ],
+        'APPLICANTQUALIFICATIONSTATENR' => 40,
+        'APPLICANTQUALIFICATIONSTATE' => 'Bosnien und Herzegowina',
+    ];
+
     private const EXPECTED = [
         'id' => 'F06BCC80D6FC0BDE575B16FB2E3790D5',
         'webUrl' => 'https://dummy.at/dummy/wbStEvidenz.StEvi?pStPersonNr=123123',
-        'syncDateTime' => '2024-06-13T13:00:34+00:00',
+        'syncDateTime' => '2024-06-13T11:01:15+00:00',
         'studentId' => '00712345',
         'givenName' => 'Max',
         'familyName' => 'Mustermann',
         'birthDate' => '1970-01-01',
         'studentPersonNumber' => '123123',
         'studies' => [
+            0 => [
+                'id' => 253324,
+                'webUrl' => 'https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=123456&pStStudiumNr=253324',
+                'studentPersonNumber' => 123456,
+                'key' => 'UF 066 921',
+                'type' => 'Masterstudium',
+                'name' => 'Masterstudium; Computer Science',
+                'semester' => 6,
+                'status' => [
+                    'key' => 'I',
+                    'translations' => [
+                        'de' => 'gemeldet',
+                        'en' => 'gemeldet',
+                    ],
+                ],
+                'curriculumVersion' => '2022W',
+                'immatriculationDate' => '2021-01-01',
+                'immatriculationSemester' => '20S',
+                'exmatriculationDate' => '2022-01-01',
+                'exmatriculationSemester' => '24S',
+                'qualificationType' => [
+                    'key' => '41',
+                    'translations' => [
+                        'de' => 'Master-/Diplomst.eigene Univ.',
+                        'en' => 'Master/ Diploma study programme at own university',
+                    ],
+                ],
+                'qualificationDate' => '2010-01-01',
+                'qualificationState' => [
+                    'key' => '168',
+                    'translations' => [
+                        'de' => 'Österreich',
+                        'en' => 'Austria',
+                    ],
+                ],
+                'exmatriculationType' => [
+                    'key' => 'EZ',
+                    'translations' => [
+                        'de' => 'ex lege (EZ)',
+                        'en' => 'ex lege (EZ)',
+                    ],
+                ],
+                'additionalCertificates' => [
+                    0 => [
+                        'key' => 'EDG',
+                        'translations' => [
+                            'de' => 'Erg.Prfg. - Darstellende Geometrie',
+                            'en' => 'suppl.exam. - Descriptive Geometry',
+                        ],
+                    ],
+                    1 => [
+                        'key' => 'EGR',
+                        'translations' => [
+                            'de' => 'Erg.Prfg. - Griechisch',
+                            'en' => 'suppl.exam. - Greek',
+                        ],
+                    ],
+                ],
+            ],
         ],
         'applications' => [
+            0 => [
+                'id' => 12345,
+                'studyId' => null,
+                'studentPersonNumber' => 123456,
+                'studyKey' => 'UF 033 678',
+                'studyName' => 'Bachelorstudium; Physik',
+                'studyType' => 'Bachelorstudium',
+                'startSemester' => '21W',
+                'qualificationCertificateDate' => '1970-01-01',
+                'qualificationIssuingCountry' => [
+                    'key' => '40',
+                    'translations' => [
+                        'de' => 'Bosnien und Herzegowina',
+                        'en' => 'Bosnia & Herzegovina',
+                    ],
+                ],
+                'qualificationType' => [
+                    'key' => '25',
+                    'translations' => [
+                        'de' => 'ausländische Reifeprüfung',
+                        'en' => 'foreign secondary school leaving exam',
+                    ],
+                ],
+            ],
         ],
         'nationality' => [
             'key' => '11',
@@ -195,7 +330,9 @@ class JsonConverterTest extends TestCase
     {
         $baseApi = new BaseApi(new Connection('https://dummy.at/dummy', 'foo', 'bar'), 'bla', new \DateTimeZone('Europe/London'));
         $student = new Student(self::STUDENT_DATA, $baseApi);
-        $res = JsonConverter::convertToJsonObject($student, [], []);
+        $study = new Study(self::STUDY_DATA, $baseApi);
+        $application = new Application(self::APPLICATION_DATA, $baseApi);
+        $res = JsonConverter::convertToJsonObject($student, [$study], [$application]);
         $this->assertSame(self::EXPECTED, $res);
     }
 }

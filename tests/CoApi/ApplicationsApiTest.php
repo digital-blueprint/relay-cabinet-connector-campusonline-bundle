@@ -15,29 +15,15 @@ class ApplicationsApiTest extends TestCase
 {
     private CoApi $api;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $config = new ConfigurationService();
-        $config->setConfig([
-            'api_url' => '',
-            'client_id' => '',
-            'client_secret' => '',
-            'data_service_name_applications' => '',
-        ]);
-        $this->api = new CoApi($config);
-        $this->mockResponses([]);
-    }
+    private const RESPONSE_EMPTY = '
+{
+    "type": "resources",
+    "link": [],
+    "resource": []
+}
+        ';
 
-    private function mockResponses(array $responses)
-    {
-        $stack = HandlerStack::create(new MockHandler($responses));
-        $this->api->setClientHandler($stack, 'nope');
-    }
-
-    public function testGetApplicationFull()
-    {
-        $RESPONSE = '
+    private const RESPONSE_FULL = '
 {
     "type": "resources",
     "link": [],
@@ -69,8 +55,61 @@ class ApplicationsApiTest extends TestCase
 }
         ';
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $config = new ConfigurationService();
+        $config->setConfig([
+            'api_url' => '',
+            'client_id' => '',
+            'client_secret' => '',
+            'data_service_name_applications' => '',
+        ]);
+        $this->api = new CoApi($config);
+        $this->mockResponses([]);
+    }
+
+    private function mockResponses(array $responses)
+    {
+        $stack = HandlerStack::create(new MockHandler($responses));
+        $this->api->setClientHandler($stack, 'nope');
+    }
+
+    public function testGetApplicationsNone()
+    {
         $this->mockResponses([
-            new Response(200, ['Content-Type' => 'application/json'], $RESPONSE),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+        ]);
+
+        $this->assertCount(0, $this->api->getApplicationsApi()->getApplicationsForPersonNumber(4242));
+    }
+
+    public function testGetAllApplications()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
+        ]);
+
+        $this->assertCount(0, $this->api->getApplicationsApi()->getAllApplications());
+        $this->assertCount(1, $this->api->getApplicationsApi()->getAllApplications());
+    }
+
+    public function testGetChangedApplicationsSince()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
+        ]);
+
+        $this->assertCount(0, $this->api->getApplicationsApi()->getChangedApplicationsSince('13.06.2024T12:01:15'));
+        $this->assertCount(1, $this->api->getApplicationsApi()->getChangedApplicationsSince('13.06.2024T12:01:15'));
+    }
+
+    public function testGetApplicationFull()
+    {
+        $this->mockResponses([
+            new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
         ]);
 
         $applicationsApi = $this->api->getApplicationsApi();
