@@ -142,7 +142,7 @@ class Study extends BaseResource
     {
         $id = $this->data['STUDYQUALIFICATIONTYPENR'];
 
-        return $id !== null ? new HigherEducationEntranceQualification($id) : null;
+        return $id !== null ? new HigherEducationEntranceQualification($id, ['de' => $this->getStudyQualificationTypeString()]) : null;
     }
 
     /**

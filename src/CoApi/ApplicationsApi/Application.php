@@ -33,7 +33,7 @@ class Application extends BaseResource
     {
         $value = $this->data['APPLICANTQUALIFICATIONTYPE'];
 
-        return $value !== null ? HigherEducationEntranceQualification::fromDisplayText($value) : null;
+        return $value !== null ? HigherEducationEntranceQualification::fromDisplayText($value, 'de') : null;
     }
 
     /**

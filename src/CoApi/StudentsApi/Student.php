@@ -106,7 +106,7 @@ class Student extends BaseResource
      */
     public function getAdmissionQualificationType(): HigherEducationEntranceQualification
     {
-        return new HigherEducationEntranceQualification($this->data['ADMISSIONQUALIFICATIONTYPENR']);
+        return new HigherEducationEntranceQualification($this->data['ADMISSIONQUALIFICATIONTYPENR'], ['de' => $this->getAdmissionQualificationTypeString()]);
     }
 
     /**

@@ -250,16 +250,18 @@ class HigherEducationEntranceQualification
             'en' => 'no school leaving certificate',
         ],
     ];
+    private ?array $fallbackTranslations;
 
-    public function __construct(string $value)
+    public function __construct(string $value, ?array $fallbackTranslations = null)
     {
         $this->value = $value;
+        $this->fallbackTranslations = $fallbackTranslations;
     }
 
-    public static function fromDisplayText(string $string): HigherEducationEntranceQualification
+    public static function fromDisplayText(string $string, string $locale): HigherEducationEntranceQualification
     {
-        if (preg_match('/^\d+/', $string, $matches)) {
-            return new self($matches[0]);
+        if (preg_match('/^(\d+) - (.*)/', $string, $matches)) {
+            return new self($matches[1], [$locale => $matches[2]]);
         } else {
             throw new \RuntimeException('Invalid format');
         }
@@ -267,7 +269,7 @@ class HigherEducationEntranceQualification
 
     public function getName(string $locale = 'en'): string
     {
-        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale, $this->fallbackTranslations);
     }
 
     public function forJson(): array
