@@ -71,7 +71,7 @@ class JsonConverter
             'id' => $student->getIdentNumberObfuscated(),
             'webUrl' => $student->getWebUrl(),
             'syncDateTime' => $syncDateTimeString,
-            'studenid' => $student->getStudentId(),
+            'studentId' => $student->getStudentId(),
             'givenName' => $student->getGivenName(),
             'familyName' => $student->getFamilyName(),
             'birthDate' => $student->getBirthDate(),
