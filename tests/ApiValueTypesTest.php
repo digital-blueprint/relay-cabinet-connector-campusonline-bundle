@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ExmatriculationStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\HigherEducationEntranceQualification;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Gender;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Nationality;
@@ -16,8 +17,10 @@ class ApiValueTypesTest extends TestCase
     public function testNationality()
     {
         $this->assertSame('Austria', (new Nationality(168))->getName('en'));
+        $this->assertSame('Bajor', (new Nationality(2369, ['de' => 'Bajor']))->getName());
         $this->assertSame(168, (new Nationality(168))->value);
         $this->assertSame('AUT', (new Nationality(168))->getAlpha3Code());
+
         $this->assertNull((new Nationality(249))->getAlpha3Code());
         $this->assertNull((new Nationality(4242))->getAlpha3Code());
     }
@@ -57,6 +60,7 @@ class ApiValueTypesTest extends TestCase
         $this->assertSame('Weiblich', (new Gender('W'))->getName('fr'));
         $this->assertSame('unknown value (P)', (new Gender('P'))->getName('en'));
         $this->assertSame('Unbekannter Wert (P)', (new Gender('P'))->getName('fr'));
+        $this->assertSame('Hello', (new Gender('H', ['de' => 'Hello']))->getName('fr'));
     }
 
     public function testStudentStatus()
@@ -65,5 +69,14 @@ class ApiValueTypesTest extends TestCase
         $this->assertSame('Außerordentlich', (new StudentStatus('A'))->getName('fr'));
         $this->assertSame('unknown value (P)', (new StudentStatus('P'))->getName('en'));
         $this->assertSame('Unbekannter Wert (P)', (new StudentStatus('P'))->getName('fr'));
+    }
+
+    public function testExmatriculationStatus()
+    {
+        $this->assertSame('auf Antrag (A)', (new ExmatriculationStatus('A'))->getName('de'));
+        $this->assertSame('auf Antrag (A)', (new ExmatriculationStatus('A'))->getName('fr'));
+        $this->assertSame('foo (P)', (new ExmatriculationStatus('P', ['de' => 'foo (P)']))->getName('fr'));
+        $this->assertSame('unknown value (P)', (new ExmatriculationStatus('P'))->getName('en'));
+        $this->assertSame('Unbekannter Wert (P)', (new ExmatriculationStatus('P'))->getName('fr'));
     }
 }

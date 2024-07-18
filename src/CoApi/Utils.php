@@ -20,13 +20,17 @@ class Utils
         return $dateTime->setTimezone(new \DateTimeZone('UTC'));
     }
 
-    public static function getTranslatedText(array $translations, mixed $value, string $locale): string
+    public static function getTranslatedText(array $translations, mixed $value, string $locale, ?array $fallbackTranslations = null): string
     {
         $fallbackLocale = 'de';
         $fallback = [
             'de' => 'Unbekannter Wert',
             'en' => 'unknown value',
         ];
+
+        if (!isset($translations[$value]) && $fallbackTranslations !== null) {
+            $translations[$value] = $fallbackTranslations;
+        }
 
         if (isset($translations[$value])) {
             if (isset($translations[$value][$locale])) {

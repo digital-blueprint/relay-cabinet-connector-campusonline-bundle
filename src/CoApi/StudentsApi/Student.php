@@ -72,7 +72,7 @@ class Student extends BaseResource
      */
     public function getNationality(): Nationality
     {
-        return new Nationality($this->data['NATIONALITYNR']);
+        return new Nationality($this->data['NATIONALITYNR'], ['de' => $this->getNationalityString()]);
     }
 
     /**
@@ -90,7 +90,7 @@ class Student extends BaseResource
     {
         $id = $this->data['NATIONALITYSECONDARYNR'];
 
-        return ($id !== null) ? new Nationality($id) : null;
+        return ($id !== null) ? new Nationality($id, ['de' => $this->getNationalitySecondaryString()]) : null;
     }
 
     /**
@@ -315,7 +315,7 @@ class Student extends BaseResource
      */
     public function getStudentStatus(): StudentStatus
     {
-        return new StudentStatus($this->data['STUDSTATUSKEY']);
+        return new StudentStatus($this->data['STUDSTATUSKEY'], ['de' => $this->getStudentStatusString()]);
     }
 
     /**
@@ -363,7 +363,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['EXMATRICULATIONSTATUSKEY'];
 
-        return $coId !== null ? new ExmatriculationStatus($coId) : null;
+        return $coId !== null ? new ExmatriculationStatus($coId, ['de' => $this->getExmatriculationStatusString()]) : null;
     }
 
     /**
@@ -459,7 +459,7 @@ class Student extends BaseResource
      */
     public function getGender(): Gender
     {
-        return new Gender($this->data['GENDERKEY']);
+        return new Gender($this->data['GENDERKEY'], ['de' => $this->getGenderString()]);
     }
 
     /**

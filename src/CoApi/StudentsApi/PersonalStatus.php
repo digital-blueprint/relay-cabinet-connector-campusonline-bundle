@@ -48,7 +48,7 @@ class PersonalStatus
 
     public function getName(string $locale = 'en'): string
     {
-        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale, ['de' => $this->value]);
     }
 
     public function forJson(): array

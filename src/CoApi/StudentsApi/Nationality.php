@@ -12,10 +12,12 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CountryUtils;
 class Nationality
 {
     public int $value;
+    private ?array $fallbackTranslations;
 
-    public function __construct(int $coId)
+    public function __construct(int $coId, ?array $fallbackTranslations = null)
     {
         $this->value = $coId;
+        $this->fallbackTranslations = $fallbackTranslations;
     }
 
     public function getAlpha3Code(): ?string
@@ -25,7 +27,7 @@ class Nationality
 
     public function getName(string $locale = 'en'): string
     {
-        return CountryUtils::getName($this->value, $locale);
+        return CountryUtils::getName($this->value, $locale, $this->fallbackTranslations);
     }
 
     public function forJson(): array

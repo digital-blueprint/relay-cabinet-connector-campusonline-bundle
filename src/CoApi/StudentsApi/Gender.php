@@ -41,14 +41,17 @@ class Gender
         ],
     ];
 
-    public function __construct(string $value)
+    private ?array $fallbackTranslations;
+
+    public function __construct(string $value, ?array $fallbackTranslations = null)
     {
         $this->value = $value;
+        $this->fallbackTranslations = $fallbackTranslations;
     }
 
     public function getName(string $locale = 'en'): string
     {
-        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale, $this->fallbackTranslations);
     }
 
     public function forJson(): array

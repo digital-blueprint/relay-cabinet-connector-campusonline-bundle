@@ -600,7 +600,7 @@ class CountryUtils
     /**
      * Returns the display name of a CO country ID for a given locale.
      */
-    public static function getName(int $coId, string $locale): string
+    public static function getName(int $coId, string $locale, ?array $fallbackTranslations = null): string
     {
         // If it's ISO, ask the OS
         $alpha3Code = self::getAlpha3Code($coId);
@@ -609,6 +609,6 @@ class CountryUtils
         }
 
         // If not, fall back to the manual translations mapping, or unknown
-        return Utils::getTranslatedText(self::SPECIAL_AREAS_MAPPING, $coId, $locale);
+        return Utils::getTranslatedText(self::SPECIAL_AREAS_MAPPING, $coId, $locale, $fallbackTranslations);
     }
 }
