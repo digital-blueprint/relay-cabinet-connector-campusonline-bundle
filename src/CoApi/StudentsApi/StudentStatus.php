@@ -4,46 +4,39 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi;
 
-enum StudentStatus: string
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Utils;
+
+class StudentStatus
 {
-    /**
-     * Außerordentlich.
-     */
-    case Extraordinary = 'A';
+    public string $value;
 
-    /**
-     * Mitbelegend.
-     */
-    case CoRegistered = 'M';
-
-    /**
-     * nicht zugelassen.
-     */
-    case NotAdmitted = 'E';
-
-    /**
-     * Ordentlich.
-     */
-    case Regular = 'O';
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
 
     public function getName(string $locale = 'en'): string
     {
         $translations = [
-            'de' => [
-                self::Extraordinary->value => 'Außerordentlich',
-                self::CoRegistered->value => 'Mitbelegend',
-                self::NotAdmitted->value => 'nicht zugelassen',
-                self::Regular->value => 'Ordentlich',
+            'A' => [
+                'de' => 'Außerordentlich',
+                'en' => 'extraordinary',
             ],
-            'en' => [
-                self::Extraordinary->value => 'extraordinary',
-                self::CoRegistered->value => 'co-registered',
-                self::NotAdmitted->value => 'not admitted',
-                self::Regular->value => 'regular',
+            'M' => [
+                'de' => 'Mitbelegend',
+                'en' => 'co-registered',
+            ],
+            'E' => [
+                'de' => 'nicht zugelassen',
+                'en' => 'not admitted',
+            ],
+            'O' => [
+                'de' => 'Ordentlich',
+                'en' => 'regular',
             ],
         ];
 
-        return ($translations[$locale] ?? $translations['en'])[$this->value];
+        return Utils::getTranslatedText($translations, $this->value, $locale);
     }
 
     public function forJson(): array

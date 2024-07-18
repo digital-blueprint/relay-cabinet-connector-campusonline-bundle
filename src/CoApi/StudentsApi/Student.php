@@ -315,7 +315,7 @@ class Student extends BaseResource
      */
     public function getStudentStatus(): StudentStatus
     {
-        return StudentStatus::from($this->data['STUDSTATUSKEY']);
+        return new StudentStatus($this->data['STUDSTATUSKEY']);
     }
 
     /**
