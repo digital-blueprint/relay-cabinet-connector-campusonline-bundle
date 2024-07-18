@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests\CoApi;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudyStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -119,7 +118,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame('2010-01-01', $study->getStudyQualificationDate());
         $this->assertSame('Österreich', $study->getStudyQualificationStateString());
         $this->assertSame('AUT', $study->getStudyQualificationState()->getAlpha3Code());
-        $this->assertSame(StudyStatus::Registered, $study->getStudyStatus());
+        $this->assertSame('gemeldet', $study->getStudyStatus()->getName());
         $this->assertSame('gemeldet', $study->getStudyStatusString());
         $this->assertSame('41', $study->getStudyQualificationType()->value);
         $this->assertSame('EZ', $study->getStudyExmatriculationType()->value);
@@ -203,7 +202,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame(null, $study->getStudyQualificationDate());
         $this->assertSame(null, $study->getStudyQualificationStateString());
         $this->assertSame(null, $study->getStudyQualificationState());
-        $this->assertSame(StudyStatus::Registered, $study->getStudyStatus());
+        $this->assertSame('gemeldet', $study->getStudyStatus()->getName());
         $this->assertSame(null, $study->getStudyQualificationType());
         $this->assertSame(null, $study->getStudyExmatriculationType());
         $this->assertSame([], $study->getAdditionalCertificate()->items);

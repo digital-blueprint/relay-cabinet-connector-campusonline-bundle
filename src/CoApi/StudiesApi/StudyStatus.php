@@ -4,92 +4,83 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi;
 
-enum StudyStatus: string
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Utils;
+
+class StudyStatus
 {
-    /**
-     * Studium offen (und Meldung im Vorsemester vorhanden).
-     */
-    case StudiesOpenWithPreviousRegistration = '#';
+    private const TRANSLATIONS = [
+        '#' => [
+            'de' => 'Studium offen (und Meldung im Vorsemester vorhanden)',
+        ],
+        'a' => [
+            'de' => 'noch nicht gemeldet - Studienphase begonnen',
+        ],
+        'B' => [
+            'de' => 'gemeldet - Neueinschreibung',
+        ],
+        'E' => [
+            'de' => 'gemeldet - Ersteinschreibung',
+        ],
+        'I' => [
+            'de' => 'gemeldet',
+        ],
+        'o' => [
+            'de' => 'noch nicht gemeldet - Studium offen',
+        ],
+        'R' => [
+            'de' => 'Rücktritt von Meldung',
+        ],
+        'U' => [
+            'de' => 'beurlaubt',
+        ],
+        'V' => [
+            'de' => 'Verzicht auf Studienplatz',
+        ],
+        'X' => [
+            'de' => 'geschlossen (Abschluss u./o. keine Fortsetzung möglich)',
+        ],
+        'y' => [
+            'de' => 'noch nicht gemeldet - fortzusetzen (erschwert zu öffnen)',
+        ],
+        'Y' => [
+            'de' => 'geschlossen (erschwert zu öffnen)',
+        ],
+        'z' => [
+            'de' => 'noch nicht gemeldet - fortzusetzen',
+        ],
+        'Z' => [
+            'de' => 'geschlossen (Antrag oder ex lege)',
+        ],
+        'f' => [
+            'de' => 'fehler',
+        ],
+        'G' => [
+            'de' => 'logisch gelöscht',
+        ],
+    ];
 
-    /**
-     * noch nicht gemeldet - Studienphase begonnen.
-     */
-    case NotYetRegisteredStudiesStarted = 'a';
+    public string $value;
+    private ?array $fallbackTranslations;
 
-    /**
-     * gemeldet - Neueinschreibung.
-     */
-    case RegisteredNewEnrollment = 'B';
+    public function __construct(string $value, ?array $fallbackTranslations = null)
+    {
+        $this->value = $value;
+        $this->fallbackTranslations = $fallbackTranslations;
+    }
 
-    /**
-     * gemeldet - Ersteinschreibung.
-     */
-    case RegisteredFirstEnrollment = 'E';
-
-    /**
-     * gemeldet.
-     */
-    case Registered = 'I';
-
-    /**
-     * noch nicht gemeldet - Studium offen.
-     */
-    case NotYetRegisteredStudiesOpen = 'o';
-
-    /**
-     * Rücktritt von Meldung.
-     */
-    case WithdrawnFromRegistration = 'R';
-
-    /**
-     * beurlaubt.
-     */
-    case OnLeave = 'U';
-
-    /**
-     * Verzicht auf Studienplatz.
-     */
-    case RelinquishedUniversityPlace = 'V';
-
-    /**
-     * geschlossen (Abschluss u./o. keine Fortsetzung möglich).
-     */
-    case ClosedGraduationOrNoContinuation = 'X';
-
-    /**
-     * noch nicht gemeldet - fortzusetzen (erschwert zu öffnen).
-     */
-    case NotYetRegisteredPendingContinuationDifficult = 'y';
-
-    /**
-     * geschlossen (erschwert zu öffnen).
-     */
-    case ClosedDifficultToOpen = 'Y';
-
-    /**
-     * noch nicht gemeldet - fortzusetzen.
-     */
-    case NotYetRegisteredPendingContinuation = 'z';
-
-    /**
-     * geschlossen (Antrag oder ex lege).
-     */
-    case ClosedByApplicationOrLaw = 'Z';
-
-    /**
-     * fehler.
-     */
-    case Error = 'f';
-
-    /**
-     * logisch gelöscht.
-     */
-    case LogicallyDeleted = 'G';
+    public function getName(string $locale = 'en'): string
+    {
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale, $this->fallbackTranslations);
+    }
 
     public function forJson(): array
     {
         return [
             'key' => $this->value,
+            'translations' => [
+                'de' => $this->getName('de'),
+                'en' => $this->getName('en'),
+            ],
         ];
     }
 }

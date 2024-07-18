@@ -72,7 +72,7 @@ class Study extends BaseResource
      */
     public function getStudyStatus(): StudyStatus
     {
-        return StudyStatus::from($this->data['STUDYSTATUSKEY']);
+        return new StudyStatus($this->data['STUDYSTATUSKEY'], ['de' => $this->getStudyStatusString()]);
     }
 
     /**

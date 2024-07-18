@@ -11,6 +11,7 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Gender;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Nationality;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\StudentStatus;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\AdditionalExams;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudyStatus;
 use Monolog\Test\TestCase;
 
 class ApiValueTypesTest extends TestCase
@@ -82,12 +83,18 @@ class ApiValueTypesTest extends TestCase
         $this->assertSame('Unbekannter Wert (P)', (new ExmatriculationStatus('P'))->getName('fr'));
     }
 
-    public function testsAdditionalExams()
+    public function testAdditionalExams()
     {
         $this->assertSame([], (new AdditionalExams(null))->items);
         $this->assertSame('suppl.exam. - Descriptive Geometry', (new AdditionalExams('EDG'))->items[0]->getName());
         $this->assertSame('unknown value (FOO)', (new AdditionalExams('FOO'))->items[0]->getName());
         $this->assertSame('unknown value (FOO)', (new AdditionalExams('FOO | EDG'))->items[0]->getName());
         $this->assertSame('suppl.exam. - Descriptive Geometry', (new AdditionalExams('FOO | EDG'))->items[1]->getName());
+    }
+
+    public function testStudyStatus()
+    {
+        $this->assertSame('logisch gelöscht', (new StudyStatus('G'))->getName());
+        $this->assertSame('unknown value (Ö)', (new StudyStatus('Ö'))->getName());
     }
 }
