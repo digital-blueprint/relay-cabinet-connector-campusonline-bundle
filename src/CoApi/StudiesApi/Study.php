@@ -168,7 +168,7 @@ class Study extends BaseResource
     {
         $coId = $this->data['STUDYQUALIFICATIONSTATENR'];
 
-        return $coId !== null ? new Country($coId) : null;
+        return $coId !== null ? new Country($coId, ['de' => $this->getStudyQualificationStateString()]) : null;
     }
 
     /**

@@ -128,7 +128,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['ADMISSIONQUALIFICATIONSTATENR'];
 
-        return $coId !== null ? new Country($coId) : null;
+        return $coId !== null ? new Country($coId, ['de' => $this->getAdmissionQualificationStateString()]) : null;
     }
 
     /**
@@ -194,7 +194,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['HOMEADDRESSCOUNTRYNR'];
 
-        return $coId !== null ? new Country($coId) : null;
+        return $coId !== null ? new Country($coId, ['de' => $this->getHomeAddressCountryString()]) : null;
     }
 
     /**
@@ -252,7 +252,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['STUDADDRESSCOUNTRYNR'];
 
-        return $coId !== null ? new Country($coId) : null;
+        return $coId !== null ? new Country($coId, ['de' => $this->getStudentAddressCountryString()]) : null;
     }
 
     /**

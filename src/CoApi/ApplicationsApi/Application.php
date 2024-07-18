@@ -43,7 +43,7 @@ class Application extends BaseResource
     {
         $coId = $this->data['APPLICANTQUALIFICATIONSTATENR'];
 
-        return $coId !== null ? new Country($coId) : null;
+        return $coId !== null ? new Country($coId, ['de' => $this->getQualificationIssuingCountryString()]) : null;
     }
 
     /**
