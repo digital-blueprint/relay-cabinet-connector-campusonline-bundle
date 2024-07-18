@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests\CoApi;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\StudyStatus;

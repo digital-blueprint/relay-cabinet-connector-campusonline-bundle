@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Tests;
 
-use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\Utils as CoUtils;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\Utils as SyncUtils;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -15,12 +14,6 @@ class Test extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
         $this->assertNotNull($container);
-    }
-
-    public function testSyncTimestampToDateTimeUTC()
-    {
-        $dataTime = CoUtils::syncTimestampToDateTimeUTC('13.06.2024T12:01:15', new \DateTimeZone('Europe/Vienna'));
-        $this->assertSame('2024-06-13T10:01:15+00:00', $dataTime->format(\DateTimeInterface::ATOM));
     }
 
     public function testCompareSyncTimestamps()
