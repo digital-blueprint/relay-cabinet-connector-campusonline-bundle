@@ -10,6 +10,37 @@ class Gender
 {
     public string $value;
 
+    private const TRANSLATIONS = [
+        'M' => [
+            'de' => 'Männlich',
+            'en' => 'male',
+        ],
+        'W' => [
+            'de' => 'Weiblich',
+            'en' => 'female',
+        ],
+        'X' => [
+            'de' => 'Divers', // (called "intersex" in the CO translation).
+            'en' => 'non-binary',
+        ],
+        'U' => [
+            'de' => 'Unbekannt',
+            'en' => 'unknown',
+        ],
+        'O' => [
+            'de' => 'Offen',
+            'en' => 'open',
+        ],
+        'I' => [
+            'de' => 'Inter',
+            'en' => 'inter',
+        ],
+        'K' => [
+            'de' => 'Kein Eintrag',
+            'en' => 'no record',
+        ],
+    ];
+
     public function __construct(string $value)
     {
         $this->value = $value;
@@ -17,38 +48,7 @@ class Gender
 
     public function getName(string $locale = 'en'): string
     {
-        $translations = [
-            'M' => [
-                'de' => 'Männlich',
-                'en' => 'male',
-            ],
-            'W' => [
-                'de' => 'Weiblich',
-                'en' => 'female',
-            ],
-            'X' => [
-                'de' => 'Divers', // (called "intersex" in the CO translation).
-                'en' => 'non-binary',
-            ],
-            'U' => [
-                'de' => 'Unbekannt',
-                'en' => 'unknown',
-            ],
-            'O' => [
-                'de' => 'Offen',
-                'en' => 'open',
-            ],
-            'I' => [
-                'de' => 'Inter',
-                'en' => 'inter',
-            ],
-            'K' => [
-                'de' => 'Kein Eintrag',
-                'en' => 'no record',
-            ],
-        ];
-
-        return Utils::getTranslatedText($translations, $this->value, $locale);
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
     }
 
     public function forJson(): array

@@ -11,6 +11,44 @@ class ExmatriculationStatus
 {
     public string $value;
 
+    private const TRANSLATIONS = [
+        // Personenbezogen / Personal
+        'A' => [
+            'de' => 'auf Antrag (A)',
+        ],
+        'E' => [
+            'de' => 'ex lege (E)',
+        ],
+        'EZ' => [
+            'de' => 'ex lege (EZ)',
+        ],
+        'G' => [
+            'de' => 'sonst.Gründe (G)',
+        ],
+        'R' => [
+            'de' => 'Rücktritt Imm. (R)',
+        ],
+        // Studienbezogen / Study-related
+        'I' => [
+            'de' => 'Stpl.Verzicht (I)',
+        ],
+        'MNTC' => [
+            'de' => 'Schließung (MNTC)',
+        ],
+        'MSL' => [
+            'de' => 'keine Mindeststudienleistung (MSL)',
+        ],
+        'U' => [
+            'de' => 'Abbruch Studium (U)',
+        ],
+        'Y' => [
+            'de' => 'n.bestand.Auflagen (Y)',
+        ],
+        'V' => [
+            'de' => 'verstorben (V)',
+        ],
+    ];
+
     public function __construct(string $value)
     {
         $this->value = $value;
@@ -18,45 +56,7 @@ class ExmatriculationStatus
 
     public function getName(string $locale = 'en'): string
     {
-        $translations = [
-            // Personenbezogen / Personal
-            'A' => [
-                'de' => 'auf Antrag (A)',
-            ],
-            'E' => [
-                'de' => 'ex lege (E)',
-            ],
-            'EZ' => [
-                'de' => 'ex lege (EZ)',
-            ],
-            'G' => [
-                'de' => 'sonst.Gründe (G)',
-            ],
-            'R' => [
-                'de' => 'Rücktritt Imm. (R)',
-            ],
-            // Studienbezogen / Study-related
-            'I' => [
-                'de' => 'Stpl.Verzicht (I)',
-            ],
-            'MNTC' => [
-                'de' => 'Schließung (MNTC)',
-            ],
-            'MSL' => [
-                'de' => 'keine Mindeststudienleistung (MSL)',
-            ],
-            'U' => [
-                'de' => 'Abbruch Studium (U)',
-            ],
-            'Y' => [
-                'de' => 'n.bestand.Auflagen (Y)',
-            ],
-            'V' => [
-                'de' => 'verstorben (V)',
-            ],
-        ];
-
-        return Utils::getTranslatedText($translations, $this->value, $locale);
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
     }
 
     public function forJson(): array

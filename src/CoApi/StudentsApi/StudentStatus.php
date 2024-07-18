@@ -10,6 +10,25 @@ class StudentStatus
 {
     public string $value;
 
+    private const TRANSLATIONS = [
+        'A' => [
+            'de' => 'Außerordentlich',
+            'en' => 'extraordinary',
+        ],
+        'M' => [
+            'de' => 'Mitbelegend',
+            'en' => 'co-registered',
+        ],
+        'E' => [
+            'de' => 'nicht zugelassen',
+            'en' => 'not admitted',
+        ],
+        'O' => [
+            'de' => 'Ordentlich',
+            'en' => 'regular',
+        ],
+    ];
+
     public function __construct(string $value)
     {
         $this->value = $value;
@@ -17,26 +36,7 @@ class StudentStatus
 
     public function getName(string $locale = 'en'): string
     {
-        $translations = [
-            'A' => [
-                'de' => 'Außerordentlich',
-                'en' => 'extraordinary',
-            ],
-            'M' => [
-                'de' => 'Mitbelegend',
-                'en' => 'co-registered',
-            ],
-            'E' => [
-                'de' => 'nicht zugelassen',
-                'en' => 'not admitted',
-            ],
-            'O' => [
-                'de' => 'Ordentlich',
-                'en' => 'regular',
-            ],
-        ];
-
-        return Utils::getTranslatedText($translations, $this->value, $locale);
+        return Utils::getTranslatedText(self::TRANSLATIONS, $this->value, $locale);
     }
 
     public function forJson(): array
