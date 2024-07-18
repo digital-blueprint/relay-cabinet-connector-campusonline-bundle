@@ -363,7 +363,7 @@ class Student extends BaseResource
     {
         $coId = $this->data['EXMATRICULATIONSTATUSKEY'];
 
-        return $coId !== null ? ExmatriculationStatus::fromId($coId) : null;
+        return $coId !== null ? new ExmatriculationStatus($coId) : null;
     }
 
     /**

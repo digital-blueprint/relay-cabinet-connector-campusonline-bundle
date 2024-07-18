@@ -11,52 +11,52 @@ class ExmatriculationStatus
 {
     public string $value;
 
-    public function __construct(string $coId)
+    public function __construct(string $value)
     {
-        $this->value = $coId;
-    }
-
-    public static function fromId(string $id): ExmatriculationStatus
-    {
-        return new self($id);
+        $this->value = $value;
     }
 
     public function getName(string $locale = 'en'): string
     {
         $translations = [
-            'de' => [
-                // Personenbezogen
-                'A' => 'auf Antrag (A)',
-                'E' => 'ex lege (E)',
-                'EZ' => 'ex lege (EZ)',
-                'G' => 'sonst.Gründe (G)',
-                'R' => 'Rücktritt Imm. (R)',
-                // Studienbezogen
-                'I' => 'Stpl.Verzicht (I)',
-                'MNTC' => 'Schließung (MNTC)',
-                'MSL' => 'keine Mindeststudienleistung (MSL)',
-                'U' => 'Abbruch Studium (U)',
-                'Y' => 'n.bestand.Auflagen (Y)',
-                'V' => 'verstorben (V)',
+            // Personenbezogen / Personal
+            'A' => [
+                'de' => 'auf Antrag (A)',
             ],
-            'en' => [
-                // Personal
-                'A' => 'auf Antrag (A)',
-                'E' => 'ex lege (E)',
-                'EZ' => 'ex lege (EZ)',
-                'G' => 'sonst.Gründe (G)',
-                'R' => 'Rücktritt Imm. (R)',
-                // Study-related
-                'I' => 'Stpl.Verzicht (I)',
-                'MNTC' => 'Schließung (MNTC)',
-                'MSL' => 'keine Mindeststudienleistung (MSL)',
-                'U' => 'Abbruch Studium (U)',
-                'Y' => 'n.bestand.Auflagen (Y)',
-                'V' => 'verstorben (V)',
+            'E' => [
+                'de' => 'ex lege (E)',
+            ],
+            'EZ' => [
+                'de' => 'ex lege (EZ)',
+            ],
+            'G' => [
+                'de' => 'sonst.Gründe (G)',
+            ],
+            'R' => [
+                'de' => 'Rücktritt Imm. (R)',
+            ],
+            // Studienbezogen / Study-related
+            'I' => [
+                'de' => 'Stpl.Verzicht (I)',
+            ],
+            'MNTC' => [
+                'de' => 'Schließung (MNTC)',
+            ],
+            'MSL' => [
+                'de' => 'keine Mindeststudienleistung (MSL)',
+            ],
+            'U' => [
+                'de' => 'Abbruch Studium (U)',
+            ],
+            'Y' => [
+                'de' => 'n.bestand.Auflagen (Y)',
+            ],
+            'V' => [
+                'de' => 'verstorben (V)',
             ],
         ];
 
-        return ($translations[$locale] ?? $translations['en'])[$this->value];
+        return Utils::getTranslatedText($translations, $this->value, $locale);
     }
 
     public function forJson(): array

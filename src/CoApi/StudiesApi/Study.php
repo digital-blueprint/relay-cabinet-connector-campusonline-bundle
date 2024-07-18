@@ -186,7 +186,7 @@ class Study extends BaseResource
     {
         $coId = $this->data['STUDYEXMATRICULATIONTYPEKEY'];
 
-        return $coId !== null ? ExmatriculationStatus::fromId($coId) : null;
+        return $coId !== null ? new ExmatriculationStatus($coId) : null;
     }
 
     /**

@@ -54,16 +54,16 @@ class ApiValueTypesTest extends TestCase
     public function testGender()
     {
         $this->assertSame('Weiblich', (new Gender('W'))->getName('de'));
-        $this->assertSame('female', (new Gender('W'))->getName('fr'));
-        $this->assertSame('unknown value (P)', (new Gender('P'))->getName('fr'));
-        $this->assertSame('Unbekannter Wert (P)', (new Gender('P'))->getName('de'));
+        $this->assertSame('Weiblich', (new Gender('W'))->getName('fr'));
+        $this->assertSame('unknown value (P)', (new Gender('P'))->getName('en'));
+        $this->assertSame('Unbekannter Wert (P)', (new Gender('P'))->getName('fr'));
     }
 
     public function testStudentStatus()
     {
         $this->assertSame('Außerordentlich', (new StudentStatus('A'))->getName('de'));
-        $this->assertSame('extraordinary', (new StudentStatus('A'))->getName('fr'));
-        $this->assertSame('unknown value (P)', (new StudentStatus('P'))->getName('fr'));
-        $this->assertSame('Unbekannter Wert (P)', (new StudentStatus('P'))->getName('de'));
+        $this->assertSame('Außerordentlich', (new StudentStatus('A'))->getName('fr'));
+        $this->assertSame('unknown value (P)', (new StudentStatus('P'))->getName('en'));
+        $this->assertSame('Unbekannter Wert (P)', (new StudentStatus('P'))->getName('fr'));
     }
 }

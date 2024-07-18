@@ -22,6 +22,7 @@ class Utils
 
     public static function getTranslatedText(array $translations, mixed $value, string $locale): string
     {
+        $fallbackLocale = 'de';
         $fallback = [
             'de' => 'Unbekannter Wert',
             'en' => 'unknown value',
@@ -31,13 +32,13 @@ class Utils
             if (isset($translations[$value][$locale])) {
                 return $translations[$value][$locale];
             } else {
-                return $translations[$value]['en'];
+                return $translations[$value][$fallbackLocale];
             }
         } else {
             if (isset($fallback[$locale])) {
                 return $fallback[$locale].' ('.$value.')';
             } else {
-                return $fallback['en'].' ('.$value.')';
+                return $fallback[$fallbackLocale].' ('.$value.')';
             }
         }
     }
