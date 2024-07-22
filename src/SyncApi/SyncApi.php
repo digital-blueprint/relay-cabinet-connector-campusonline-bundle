@@ -66,7 +66,7 @@ class SyncApi implements LoggerAwareInterface
     {
         $res = [];
         foreach ($ids as $id) {
-            $res[] = $this->getSingleForObfuscatedId($id);
+            $res[$id] = $this->getSingleForObfuscatedId($id);
         }
 
         $newCursor = new Cursor();

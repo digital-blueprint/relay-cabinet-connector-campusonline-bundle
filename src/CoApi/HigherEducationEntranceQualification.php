@@ -11,11 +11,6 @@ class HigherEducationEntranceQualification
 {
     public string $value;
 
-    private const UNKOWN = [
-        'de' => 'Unbekannt',
-        'en' => 'Unknown',
-    ];
-
     private const TRANSLATIONS = [
         '01' => [
             'de' => 'Gymnasium',

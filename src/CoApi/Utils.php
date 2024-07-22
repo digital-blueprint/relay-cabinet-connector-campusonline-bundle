@@ -52,7 +52,7 @@ class Utils
         ];
 
         if (!isset($translations[$value]) && $fallbackTranslations !== null) {
-            assert($fallbackTranslations);
+            assert($fallbackTranslations !== []);
             $translations[$value] = $fallbackTranslations;
         }
 

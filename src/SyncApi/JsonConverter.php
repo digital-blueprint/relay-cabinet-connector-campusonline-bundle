@@ -39,7 +39,7 @@ class JsonConverter
                 'qualificationDate' => $study->getStudyQualificationDate(),
                 'qualificationState' => $study->getStudyQualificationState()?->forJson(),
                 'exmatriculationType' => $study->getStudyExmatriculationType()?->forJson(),
-                'additionalCertificates' => $study->getAdditionalCertificate()?->forJson(),
+                'additionalCertificates' => $study->getAdditionalCertificates()->forJson(),
             ];
             $studiesData[] = $entry;
         }

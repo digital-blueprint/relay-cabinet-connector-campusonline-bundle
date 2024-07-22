@@ -201,7 +201,7 @@ class Study extends BaseResource
     /**
      * Examples: 'EDG', 'ED', 'ZDG', 'EDG | EGR', 'EBE', 'EDG | EDG', 'AZP', 'EL', 'EBU', 'ZBU'.
      */
-    public function getAdditionalCertificate(): AdditionalExams
+    public function getAdditionalCertificates(): AdditionalExams
     {
         $value = $this->data['ADDITIONALCERTIFICATE'];
 

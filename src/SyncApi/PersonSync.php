@@ -20,10 +20,7 @@ use Psr\Log\NullLogger;
 class PersonSync implements PersonSyncInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
-
-    private SyncApi $syncApi;
     private ConfigurationService $config;
-    private CoApi $coApi;
     private ?CacheItemPoolInterface $cachePool;
 
     public function __construct(ConfigurationService $config)
