@@ -13,5 +13,6 @@ class UtilsTest extends TestCase
     {
         $dataTime = Utils::syncTimestampToDateTimeUTC('13.06.2024T12:01:15', new \DateTimeZone('Europe/Vienna'));
         $this->assertSame('2024-06-13T10:01:15+00:00', $dataTime->format(\DateTimeInterface::ATOM));
+        $this->assertSame('13.06.2024T12:01:15', Utils::dateTimeToSyncTimestamp($dataTime, new \DateTimeZone('Europe/Vienna')));
     }
 }

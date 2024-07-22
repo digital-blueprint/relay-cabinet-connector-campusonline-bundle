@@ -6,11 +6,11 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
 
 class Cursor
 {
-    public ?string $lastSyncApplications = null;
+    public ?\DateTimeInterface $lastSyncApplications = null;
 
-    public ?string $lastSyncActiveStudies = null;
+    public ?\DateTimeInterface $lastSyncActiveStudies = null;
 
-    public ?string $lastSyncActiveStudents = null;
+    public ?\DateTimeInterface $lastSyncActiveStudents = null;
 
     public function encode(): string
     {

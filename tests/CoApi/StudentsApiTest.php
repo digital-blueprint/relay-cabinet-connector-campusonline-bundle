@@ -253,8 +253,8 @@ class StudentsApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_MINIMAL),
         ]);
 
-        $this->assertCount(0, iterator_to_array($this->api->getStudentsApi()->getChangedStudentsSince('13.06.2024T13:08:15')));
-        $this->assertCount(1, iterator_to_array($this->api->getStudentsApi()->getChangedStudentsSince('13.06.2024T13:08:15')));
+        $this->assertCount(0, iterator_to_array($this->api->getStudentsApi()->getChangedStudentsSince(new \DateTimeImmutable())));
+        $this->assertCount(1, iterator_to_array($this->api->getStudentsApi()->getChangedStudentsSince(new \DateTimeImmutable())));
     }
 
     public function testGetInactiveStudents()
@@ -280,7 +280,7 @@ class StudentsApiTest extends TestCase
         $data = $this->api->getStudentsApi()->getStudentForObfuscatedId('F06BCC80D6FC0BDE575B16FB2E3790D5');
 
         $this->assertSame('LiveSync[Single|Normal]', $data->getSyncSource());
-        $this->assertSame('13.06.2024T14:00:34', $data->getSyncTimestamp());
+        $this->assertSame('13.06.2024T14:00:34', $data->getSyncTimestampString());
 
         $this->assertSame('1970-01-01', $data->getBirthDate());
         $this->assertSame('male', $data->getGender()->getName());
@@ -338,7 +338,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('21W', $data->getImmatriculationSemester());
         $this->assertSame('some note', $data->getNote());
         $this->assertSame(true, $data->isActive());
-        $this->assertSame(1718280034, $data->getSyncDateTime()->getTimestamp());
+        $this->assertSame(1718280034, $data->getSyncTimestamp()->getTimestamp());
         $this->assertSame(true, $data->isLiveData());
     }
 
@@ -370,7 +370,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('Bosnien und Herzegowina', $data->getAdmissionQualificationStateString());
         $this->assertSame('21W', $data->getImmatriculationSemester());
         $this->assertSame(false, $data->isActive());
-        $this->assertSame(1718280034, $data->getSyncDateTime()->getTimestamp());
+        $this->assertSame(1718280034, $data->getSyncTimestamp()->getTimestamp());
         $this->assertSame(true, $data->isLiveData());
 
         // These are all optional

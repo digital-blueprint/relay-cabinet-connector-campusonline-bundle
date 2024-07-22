@@ -41,7 +41,7 @@ class BaseApi
         return null;
     }
 
-    public function getResourceCollection(?string $lastSyncDate = null, bool $syncOnlyInactive = false, ?int $page = null, ?int $pageSize = null, array $filters = []): array
+    public function getResourceCollection(?\DateTimeInterface $lastSyncDate = null, bool $syncOnlyInactive = false, ?int $page = null, ?int $pageSize = null, array $filters = []): array
     {
         $connection = $this->connection;
 
@@ -62,7 +62,7 @@ class BaseApi
             $params['PageSize'] = $pageSize;
         }
         if ($lastSyncDate !== null) {
-            $params['LastSyncDate'] = $lastSyncDate;
+            $params['LastSyncDate'] = Utils::dateTimeToSyncTimestamp($lastSyncDate, $this->dateTimeZone);
         }
         if ($syncOnlyInactive === true) {
             $params['SyncOnlyInactive'] = 'YES';

@@ -62,7 +62,7 @@ class StudiesApi
      *
      * @return array<int, Study[]> a mapping of studentPersonNumber to Study
      */
-    public function getChangedStudiesSince(?string $lastSyncDate): array
+    public function getChangedStudiesSince(?\DateTimeInterface $lastSyncDate): array
     {
         $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
         $studies = [];

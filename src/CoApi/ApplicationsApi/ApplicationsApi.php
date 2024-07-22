@@ -41,7 +41,7 @@ class ApplicationsApi
      *
      * @return array<int, Application[]> a mapping of studentPersonNumber to applications
      */
-    public function getChangedApplicationsSince(?string $lastSyncDate): array
+    public function getChangedApplicationsSince(?\DateTimeInterface $lastSyncDate): array
     {
         $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
         $applications = [];

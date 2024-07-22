@@ -184,8 +184,8 @@ class StudiesApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
         ]);
 
-        $this->assertCount(0, $this->api->getStudiesApi()->getChangedStudiesSince('13.06.2024T13:08:15'));
-        $this->assertCount(1, $this->api->getStudiesApi()->getChangedStudiesSince('13.06.2024T13:08:15'));
+        $this->assertCount(0, $this->api->getStudiesApi()->getChangedStudiesSince(new \DateTimeImmutable()));
+        $this->assertCount(1, $this->api->getStudiesApi()->getChangedStudiesSince(new \DateTimeImmutable()));
     }
 
     public function testGetStudies()
@@ -223,7 +223,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame('Master-/Diplomst.eigene Univ.', $study->getStudyQualificationTypeString());
         $this->assertSame(true, $study->isActive());
         $this->assertSame(true, $study->isLiveData());
-        $this->assertSame(1718276895, $study->getSyncDateTime()->getTimestamp());
+        $this->assertSame(1718276895, $study->getSyncTimestamp()->getTimestamp());
     }
 
     public function testGetStudiesMinimal()
@@ -257,6 +257,6 @@ class StudiesApiTest extends TestCase
         $this->assertSame(null, $study->getStudyQualificationTypeString());
         $this->assertSame(false, $study->isActive());
         $this->assertSame(true, $study->isLiveData());
-        $this->assertSame(1718276895, $study->getSyncDateTime()->getTimestamp());
+        $this->assertSame(1718276895, $study->getSyncTimestamp()->getTimestamp());
     }
 }

@@ -32,6 +32,17 @@ class Utils
         return $dateTime->setTimezone(new \DateTimeZone('UTC'));
     }
 
+    /**
+     * Reverts the operation done by syncTimestampToDateTimeUTC().
+     */
+    public static function dateTimeToSyncTimestamp(\DateTimeInterface $datetime, \DateTimeZone $timezone): string
+    {
+        $datetime = \DateTimeImmutable::createFromInterface($datetime);
+        $datetime = $datetime->setTimezone($timezone);
+
+        return $datetime->format('d.m.Y\TH:i:s');
+    }
+
     public static function getTranslatedText(array $translations, mixed $value, string $locale, ?array $fallbackTranslations = null): string
     {
         $fallbackLocale = 'de';

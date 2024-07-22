@@ -102,8 +102,8 @@ class ApplicationsApiTest extends TestCase
             new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_FULL),
         ]);
 
-        $this->assertCount(0, $this->api->getApplicationsApi()->getChangedApplicationsSince('13.06.2024T12:01:15'));
-        $this->assertCount(1, $this->api->getApplicationsApi()->getChangedApplicationsSince('13.06.2024T12:01:15'));
+        $this->assertCount(0, $this->api->getApplicationsApi()->getChangedApplicationsSince(new \DateTimeImmutable()));
+        $this->assertCount(1, $this->api->getApplicationsApi()->getChangedApplicationsSince(new \DateTimeImmutable()));
     }
 
     public function testGetApplicationFull()
@@ -122,8 +122,8 @@ class ApplicationsApiTest extends TestCase
         $this->assertSame('foreign secondary school leaving exam', $application->getQualification()->getName());
         $this->assertSame(123456, $application->getStudentPersonNumber());
         $this->assertSame(null, $application->getStudyNumber());
-        $this->assertSame('13.06.2024T12:01:15', $application->getSyncTimestamp());
-        $this->assertSame(1718272875, $application->getSyncDateTime()->getTimestamp());
+        $this->assertSame('13.06.2024T12:01:15', $application->getSyncTimestampString());
+        $this->assertSame(1718272875, $application->getSyncTimestamp()->getTimestamp());
         $this->assertSame('LiveSync', $application->getSyncSource());
         $this->assertSame('1970-01-01', $application->getQualificationCertificateDate());
         $this->assertSame('BIH', $application->getQualificationIssuingCountry()->getAlpha3Code());

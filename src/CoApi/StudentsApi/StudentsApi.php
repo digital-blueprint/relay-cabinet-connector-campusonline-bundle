@@ -63,7 +63,7 @@ class StudentsApi
      *
      * @return iterable<Student>
      */
-    public function getChangedStudentsSince(?string $lastSyncDate): iterable
+    public function getChangedStudentsSince(?\DateTimeInterface $lastSyncDate): iterable
     {
         $resources = $this->api->getResourceCollection(lastSyncDate: $lastSyncDate);
         foreach ($resources as $resource) {
