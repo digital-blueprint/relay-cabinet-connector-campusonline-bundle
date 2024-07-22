@@ -99,7 +99,7 @@ class SyncCommand extends Command implements LoggerAwareInterface
         $sync->setLogger($this->logger);
 
         if ($cursor === null) {
-            $res = $sync->getAll($this->config->getExcludeInactive());
+            $res = $sync->getAllFirstTime($this->config->getExcludeInactive());
         } else {
             $res = $sync->getAllSince($cursor);
         }

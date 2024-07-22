@@ -22,12 +22,19 @@ class SyncApi implements LoggerAwareInterface
         $this->logger = new NullLogger();
     }
 
-    private function getSingleForStudent(Student $student): array
+    private function getSingleForStudent(Student $student, ?Cursor $cursor): array
     {
         $api = $this->coApi;
+        $cursor?->recordStudent($student);
         $nr = $student->getStudentPersonNumber();
         $studies = $api->getStudiesApi()->getStudiesForPersonNumber($nr);
+        foreach ($studies as $study) {
+            $cursor?->recordStudy($study);
+        }
         $applications = $api->getApplicationsApi()->getApplicationsForPersonNumber($nr);
+        foreach ($applications as $application) {
+            $cursor?->recordApplication($application);
+        }
 
         return JsonConverter::convertToJsonObject($student, $studies, $applications);
     }
@@ -44,7 +51,7 @@ class SyncApi implements LoggerAwareInterface
             return null;
         }
 
-        return $this->getSingleForStudent($student);
+        return $this->getSingleForStudent($student, null);
     }
 
     /**
@@ -59,17 +66,21 @@ class SyncApi implements LoggerAwareInterface
             return null;
         }
 
-        return $this->getSingleForStudent($student);
+        return $this->getSingleForStudent($student, null);
     }
 
     public function getSome(array $ids, ?string $cursor = null): SyncResult
     {
+        $newCursor = ($cursor !== null) ? Cursor::decode($cursor) : new Cursor();
+        $api = $this->coApi->getStudentsApi();
+
         $res = [];
         foreach ($ids as $id) {
-            $res[$id] = $this->getSingleForObfuscatedId($id);
+            $student = $api->getStudentForObfuscatedId($id);
+            if ($student !== null) {
+                $res[$id] = $this->getSingleForStudent($student, $newCursor);
+            }
         }
-
-        $newCursor = new Cursor();
 
         return new SyncResult($res, $newCursor->encode());
     }
@@ -80,28 +91,22 @@ class SyncApi implements LoggerAwareInterface
      */
     public function getAllSince(string $newCursor): SyncResult
     {
-        // FIXME: This can return data that is older then the one fetched via getSingle*()
-        // FIXME: We have to keep track of the IDs and sync timestamps somehow and filter those out
-        // FIXME: We have ignore live records for the minimum timestamp calculation, if they are the only one
-        // FIXME: we would take their timestamp and might miss some updates.
         $this->logger->info('Starting a partial sync');
         $api = $this->coApi;
         $oldCursor = Cursor::decode($newCursor);
-        if ($oldCursor->lastSyncActiveStudents === null && $oldCursor->lastSyncActiveStudies === null && $oldCursor->lastSyncApplications === null) {
-            return $this->getAll();
-        }
-        $newCursor = new Cursor();
+        $newCursor = new Cursor($oldCursor);
 
         // Get all students that have changed
         $this->logger->info('Checking for changed students', ['sync timestamp' => $oldCursor->lastSyncActiveStudents]);
         $changedStudents = [];
         foreach ($api->getStudentsApi()->getChangedStudentsSince($oldCursor->lastSyncActiveStudents) as $student) {
-            Utils::updateMinSyncDateTime($student, $newCursor->lastSyncActiveStudents);
+            $newCursor->recordStudent($student);
+            if ($newCursor->isStudentOutdated($student)) {
+                continue;
+            }
             $changedStudents[$student->getStudentPersonNumber()] = $student;
         }
         $this->logger->info(count($changedStudents).' changed students');
-        // If there were no updates, keep the old sync date
-        $newCursor->lastSyncActiveStudents ??= $oldCursor->lastSyncActiveStudents;
 
         // Get all students for applications that have changed
         $this->logger->info('Checking for changed applications', ['sync timestamp' => $newCursor->lastSyncApplications]);
@@ -109,17 +114,19 @@ class SyncApi implements LoggerAwareInterface
         $changedApplicationStudentsCount = 0;
         foreach ($api->getApplicationsApi()->getChangedApplicationsSince($oldCursor->lastSyncApplications) as $nr => $entries) {
             ++$changedApplicationStudentsCount;
+            $anyNotOutdated = false;
             foreach ($entries as $application) {
                 ++$changedApplicationsCount;
-                Utils::updateMinSyncDateTime($application, $newCursor->lastSyncApplications);
+                $newCursor->recordApplication($application);
+                if (!$newCursor->isApplicationOutdated($application)) {
+                    $anyNotOutdated = true;
+                }
             }
-            if (!array_key_exists($nr, $changedStudents)) {
+            if ($anyNotOutdated && !array_key_exists($nr, $changedStudents)) {
                 $changedStudents[$nr] = null;
             }
         }
         $this->logger->info($changedApplicationsCount.' changed applications affecting '.$changedApplicationStudentsCount.' students');
-        // If there were no updates, keep the old sync date
-        $newCursor->lastSyncApplications ??= $oldCursor->lastSyncApplications;
 
         // Get all students for studies that have changed
         $this->logger->info('Checking for changed studies', ['sync timestamp' => $oldCursor->lastSyncActiveStudies]);
@@ -127,29 +134,33 @@ class SyncApi implements LoggerAwareInterface
         $changedStudyStudentsCount = 0;
         foreach ($api->getStudiesApi()->getChangedStudiesSince($oldCursor->lastSyncActiveStudies) as $nr => $entries) {
             ++$changedStudyStudentsCount;
+            $anyNotOutdated = false;
             foreach ($entries as $study) {
                 ++$changedStudiesCount;
-                Utils::updateMinSyncDateTime($study, $newCursor->lastSyncActiveStudies);
+                $newCursor->recordStudy($study);
+                if (!$newCursor->isStudyOutdated($study)) {
+                    $anyNotOutdated = true;
+                }
             }
-            if (!array_key_exists($nr, $changedStudents)) {
+            if ($anyNotOutdated && !array_key_exists($nr, $changedStudents)) {
                 $changedStudents[$nr] = null;
             }
         }
         $this->logger->info($changedStudiesCount.' changed studies affecting '.$changedStudyStudentsCount.' students');
-        // If there were no updates, keep the old sync date
-        $newCursor->lastSyncActiveStudies ??= $oldCursor->lastSyncActiveStudies;
 
-        // FIXME: if there are too many requests to be made here we should fall back to a full sync
-        // FIXME: We have to figure out what a reasonable threshold is.
-        // FIXME: We can't ignore inactive records though, they won't be part of the active full sync anymore
         $this->logger->info('Fetching related data for all '.count($changedStudents).' affected students');
         $res = [];
         foreach ($changedStudents as $nr => $student) {
             if ($student === null) {
                 $student = $api->getStudentsApi()->getStudentForPersonNumber($nr);
+                $newCursor->recordStudent($student);
             }
-            $res[$student->getIdentNumberObfuscated()] = $this->getSingleForStudent($student);
+            if (!$newCursor->isStudentOutdated($student)) {
+                $res[$student->getIdentNumberObfuscated()] = $this->getSingleForStudent($student, $newCursor);
+            }
         }
+
+        $newCursor->finish($oldCursor);
 
         return new SyncResult($res, $newCursor->encode());
     }
@@ -157,29 +168,29 @@ class SyncApi implements LoggerAwareInterface
     /**
      * @param $excludeInactive - exclude all inactive students and studies
      */
-    public function getAll(bool $excludeInactive = true, int $pageSize = 40000): SyncResult
+    private function getAll(bool $excludeInactive, int $pageSize): SyncResult
     {
         $api = $this->coApi;
         $cursor = new Cursor();
 
         $this->logger->info('Starting a full sync');
 
-        $getMinForMapping = function (array $mapping, ?\DateTimeInterface &$min): void {
-            foreach ($mapping as $entries) {
-                foreach ($entries as $entry) {
-                    Utils::updateMinSyncDateTime($entry, $min);
-                }
-            }
-        };
-
         $this->logger->info('Fetching all applications');
         $applications = $api->getApplicationsApi()->getAllApplications();
-        $getMinForMapping($applications, $cursor->lastSyncApplications);
+        foreach ($applications as $entries) {
+            foreach ($entries as $application) {
+                $cursor->recordApplication($application);
+            }
+        }
         $this->logger->info(count($applications).' applications received', ['sync timestamp' => $cursor->lastSyncApplications]);
 
         $this->logger->info('Fetching all active studies');
         $activeStudies = $api->getStudiesApi()->getActiveStudies();
-        $getMinForMapping($activeStudies, $cursor->lastSyncActiveStudies);
+        foreach ($activeStudies as $entries) {
+            foreach ($entries as $study) {
+                $cursor->recordStudy($study);
+            }
+        }
         $this->logger->info(count($activeStudies).' active studies received', ['sync timestamp' => $cursor->lastSyncActiveStudies]);
         $inactiveStudies = [];
         if (!$excludeInactive) {
@@ -193,7 +204,7 @@ class SyncApi implements LoggerAwareInterface
         $activeStudentCount = 0;
         foreach ($api->getStudentsApi()->getActiveStudents() as $student) {
             ++$activeStudentCount;
-            Utils::updateMinSyncDateTime($student, $cursor->lastSyncActiveStudents);
+            $cursor->recordStudent($student);
             $nr = $student->getStudentPersonNumber();
             $studentApplications = $applications[$nr] ?? [];
             $studentStudies = $activeStudies[$nr] ?? [];
@@ -218,11 +229,18 @@ class SyncApi implements LoggerAwareInterface
             $this->logger->info('Inactive students disabled via the config, skipping');
         }
 
+        return new SyncResult($res, $cursor->encode());
+    }
+
+    public function getAllFirstTime(bool $excludeInactive = true, int $pageSize = 40000): SyncResult
+    {
+        $result = $this->getAll($excludeInactive, $pageSize);
+
         // Since the sync takes so long and things might have changed since the start, we trigger one
         // incremental sync right away
-        $incrementalSyncResult = $this->getAllSince($cursor->encode());
+        $incrementalSyncResult = $this->getAllSince($result->getCursor());
         $cursor = $incrementalSyncResult->getCursor();
-        $res = array_merge($res, $incrementalSyncResult->getPersons());
+        $res = array_merge($result->getPersons(), $incrementalSyncResult->getPersons());
 
         return new SyncResult($res, $cursor);
     }
