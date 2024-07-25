@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.7
+
+* Expose more fields via PersonSyncInterface
+* Add support for translations fallbacks for enums, in case CO gains new values
+* Include CO edit web URLs for persons and studies in the JSON output
+* Include a sync date in the JSON output (when the data was fetched from the CO DB)
+* Handle manual sync in combination with the delta sync. Delta sync will no longer
+  return outdated records.
+
 ## v0.3.6
 
 * Adjust for CO API changes
