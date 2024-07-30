@@ -217,7 +217,7 @@ class Student extends BaseResource
     /**
      * Example: "c/o Erika Mustermann".
      */
-    public function getStudentAddressNote(): ?string
+    public function getStudyAddressNote(): ?string
     {
         return $this->data['STUDADDRESSNOTE'];
     }
@@ -225,7 +225,7 @@ class Student extends BaseResource
     /**
      * Example: "Hauptstraße 42/4".
      */
-    public function getStudentAddressStreet(): ?string
+    public function getStudyAddressStreet(): ?string
     {
         return $this->data['STUDADDRESSSTREET'];
     }
@@ -233,7 +233,7 @@ class Student extends BaseResource
     /**
      * Example: "Graz".
      */
-    public function getStudentAddressPlace(): ?string
+    public function getStudyAddressPlace(): ?string
     {
         return $this->data['STUDADDRESSPLACE'];
     }
@@ -241,7 +241,7 @@ class Student extends BaseResource
     /**
      * Example: "8010".
      */
-    public function getStudentAddressPostCode(): ?string
+    public function getStudyAddressPostCode(): ?string
     {
         return $this->data['STUDADDRESSPOSTCODE'];
     }
@@ -249,17 +249,17 @@ class Student extends BaseResource
     /**
      * Example: 168.
      */
-    public function getStudentAddressCountry(): ?Country
+    public function getStudyAddressCountry(): ?Country
     {
         $coId = $this->data['STUDADDRESSCOUNTRYNR'];
 
-        return $coId !== null ? new Country($coId, ['de' => $this->getStudentAddressCountryString()]) : null;
+        return $coId !== null ? new Country($coId, ['de' => $this->getStudyAddressCountryString()]) : null;
     }
 
     /**
      * Example: "Österreich".
      */
-    public function getStudentAddressCountryString(): ?string
+    public function getStudyAddressCountryString(): ?string
     {
         return $this->data['STUDADDRESSCOUNTRY'];
     }
@@ -267,7 +267,7 @@ class Student extends BaseResource
     /**
      * Example: "067612345678".
      */
-    public function getStudentAddressTelephoneNumber(): ?string
+    public function getStudyAddressTelephoneNumber(): ?string
     {
         return $this->data['STUDADDRESSTELEPHONE'];
     }
