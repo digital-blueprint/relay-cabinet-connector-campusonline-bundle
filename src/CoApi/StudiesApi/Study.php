@@ -95,19 +95,15 @@ class Study extends BaseResource
     /**
      * Example: "2010-01-01".
      */
-    public function getStudyImmatriculationDate(): string
+    public function getStudyImmatriculationDate(): ?string
     {
-        $value = $this->getDateValue('STUDYIMMATRICULATIONDATE');
-        // From what I see this is always set, unlike the other dates
-        assert($value !== null);
-
-        return $value;
+        return $this->getDateValue('STUDYIMMATRICULATIONDATE');
     }
 
     /**
      * Example: "20S".
      */
-    public function getStudyImmatriculationSemester(): string
+    public function getStudyImmatriculationSemester(): ?string
     {
         return $this->data['STUDYIMMATRICULATIONSEMESTER'];
     }

@@ -48,9 +48,9 @@ class StudiesApiTest extends TestCase
                     "STUDYSTATUS": "gemeldet",
                     "STUDYCURRICULUMVERSION": null,
                     "STUDYIMMATRICULATIONDATE": {
-                        "value": "2021-01-01"
+                        "value": null
                     },
-"STUDYIMMATRICULATIONSEMESTER": "20S",
+                    "STUDYIMMATRICULATIONSEMESTER": null,
                     "STUDYEXMATRICULATIONDATE": {
     "value": null
                     },
@@ -240,7 +240,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame('Masterstudium', $study->getStudyType());
         $this->assertSame('Masterstudium; Computer Science', $study->getStudyName());
         $this->assertSame(6, $study->getStudySemester());
-        $this->assertSame('2021-01-01', $study->getStudyImmatriculationDate());
+        $this->assertSame(null, $study->getStudyImmatriculationDate());
         $this->assertSame(null, $study->getStudyCurriculumVersion());
         $this->assertSame(null, $study->getStudyExmatriculationDate());
         $this->assertSame(null, $study->getStudyQualificationDate());
@@ -252,7 +252,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame([], $study->getAdditionalCertificates()->items);
         $this->assertSame('gemeldet', $study->getStudyStatusString());
         $this->assertSame(null, $study->getStudyExmatriculationTypeString());
-        $this->assertSame('20S', $study->getStudyImmatriculationSemester());
+        $this->assertSame(null, $study->getStudyImmatriculationSemester());
         $this->assertSame(null, $study->getStudyExmatriculationSemester());
         $this->assertSame(null, $study->getStudyQualificationTypeString());
         $this->assertSame(false, $study->isActive());
