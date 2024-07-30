@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.8
+
+* Rename all `studentAddress*` fields to `studyAddress*` in the JSON output.
+* `immatriculationDate` and `immatriculationSemester` study fields are now optional.
+
 ## v0.3.7
 
 * Expose more fields via PersonSyncInterface
