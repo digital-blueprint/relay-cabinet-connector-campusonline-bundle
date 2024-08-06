@@ -23,6 +23,7 @@ class SyncApiTest extends TestCase
     "resource": []
 }
         ';
+    private ConfigurationService $config;
 
     public function setUp(): void
     {
@@ -33,7 +34,9 @@ class SyncApiTest extends TestCase
             'client_id' => '',
             'client_secret' => '',
             'data_service_name_students' => '',
+            'exclude_inactive' => false,
         ]);
+        $this->config = $config;
         $this->api = new CoApi($config);
         $this->mockResponses([]);
     }
@@ -46,7 +49,7 @@ class SyncApiTest extends TestCase
 
     public function testGetSome()
     {
-        $api = new SyncApi($this->api);
+        $api = new SyncApi($this->api, $this->config);
         $this->mockResponses([
             new Response(200, ['Content-Type' => 'application/json'], self::RESPONSE_EMPTY),
         ]);

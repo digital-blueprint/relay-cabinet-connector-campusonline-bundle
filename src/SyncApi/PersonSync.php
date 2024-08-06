@@ -53,7 +53,7 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
         }
 
         $coApi->setLogger($this->logger);
-        $syncApi = new SyncApi($coApi);
+        $syncApi = new SyncApi($coApi, $this->config);
         $syncApi->setLogger($this->logger);
 
         return $syncApi;
@@ -62,7 +62,7 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
     public function getAllPersons(?string $cursor = null): PersonSyncResultInterface
     {
         if ($cursor === null) {
-            return $this->getSyncApi()->getAllFirstTime($this->config->getExcludeInactive());
+            return $this->getSyncApi()->getAllFirstTime();
         } else {
             return $this->getSyncApi()->getAllSince($cursor);
         }

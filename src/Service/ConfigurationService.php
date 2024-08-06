@@ -43,6 +43,9 @@ class ConfigurationService
         return $this->config['client_secret'];
     }
 
+    /**
+     * Exclude all inactive students and studies.
+     */
     public function getExcludeInactive(): bool
     {
         return $this->config['exclude_inactive'];

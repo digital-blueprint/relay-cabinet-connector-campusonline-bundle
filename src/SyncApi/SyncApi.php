@@ -6,6 +6,7 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
 
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Student;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
@@ -15,11 +16,13 @@ class SyncApi implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     private CoApi $coApi;
+    private bool $excludeInactive;
 
-    public function __construct(CoApi $coApi)
+    public function __construct(CoApi $coApi, ConfigurationService $config)
     {
         $this->coApi = $coApi;
         $this->logger = new NullLogger();
+        $this->excludeInactive = $config->getExcludeInactive();
     }
 
     private function getSingleForStudent(Student $student, ?Cursor $cursor): array
@@ -165,10 +168,7 @@ class SyncApi implements LoggerAwareInterface
         return new SyncResult($res, $newCursor->encode());
     }
 
-    /**
-     * @param $excludeInactive - exclude all inactive students and studies
-     */
-    private function getAll(bool $excludeInactive, int $pageSize): SyncResult
+    private function getAll(int $pageSize): SyncResult
     {
         $api = $this->coApi;
         $cursor = new Cursor();
@@ -193,7 +193,7 @@ class SyncApi implements LoggerAwareInterface
         }
         $this->logger->info(count($activeStudies).' active studies received', ['sync timestamp' => $cursor->lastSyncActiveStudies]);
         $inactiveStudies = [];
-        if (!$excludeInactive) {
+        if (!$this->excludeInactive) {
             $inactiveStudies = $api->getStudiesApi()->getInactiveStudies($pageSize);
         } else {
             $this->logger->info('Inactive studies disabled via the config, skipping');
@@ -213,7 +213,7 @@ class SyncApi implements LoggerAwareInterface
         }
         $this->logger->info($activeStudentCount.' active students received', ['sync timestamp' => $cursor->lastSyncActiveStudents]);
 
-        if (!$excludeInactive) {
+        if (!$this->excludeInactive) {
             $this->logger->info('Fetching all inactive students');
             $inactiveStudentCount = 0;
             foreach ($api->getStudentsApi()->getInactiveStudents($pageSize) as $student) {
@@ -232,9 +232,9 @@ class SyncApi implements LoggerAwareInterface
         return new SyncResult($res, $cursor->encode());
     }
 
-    public function getAllFirstTime(bool $excludeInactive = true, int $pageSize = 40000): SyncResult
+    public function getAllFirstTime(int $pageSize = 40000): SyncResult
     {
-        $result = $this->getAll($excludeInactive, $pageSize);
+        $result = $this->getAll($pageSize);
 
         // Since the sync takes so long and things might have changed since the start, we trigger one
         // incremental sync right away

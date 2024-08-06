@@ -62,7 +62,7 @@ class SyncOneCommand extends Command implements LoggerAwareInterface
             $api->setClientHandler($this->clientHandler, $this->token);
         }
 
-        $sync = new SyncApi($api);
+        $sync = new SyncApi($api, $config);
         $data = $sync->getSingleForObfuscatedId($obfuscatedId);
         if ($data === null && is_numeric($obfuscatedId)) {
             $data = $sync->getSingleForPersonNumber((int) $obfuscatedId);

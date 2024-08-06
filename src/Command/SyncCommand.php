@@ -95,11 +95,11 @@ class SyncCommand extends Command implements LoggerAwareInterface
         }
 
         $api->setLogger($this->logger);
-        $sync = new SyncApi($api);
+        $sync = new SyncApi($api, $config);
         $sync->setLogger($this->logger);
 
         if ($cursor === null) {
-            $res = $sync->getAllFirstTime($this->config->getExcludeInactive());
+            $res = $sync->getAllFirstTime();
         } else {
             $res = $sync->getAllSince($cursor);
         }
