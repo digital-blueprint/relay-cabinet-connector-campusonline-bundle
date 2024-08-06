@@ -32,6 +32,9 @@ class SyncApi implements LoggerAwareInterface
         $nr = $student->getStudentPersonNumber();
         $studies = $api->getStudiesApi()->getStudiesForPersonNumber($nr);
         foreach ($studies as $study) {
+            if ($this->excludeInactive && !$study->isActive()) {
+                continue;
+            }
             $cursor?->recordStudy($study);
         }
         $applications = $api->getApplicationsApi()->getApplicationsForPersonNumber($nr);
@@ -50,6 +53,9 @@ class SyncApi implements LoggerAwareInterface
         $api = $this->coApi;
 
         $student = $api->getStudentsApi()->getStudentForPersonNumber($studentPersonNumber);
+        if ($this->excludeInactive && !$student->isActive()) {
+            return null;
+        }
         if ($student === null) {
             return null;
         }
@@ -65,6 +71,9 @@ class SyncApi implements LoggerAwareInterface
         $api = $this->coApi;
 
         $student = $api->getStudentsApi()->getStudentForObfuscatedId($obfuscatedId);
+        if ($this->excludeInactive && !$student->isActive()) {
+            return null;
+        }
         if ($student === null) {
             return null;
         }
