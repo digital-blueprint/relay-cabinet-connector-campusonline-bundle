@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.9
+
+* When exclude_inactive is active, filter out inactive records in the delta and single sync too.
+
 ## v0.3.8
 
 * Rename all `studentAddress*` fields to `studyAddress*` in the JSON output.
