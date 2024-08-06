@@ -167,6 +167,11 @@ class SyncApi implements LoggerAwareInterface
                 $student = $api->getStudentsApi()->getStudentForPersonNumber($nr);
                 $newCursor->recordStudent($student);
             }
+            if ($this->excludeInactive && !$student->isActive()) {
+                // This can happen if a students transitions from active to inactive, just throw
+                // out the update if inactive students should be excluded
+                continue;
+            }
             if (!$newCursor->isStudentOutdated($student)) {
                 $res[$student->getIdentNumberObfuscated()] = $this->getSingleForStudent($student, $newCursor);
             }
