@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.10
+
+* Add parsing for `EXMATRICULATIONSEMESTER` for the student entity.
+* Minor documentation improvements.
+* Drop support for Symfony 5 and api-platform 2.x.
+
 ## v0.3.9
 
 * When exclude_inactive is active, filter out inactive records in the delta and single sync too.
