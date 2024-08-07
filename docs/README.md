@@ -40,3 +40,28 @@ dbp_relay_cabinet_connector_campusonline:
     # Enable caching for easier development
     cache:                false # Example: 'true'
 ```
+
+## Commands
+
+These `show-*` commands print a table of a particular student, their studies, or
+their application. The format is the one returned by the CAMPUSonline API as is.
+
+```
+dbp:relay:cabinet-connector-campusonline:show-applications  Show applications of a student
+dbp:relay:cabinet-connector-campusonline:show-student       Show student data for an obfuscated ID
+dbp:relay:cabinet-connector-campusonline:show-studies       Show studies for an obfuscated ID
+```
+
+The `sync-one` command will print all related data for a particular student as
+JSON. This is the format used which is forwarded to the `dbp/relay-cabinet-bundle`.
+
+```
+dbp:relay:cabinet-connector-campusonline:sync-one           Show JSON for an obfuscated ID
+```
+
+The `sync` command fetches all students and converts them to JSON, but does not
+print anything.
+
+```
+dbp:relay:cabinet-connector-campusonline:sync               Run a sync
+```
