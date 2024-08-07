@@ -56,6 +56,10 @@ class Configuration implements ConfigurationInterface
                         ->info('Enable caching for easier development')
                         ->example('true')
                     ->end()
+                    ->integerNode('page_size')
+                        ->defaultValue(20000)
+                        ->info('The page size used for CO requests')
+                    ->end()
                 ->end()
             ->end();
 

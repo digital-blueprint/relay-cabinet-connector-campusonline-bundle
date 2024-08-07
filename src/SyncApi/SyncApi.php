@@ -17,12 +17,14 @@ class SyncApi implements LoggerAwareInterface
 
     private CoApi $coApi;
     private bool $excludeInactive;
+    private int $pageSize;
 
     public function __construct(CoApi $coApi, ConfigurationService $config)
     {
         $this->coApi = $coApi;
         $this->logger = new NullLogger();
         $this->excludeInactive = $config->getExcludeInactive();
+        $this->pageSize = $config->getPageSize();
     }
 
     private function getSingleForStudent(Student $student, ?Cursor $cursor): array
@@ -246,9 +248,9 @@ class SyncApi implements LoggerAwareInterface
         return new SyncResult($res, $cursor->encode());
     }
 
-    public function getAllFirstTime(int $pageSize = 40000): SyncResult
+    public function getAllFirstTime(): SyncResult
     {
-        $result = $this->getAll($pageSize);
+        $result = $this->getAll($this->pageSize);
 
         // Since the sync takes so long and things might have changed since the start, we trigger one
         // incremental sync right away

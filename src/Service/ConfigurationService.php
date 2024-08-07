@@ -64,4 +64,12 @@ class ConfigurationService
         // XXX: hardcode this for now, maybe make it configurable in the future
         return new \DateTimeZone('Europe/Vienna');
     }
+
+    /**
+     * The page size used for CO requests.
+     */
+    public function getPageSize(): int
+    {
+        return $this->config['page_size'];
+    }
 }
