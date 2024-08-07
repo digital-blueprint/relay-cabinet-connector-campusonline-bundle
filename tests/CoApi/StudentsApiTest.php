@@ -83,7 +83,7 @@ class StudentsApiTest extends TestCase
                     "IMMATRICULATIONDATE": {
                         "value": "2010-12-24"
                     },
-                    "IMMATRICULATIONSEMESTER": "21W",
+                    "IMMATRICULATIONSEMESTER": null,
                     "EXMATRICULATIONSTATUSKEY": null,
                     "EXMATRICULATIONSTATUS": null,
                     "EXMATRICULATIONDATE": {
@@ -371,7 +371,6 @@ class StudentsApiTest extends TestCase
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
         $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
         $this->assertSame('Bosnien und Herzegowina', $data->getAdmissionQualificationStateString());
-        $this->assertSame('21W', $data->getImmatriculationSemester());
         $this->assertSame(false, $data->isActive());
         $this->assertSame(1718280034, $data->getSyncTimestamp()->getTimestamp());
         $this->assertSame(true, $data->isLiveData());
@@ -414,5 +413,6 @@ class StudentsApiTest extends TestCase
         $this->assertSame(null, $data->getTuitionStatus());
         $this->assertSame(null, $data->getTuitionExemptionType());
         $this->assertSame(null, $data->getNote());
+        $this->assertSame(null, $data->getImmatriculationSemester());
     }
 }

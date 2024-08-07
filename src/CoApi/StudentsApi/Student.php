@@ -378,7 +378,7 @@ class Student extends BaseResource
     /**
      * Example: "22W".
      */
-    public function getImmatriculationSemester(): string
+    public function getImmatriculationSemester(): ?string
     {
         return $this->data['IMMATRICULATIONSEMESTER'];
     }
