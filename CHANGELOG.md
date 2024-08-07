@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.11
+
+* Handle null `IMMATRICULATIONSEMESTER`
+* Add new `page_size` option to the bundle config
+
 ## v0.3.10
 
 * Add parsing for `EXMATRICULATIONSEMESTER` for the student entity.
