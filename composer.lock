@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae22d82d31b2f3989f8091041cbac22e",
+    "content-hash": "643b70ec653e551ef83d3e0f0e4cb6db",
     "packages": [
         {
             "name": "api-platform/core",
@@ -504,16 +504,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.2.6",
+            "version": "v0.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "099ce4f98ab2959c9b3de7c325dda03a1d3d27c7"
+                "reference": "57ded264be23650063fbbb271df26bd815c2ae3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/099ce4f98ab2959c9b3de7c325dda03a1d3d27c7",
-                "reference": "099ce4f98ab2959c9b3de7c325dda03a1d3d27c7",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/57ded264be23650063fbbb271df26bd815c2ae3c",
+                "reference": "57ded264be23650063fbbb271df26bd815c2ae3c",
                 "shasum": ""
             },
             "require": {
@@ -573,9 +573,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.6"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.7"
             },
-            "time": "2024-08-01T14:19:31+00:00"
+            "time": "2024-08-07T08:50:05+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
@@ -1949,16 +1949,16 @@
         },
         {
             "name": "doctrine/sql-formatter",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/sql-formatter.git",
-                "reference": "d1ac84aef745c69ea034929eb6d65a6908b675cc"
+                "reference": "7f83911cc5eba870de7ebb11283972483f7e2891"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/d1ac84aef745c69ea034929eb6d65a6908b675cc",
-                "reference": "d1ac84aef745c69ea034929eb6d65a6908b675cc",
+                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/7f83911cc5eba870de7ebb11283972483f7e2891",
+                "reference": "7f83911cc5eba870de7ebb11283972483f7e2891",
                 "shasum": ""
             },
             "require": {
@@ -1998,9 +1998,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/sql-formatter/issues",
-                "source": "https://github.com/doctrine/sql-formatter/tree/1.4.0"
+                "source": "https://github.com/doctrine/sql-formatter/tree/1.4.1"
             },
-            "time": "2024-05-08T08:12:09+00:00"
+            "time": "2024-08-05T20:32:22+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
