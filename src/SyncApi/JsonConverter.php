@@ -107,6 +107,7 @@ class JsonConverter
             'exmatriculationStatus' => $student->getExmatriculationStatus()?->forJson(),
             'immatriculationSemester' => $student->getImmatriculationSemester(),
             'exmatriculationDate' => $student->getExmatriculationDate(),
+            'exmatriculationSemester' => $student->getExmatriculationSemester(),
             'termStart' => $student->getTermStart(),
             'termEnd' => $student->getTermEnd(),
             'academicTitlePreceding' => $student->getAcademicTitlePreceding(),

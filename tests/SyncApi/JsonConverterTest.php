@@ -68,6 +68,7 @@ class JsonConverterTest extends TestCase
         'EXMATRICULATIONDATE' => [
             'value' => '2023-10-31',
         ],
+        'EXMATRICULATIONSEMESTER' => '23W',
         'TERMSTART' => '23W',
         'TERMEND' => '24S',
         'ACADEMICTITLEPRECEDING' => 'Ing.',
@@ -309,6 +310,7 @@ class JsonConverterTest extends TestCase
         ],
         'immatriculationSemester' => '21W',
         'exmatriculationDate' => '2023-10-31',
+        'exmatriculationSemester' => '23W',
         'termStart' => '23W',
         'termEnd' => '24S',
         'academicTitlePreceding' => 'Ing.',

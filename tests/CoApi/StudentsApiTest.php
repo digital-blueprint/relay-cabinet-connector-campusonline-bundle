@@ -89,6 +89,7 @@ class StudentsApiTest extends TestCase
                     "EXMATRICULATIONDATE": {
                         "value": null
                     },
+                    "EXMATRICULATIONSEMESTER": null,
                     "TERMSTART": null,
                     "TERMEND": null,
                     "ACADEMICTITLEPRECEDING": null,
@@ -169,6 +170,7 @@ class StudentsApiTest extends TestCase
                     "EXMATRICULATIONDATE": {
                         "value": "2023-10-31"
                     },
+                    "EXMATRICULATIONSEMESTER": "20W",
                     "TERMSTART": "23W",
                     "TERMEND": "24S",
                     "ACADEMICTITLEPRECEDING": "Ing.",
@@ -318,6 +320,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('ex lege (EZ)', $data->getExmatriculationStatus()->getName());
         $this->assertSame('ex lege', $data->getExmatriculationStatusString());
         $this->assertSame('2023-10-31', $data->getExmatriculationDate());
+        $this->assertSame('20W', $data->getExmatriculationSemester());
         $this->assertSame('Ing.', $data->getAcademicTitlePreceding());
         $this->assertSame('Bsc', $data->getAcademicTitleFollowing());
         $this->assertSame('Normalverbraucher', $data->getFormerFamilyName());
@@ -396,6 +399,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame(null, $data->getExmatriculationStatus());
         $this->assertSame(null, $data->getExmatriculationStatusString());
         $this->assertSame(null, $data->getExmatriculationDate());
+        $this->assertSame(null, $data->getExmatriculationSemester());
         $this->assertSame(null, $data->getAcademicTitlePreceding());
         $this->assertSame(null, $data->getAcademicTitleFollowing());
         $this->assertSame(null, $data->getFormerFamilyName());

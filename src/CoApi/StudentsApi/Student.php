@@ -376,7 +376,7 @@ class Student extends BaseResource
     }
 
     /**
-     * Example: "22".
+     * Example: "22W".
      */
     public function getImmatriculationSemester(): string
     {
@@ -389,6 +389,14 @@ class Student extends BaseResource
     public function getExmatriculationDate(): ?string
     {
         return $this->getDateValue('EXMATRICULATIONDATE');
+    }
+
+    /**
+     * Example: "22W".
+     */
+    public function getExmatriculationSemester(): ?string
+    {
+        return $this->data['EXMATRICULATIONSEMESTER'];
     }
 
     /**
