@@ -376,16 +376,16 @@
         },
         {
             "name": "dbp/relay-blob-bundle",
-            "version": "v0.1.42",
+            "version": "v0.1.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-blob-bundle.git",
-                "reference": "00e84352f2ac41ea7c5afdcd3aa652472c65395c"
+                "reference": "5712e0f98ff5cd89c4a7f57cd36429b82490baaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-blob-bundle/zipball/00e84352f2ac41ea7c5afdcd3aa652472c65395c",
-                "reference": "00e84352f2ac41ea7c5afdcd3aa652472c65395c",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-blob-bundle/zipball/5712e0f98ff5cd89c4a7f57cd36429b82490baaf",
+                "reference": "5712e0f98ff5cd89c4a7f57cd36429b82490baaf",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +398,7 @@
                 "doctrine/migrations": "^3.5",
                 "doctrine/orm": "^2.18",
                 "ext-json": "*",
-                "justinrainbow/json-schema": "^5.2",
+                "justinrainbow/json-schema": "^5.3 || ^6.0",
                 "kekos/multipart-form-data-parser": "^1.1",
                 "nyholm/psr7": "^1.8",
                 "php": ">=8.1",
@@ -444,9 +444,9 @@
             "description": "A bundle for file-serving, persisting and managing",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-blob-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-blob-bundle/tree/v0.1.42"
+                "source": "https://github.com/digital-blueprint/relay-blob-bundle/tree/v0.1.43"
             },
-            "time": "2024-07-31T14:19:45+00:00"
+            "time": "2024-08-07T14:24:04+00:00"
         },
         {
             "name": "dbp/relay-blob-library",
@@ -2456,24 +2456,141 @@
             "time": "2024-07-18T11:15:46+00:00"
         },
         {
-            "name": "justinrainbow/json-schema",
-            "version": "5.3.0",
+            "name": "icecave/parity",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8"
+                "url": "https://github.com/icecave/parity.git",
+                "reference": "0109fef58b3230d23b20b2ac52ecdf477218d300"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
-                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
+                "url": "https://api.github.com/repos/icecave/parity/zipball/0109fef58b3230d23b20b2ac52ecdf477218d300",
+                "reference": "0109fef58b3230d23b20b2ac52ecdf477218d300",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "icecave/repr": "~1",
+                "php": ">=5.3"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
+                "eloquent/liberator": "~1",
+                "icecave/archer": "~1"
+            },
+            "suggest": {
+                "eloquent/asplode": "Drop-in exception-based error handling."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Parity": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au",
+                    "homepage": "https://github.com/jmalloc"
+                }
+            ],
+            "description": "A customizable deep comparison library.",
+            "homepage": "https://github.com/IcecaveStudios/parity",
+            "keywords": [
+                "compare",
+                "comparison",
+                "equal",
+                "equality",
+                "greater",
+                "less",
+                "sort",
+                "sorting"
+            ],
+            "support": {
+                "issues": "https://github.com/icecave/parity/issues",
+                "source": "https://github.com/icecave/parity/tree/1.0.0"
+            },
+            "time": "2014-01-17T05:56:27+00:00"
+        },
+        {
+            "name": "icecave/repr",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/icecave/repr.git",
+                "reference": "8a3d2953adf5f464a06e3e2587aeacc97e2bed07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/icecave/repr/zipball/8a3d2953adf5f464a06e3e2587aeacc97e2bed07",
+                "reference": "8a3d2953adf5f464a06e3e2587aeacc97e2bed07",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "icecave/archer": "~1"
+            },
+            "suggest": {
+                "eloquent/asplode": "Drop-in exception-based error handling."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Icecave\\Repr\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au",
+                    "homepage": "https://github.com/jmalloc"
+                }
+            ],
+            "description": "A library for generating string representations of any value, inspired by Python's reprlib library.",
+            "homepage": "https://github.com/IcecaveStudios/repr",
+            "keywords": [
+                "human",
+                "readable",
+                "repr",
+                "representation",
+                "string"
+            ],
+            "support": {
+                "issues": "https://github.com/icecave/repr/issues",
+                "source": "https://github.com/icecave/repr/tree/1.0.1"
+            },
+            "time": "2014-07-25T05:44:41+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
+                "reference": "a38c6198d53b09c0702f440585a4f4a5d9137bd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/a38c6198d53b09c0702f440585a4f4a5d9137bd9",
+                "reference": "a38c6198d53b09c0702f440585a4f4a5d9137bd9",
+                "shasum": ""
+            },
+            "require": {
+                "icecave/parity": "1.0.0",
+                "marc-mabe/php-enum": "^2.0 || ^3.0 || ^4.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.2.20 || ~2.19.0",
                 "json-schema/json-schema-test-suite": "1.2.0",
                 "phpunit/phpunit": "^4.8.35"
             },
@@ -2481,6 +2598,11 @@
                 "bin/validate-json"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "JsonSchema\\": "src/JsonSchema/"
@@ -2509,16 +2631,16 @@
                 }
             ],
             "description": "A library to validate a json schema.",
-            "homepage": "https://github.com/justinrainbow/json-schema",
+            "homepage": "https://github.com/jsonrainbow/json-schema",
             "keywords": [
                 "json",
                 "schema"
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.0.0"
             },
-            "time": "2024-07-06T21:00:26+00:00"
+            "time": "2024-07-30T17:49:21+00:00"
         },
         {
             "name": "kekos/multipart-form-data-parser",
@@ -2827,6 +2949,79 @@
                 }
             ],
             "time": "2024-03-23T07:42:40+00:00"
+        },
+        {
+            "name": "marc-mabe/php-enum",
+            "version": "v4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marc-mabe/php-enum.git",
+                "reference": "3da42cc1daceaf98c858e56f59d1ccd52b011fdc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/3da42cc1daceaf98c858e56f59d1ccd52b011fdc",
+                "reference": "3da42cc1daceaf98c858e56f59d1ccd52b011fdc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-reflection": "*",
+                "php": "^7.1 | ^8.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "^0.16.10 || ^1.0.4",
+                "phpstan/phpstan": "^1.3.1",
+                "phpunit/phpunit": "^7.5.20 | ^8.5.22 | ^9.5.11",
+                "vimeo/psalm": "^4.17.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.6-dev",
+                    "dev-3.x": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MabeEnum\\": "src/"
+                },
+                "classmap": [
+                    "stubs/Stringable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Bennewitz",
+                    "email": "dev@mabe.berlin",
+                    "homepage": "https://mabe.berlin/",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Simple and fast implementation of enumerations with native PHP",
+            "homepage": "https://github.com/marc-mabe/php-enum",
+            "keywords": [
+                "enum",
+                "enum-map",
+                "enum-set",
+                "enumeration",
+                "enumerator",
+                "enummap",
+                "enumset",
+                "map",
+                "set",
+                "type",
+                "type-hint",
+                "typehint"
+            ],
+            "support": {
+                "issues": "https://github.com/marc-mabe/php-enum/issues",
+                "source": "https://github.com/marc-mabe/php-enum/tree/v4.7.0"
+            },
+            "time": "2022-04-19T02:21:46+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -10135,16 +10330,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.61.1",
+            "version": "v3.62.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "94a87189f55814e6cabca2d9a33b06de384a2ab8"
+                "reference": "627692f794d35c43483f34b01d94740df2a73507"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/94a87189f55814e6cabca2d9a33b06de384a2ab8",
-                "reference": "94a87189f55814e6cabca2d9a33b06de384a2ab8",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/627692f794d35c43483f34b01d94740df2a73507",
+                "reference": "627692f794d35c43483f34b01d94740df2a73507",
                 "shasum": ""
             },
             "require": {
@@ -10226,7 +10421,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.61.1"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.62.0"
             },
             "funding": [
                 {
@@ -10234,7 +10429,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-07-31T14:33:15+00:00"
+            "time": "2024-08-07T17:03:09+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -10812,16 +11007,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.9",
+            "version": "1.11.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e370bcddadaede0c1716338b262346f40d296f82"
+                "reference": "640410b32995914bde3eed26fa89552f9c2c082f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e370bcddadaede0c1716338b262346f40d296f82",
-                "reference": "e370bcddadaede0c1716338b262346f40d296f82",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/640410b32995914bde3eed26fa89552f9c2c082f",
+                "reference": "640410b32995914bde3eed26fa89552f9c2c082f",
                 "shasum": ""
             },
             "require": {
@@ -10866,7 +11061,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-01T16:25:18+00:00"
+            "time": "2024-08-08T09:02:50+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -10922,16 +11117,16 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-            "version": "1.4.6",
+            "version": "1.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "e909a075d69e0d4db262ac3407350ae2c6b6ab5f"
+                "reference": "ee88a01bc48f608143d3376802ec952270737cb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/e909a075d69e0d4db262ac3407350ae2c6b6ab5f",
-                "reference": "e909a075d69e0d4db262ac3407350ae2c6b6ab5f",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/ee88a01bc48f608143d3376802ec952270737cb8",
+                "reference": "ee88a01bc48f608143d3376802ec952270737cb8",
                 "shasum": ""
             },
             "require": {
@@ -10988,9 +11183,9 @@
             "description": "Symfony Framework extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
-                "source": "https://github.com/phpstan/phpstan-symfony/tree/1.4.6"
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/1.4.7"
             },
-            "time": "2024-07-16T11:48:54+00:00"
+            "time": "2024-08-09T12:37:24+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -12114,16 +12309,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "5.0.1",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2db5010a484d53ebf536087a70b4a5423c102372"
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2db5010a484d53ebf536087a70b4a5423c102372",
-                "reference": "2db5010a484d53ebf536087a70b4a5423c102372",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
                 "shasum": ""
             },
             "require": {
@@ -12134,7 +12329,7 @@
                 "sebastian/exporter": "^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.3"
+                "phpunit/phpunit": "^10.4"
             },
             "type": "library",
             "extra": {
@@ -12179,7 +12374,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.1"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.2"
             },
             "funding": [
                 {
@@ -12187,7 +12382,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-14T13:18:12+00:00"
+            "time": "2024-08-12T06:03:08+00:00"
         },
         {
             "name": "sebastian/complexity",
