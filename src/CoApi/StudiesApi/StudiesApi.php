@@ -84,12 +84,12 @@ class StudiesApi
         $page = 1;
         while (1) {
             $resources = $this->api->getResourceCollection(syncOnlyInactive: true, page: $page, pageSize: $pageSize);
-            if ($resources === []) {
-                break;
-            }
             foreach ($resources as $resource) {
                 $study = new Study($resource->data, $this->api);
                 $studies[$study->getStudentPersonNumber()][] = $study;
+            }
+            if (count($resources) < $pageSize) {
+                break;
             }
             ++$page;
         }

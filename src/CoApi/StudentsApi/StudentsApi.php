@@ -82,12 +82,12 @@ class StudentsApi
         $page = 1;
         while (1) {
             $resources = $this->api->getResourceCollection(syncOnlyInactive: true, page: $page, pageSize: $pageSize);
-            if ($resources === []) {
-                break;
-            }
             foreach ($resources as $resource) {
                 $student = new Student($resource->data, $this->api);
                 yield $student;
+            }
+            if (count($resources) < $pageSize) {
+                break;
             }
             ++$page;
         }
