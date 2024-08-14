@@ -210,6 +210,7 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info(count($activeStudies).' active studies received', ['sync timestamp' => $cursor->lastSyncActiveStudies]);
         $inactiveStudies = [];
         if (!$this->excludeInactive) {
+            $this->logger->info('Fetching all inactive studies');
             $inactiveStudies = $api->getStudiesApi()->getInactiveStudies($pageSize);
         } else {
             $this->logger->info('Inactive studies disabled via the config, skipping');
