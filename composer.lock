@@ -376,16 +376,16 @@
         },
         {
             "name": "dbp/relay-blob-bundle",
-            "version": "v0.1.43",
+            "version": "v0.1.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-blob-bundle.git",
-                "reference": "5712e0f98ff5cd89c4a7f57cd36429b82490baaf"
+                "reference": "ad7587fef5efcc9526bbefa21d31a4aef2c14bfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-blob-bundle/zipball/5712e0f98ff5cd89c4a7f57cd36429b82490baaf",
-                "reference": "5712e0f98ff5cd89c4a7f57cd36429b82490baaf",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-blob-bundle/zipball/ad7587fef5efcc9526bbefa21d31a4aef2c14bfc",
+                "reference": "ad7587fef5efcc9526bbefa21d31a4aef2c14bfc",
                 "shasum": ""
             },
             "require": {
@@ -444,9 +444,9 @@
             "description": "A bundle for file-serving, persisting and managing",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-blob-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-blob-bundle/tree/v0.1.43"
+                "source": "https://github.com/digital-blueprint/relay-blob-bundle/tree/v0.1.45"
             },
-            "time": "2024-08-07T14:24:04+00:00"
+            "time": "2024-08-13T13:43:10+00:00"
         },
         {
             "name": "dbp/relay-blob-library",
@@ -11481,16 +11481,16 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-            "version": "1.4.7",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "ee88a01bc48f608143d3376802ec952270737cb8"
+                "reference": "14eec8c011b856eee4d744a2a3f709db1e1858bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/ee88a01bc48f608143d3376802ec952270737cb8",
-                "reference": "ee88a01bc48f608143d3376802ec952270737cb8",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/14eec8c011b856eee4d744a2a3f709db1e1858bd",
+                "reference": "14eec8c011b856eee4d744a2a3f709db1e1858bd",
                 "shasum": ""
             },
             "require": {
@@ -11547,9 +11547,9 @@
             "description": "Symfony Framework extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
-                "source": "https://github.com/phpstan/phpstan-symfony/tree/1.4.7"
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/1.4.8"
             },
-            "time": "2024-08-09T12:37:24+00:00"
+            "time": "2024-08-13T19:43:40+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
