@@ -450,16 +450,16 @@
         },
         {
             "name": "dbp/relay-blob-library",
-            "version": "v0.2.9",
+            "version": "v0.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-blob-library.git",
-                "reference": "bbdebf3d150aac9c70826f311d4625320859be7e"
+                "reference": "6d2c89f4a88a45c3fc1c72d60175210347126de7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-blob-library/zipball/bbdebf3d150aac9c70826f311d4625320859be7e",
-                "reference": "bbdebf3d150aac9c70826f311d4625320859be7e",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-blob-library/zipball/6d2c89f4a88a45c3fc1c72d60175210347126de7",
+                "reference": "6d2c89f4a88a45c3fc1c72d60175210347126de7",
                 "shasum": ""
             },
             "require": {
@@ -498,29 +498,29 @@
             "description": "PHP helper library for interaction with the relay-blob-bundle.",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-blob-library/issues",
-                "source": "https://github.com/digital-blueprint/relay-blob-library/tree/v0.2.9"
+                "source": "https://github.com/digital-blueprint/relay-blob-library/tree/v0.2.10"
             },
-            "time": "2024-07-25T12:19:21+00:00"
+            "time": "2024-08-31T05:09:28+00:00"
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.2.13",
+            "version": "v0.2.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "190b17a5fd97690d6f89b88c49c3e66c8d6d51f2"
+                "reference": "cadf265c5b6d809497d7f85672e2846233c5c4e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/190b17a5fd97690d6f89b88c49c3e66c8d6d51f2",
-                "reference": "190b17a5fd97690d6f89b88c49c3e66c8d6d51f2",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/cadf265c5b6d809497d7f85672e2846233c5c4e2",
+                "reference": "cadf265c5b6d809497d7f85672e2846233c5c4e2",
                 "shasum": ""
             },
             "require": {
                 "api-platform/core": "^3.2",
                 "dbp/relay-base-person-bundle": "^0.2.26",
                 "dbp/relay-blob-bundle": "^0.1.40",
-                "dbp/relay-blob-library": "^0.2.9",
+                "dbp/relay-blob-library": "^0.2.10",
                 "dbp/relay-core-bundle": "^0.1.153",
                 "doctrine/collections": "^1.8 || ^2",
                 "doctrine/dbal": "^3.8",
@@ -573,22 +573,22 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.13"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.16"
             },
-            "time": "2024-08-29T12:50:40+00:00"
+            "time": "2024-09-04T13:08:58+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "v0.1.179",
+            "version": "v0.1.181",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-core-bundle.git",
-                "reference": "963729991bdbf1feef51e319fa3e5bf970950748"
+                "reference": "28f148c034b89384f9ba2a1af204131085b86cf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/963729991bdbf1feef51e319fa3e5bf970950748",
-                "reference": "963729991bdbf1feef51e319fa3e5bf970950748",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/28f148c034b89384f9ba2a1af204131085b86cf5",
+                "reference": "28f148c034b89384f9ba2a1af204131085b86cf5",
                 "shasum": ""
             },
             "require": {
@@ -638,6 +638,7 @@
                 "api-platform/core": "2.7.17",
                 "carbonphp/carbon-doctrine-types": ">=3",
                 "dbp/relay-auth-bundle": "*",
+                "dbp/relay-core-connector-oidc-bundle": "<=0.1.33",
                 "doctrine/dbal": ">=4",
                 "symfony/amqp-messenger": ">=6.0 <6.4",
                 "symfony/property-info": ">=6.0 <6.4",
@@ -673,9 +674,9 @@
             "description": "The core bundle of the Relay API gateway",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-core-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.179"
+                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.181"
             },
-            "time": "2024-08-20T11:43:21+00:00"
+            "time": "2024-09-05T14:40:47+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -949,16 +950,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.9.0",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "d8f68ea6cc00912e5313237130b8c8decf4d28c6"
+                "reference": "d7dc08f98cba352b2bab5d32c5e58f7e745c11a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d8f68ea6cc00912e5313237130b8c8decf4d28c6",
-                "reference": "d8f68ea6cc00912e5313237130b8c8decf4d28c6",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d7dc08f98cba352b2bab5d32c5e58f7e745c11a7",
+                "reference": "d7dc08f98cba352b2bab5d32c5e58f7e745c11a7",
                 "shasum": ""
             },
             "require": {
@@ -974,7 +975,7 @@
                 "doctrine/coding-standard": "12.0.0",
                 "fig/log-test": "^1",
                 "jetbrains/phpstorm-stubs": "2023.1",
-                "phpstan/phpstan": "1.11.7",
+                "phpstan/phpstan": "1.12.0",
                 "phpstan/phpstan-strict-rules": "^1.6",
                 "phpunit/phpunit": "9.6.20",
                 "psalm/plugin-phpunit": "0.18.4",
@@ -1042,7 +1043,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.9.0"
+                "source": "https://github.com/doctrine/dbal/tree/3.9.1"
             },
             "funding": [
                 {
@@ -1058,7 +1059,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-15T07:34:42+00:00"
+            "time": "2024-09-01T13:49:23+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -3335,16 +3336,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "f65c82939ab17aeff538f9bf6d582f65cc7f255e"
+                "reference": "a673d5f310477027cead2e2f2b6db5d8368157cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/f65c82939ab17aeff538f9bf6d582f65cc7f255e",
-                "reference": "f65c82939ab17aeff538f9bf6d582f65cc7f255e",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/a673d5f310477027cead2e2f2b6db5d8368157cb",
+                "reference": "a673d5f310477027cead2e2f2b6db5d8368157cb",
                 "shasum": ""
             },
             "require": {
@@ -3359,6 +3360,11 @@
                 "ext-sodium": "Better performance, password hashing (Argon2i), secure memory management (memzero), and better security."
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
             "autoload": {
                 "files": [
                     "autoload.php"
@@ -3415,9 +3421,9 @@
             ],
             "support": {
                 "issues": "https://github.com/paragonie/sodium_compat/issues",
-                "source": "https://github.com/paragonie/sodium_compat/tree/v2.0.1"
+                "source": "https://github.com/paragonie/sodium_compat/tree/v2.1.0"
             },
-            "time": "2024-04-24T12:06:31+00:00"
+            "time": "2024-09-04T12:51:01+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -11874,16 +11880,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.30",
+            "version": "10.5.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b15524febac0153876b4ba9aab3326c2ee94c897"
+                "reference": "f069f46840445d37a4e6f0de8c5879598f9c4327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b15524febac0153876b4ba9aab3326c2ee94c897",
-                "reference": "b15524febac0153876b4ba9aab3326c2ee94c897",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f069f46840445d37a4e6f0de8c5879598f9c4327",
+                "reference": "f069f46840445d37a4e6f0de8c5879598f9c4327",
                 "shasum": ""
             },
             "require": {
@@ -11897,7 +11903,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.1",
-                "phpunit/php-code-coverage": "^10.1.15",
+                "phpunit/php-code-coverage": "^10.1.16",
                 "phpunit/php-file-iterator": "^4.1.0",
                 "phpunit/php-invoker": "^4.0.0",
                 "phpunit/php-text-template": "^3.0.1",
@@ -11955,7 +11961,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.30"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.32"
             },
             "funding": [
                 {
@@ -11971,7 +11977,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-13T06:09:37+00:00"
+            "time": "2024-09-04T13:33:39+00:00"
         },
         {
             "name": "react/cache",
