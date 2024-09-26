@@ -165,6 +165,14 @@ class Student extends BaseResource
     }
 
     /**
+     * Example: "Steiermark".
+     */
+    public function getHomeAddressRegion(): ?string
+    {
+        return $this->data['HOMEADDRESSREGION'];
+    }
+
+    /**
      * Example: "Hauptstraße 42/4".
      */
     public function getHomeAddressStreet(): ?string
@@ -220,6 +228,14 @@ class Student extends BaseResource
     public function getStudyAddressNote(): ?string
     {
         return $this->data['STUDADDRESSNOTE'];
+    }
+
+    /**
+     * Example: "Steiermark".
+     */
+    public function getStudyAddressRegion(): ?string
+    {
+        return $this->data['STUDADDRESSREGION'];
     }
 
     /**

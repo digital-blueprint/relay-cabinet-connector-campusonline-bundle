@@ -41,6 +41,7 @@ class JsonConverterTest extends TestCase
         'HOMEADDRESSSTREET' => 'Hauptstraße 34',
         'HOMEADDRESSPLACE' => 'Altenmarkt bei Sankt Gallen',
         'HOMEADDRESSPOSTCODE' => '8934',
+        'HOMEADDRESSREGION' => 'Wien',
         'HOMEADDRESSCOUNTRYNR' => 11,
         'HOMEADDRESSCOUNTRY' => 'Ägypten',
         'HOMEADDRESSTELEPHONE' => '067612345678',
@@ -48,6 +49,7 @@ class JsonConverterTest extends TestCase
         'STUDADDRESSSTREET' => 'Hauptstraße 42',
         'STUDADDRESSPLACE' => 'Waizenkirchen',
         'STUDADDRESSPOSTCODE' => '4730',
+        'STUDADDRESSREGION' => 'Steiermark',
         'STUDADDRESSCOUNTRYNR' => 11,
         'STUDADDRESSCOUNTRY' => 'Ägypten',
         'STUDADDRESSTELEPHONE' => '067612345676',
@@ -259,6 +261,7 @@ class JsonConverterTest extends TestCase
         'schoolCertificateDate' => '2010-12-24',
         'homeAddressNote' => 'c/o Erika Mustermann',
         'homeAddressStreet' => 'Hauptstraße 34',
+        'homeAddressRegion' => 'Wien',
         'homeAddressPlace' => 'Altenmarkt bei Sankt Gallen',
         'homeAddressPostCode' => '8934',
         'homeAddressCountry' => [
@@ -271,6 +274,7 @@ class JsonConverterTest extends TestCase
         'homeAddressTelephoneNumber' => '067612345678',
         'studyAddressNote' => 'c/o Erika Mustermann',
         'studyAddressStreet' => 'Hauptstraße 42',
+        'studyAddressRegion' => 'Steiermark',
         'studyAddressPlace' => 'Waizenkirchen',
         'studyAddressPostCode' => '4730',
         'studyAddressCountry' => [

@@ -62,6 +62,7 @@ class StudentsApiTest extends TestCase
                     "HOMEADDRESSSTREET": null,
                     "HOMEADDRESSPLACE": null,
                     "HOMEADDRESSPOSTCODE": null,
+                    "HOMEADDRESSREGION": null,
                     "HOMEADDRESSCOUNTRYNR": null,
                     "HOMEADDRESSCOUNTRY": null,
                     "HOMEADDRESSTELEPHONE": null,
@@ -69,6 +70,7 @@ class StudentsApiTest extends TestCase
                     "STUDADDRESSSTREET": null,
                     "STUDADDRESSPLACE": null,
                     "STUDADDRESSPOSTCODE": null,
+                    "STUDADDRESSREGION": null,
                     "STUDADDRESSCOUNTRYNR": null,
                     "STUDADDRESSCOUNTRY": null,
                     "STUDADDRESSTELEPHONE": null,
@@ -143,6 +145,7 @@ class StudentsApiTest extends TestCase
                     "HOMEADDRESSSTREET": "Hauptstraße 34",
                     "HOMEADDRESSPLACE": "Altenmarkt bei Sankt Gallen",
                     "HOMEADDRESSPOSTCODE": "8934",
+                    "HOMEADDRESSREGION": "Steiermark",
                     "HOMEADDRESSCOUNTRYNR": 11,
                     "HOMEADDRESSCOUNTRY": "Ägypten",
                     "HOMEADDRESSTELEPHONE": "067612345678",
@@ -150,6 +153,7 @@ class StudentsApiTest extends TestCase
                     "STUDADDRESSSTREET": "Hauptstraße 42",
                     "STUDADDRESSPLACE": "Waizenkirchen",
                     "STUDADDRESSPOSTCODE": "4730",
+                    "STUDADDRESSREGION": "Steiermark",
                     "STUDADDRESSCOUNTRYNR": 11,
                     "STUDADDRESSCOUNTRY": "Ägypten",
                     "STUDADDRESSTELEPHONE": "067612345676",
@@ -343,6 +347,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame(true, $data->isActive());
         $this->assertSame(1718280034, $data->getSyncTimestamp()->getTimestamp());
         $this->assertSame(true, $data->isLiveData());
+        $this->assertSame('Steiermark', $data->getHomeAddressRegion());
+        $this->assertSame('Steiermark', $data->getStudyAddressRegion());
     }
 
     public function testGetStudentMinimal()
@@ -414,5 +420,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame(null, $data->getTuitionExemptionType());
         $this->assertSame(null, $data->getNote());
         $this->assertSame(null, $data->getImmatriculationSemester());
+        $this->assertSame(null, $data->getHomeAddressRegion());
+        $this->assertSame(null, $data->getStudyAddressRegion());
     }
 }
