@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.12
+
+* Expose new studyAddressRegion/homeAddressRegion fields
+* sync: Minor performance improvements
+* Minor logging improvements
+
 ## v0.3.11
 
 * Handle null `IMMATRICULATIONSEMESTER`
