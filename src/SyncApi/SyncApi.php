@@ -96,7 +96,7 @@ class SyncApi implements LoggerAwareInterface
             }
         }
 
-        return new SyncResult($res, $newCursor->encode());
+        return new SyncResult($res, $newCursor->encode(), false);
     }
 
     /**
@@ -181,7 +181,7 @@ class SyncApi implements LoggerAwareInterface
 
         $newCursor->finish($oldCursor);
 
-        return new SyncResult($res, $newCursor->encode());
+        return new SyncResult($res, $newCursor->encode(), false);
     }
 
     private function getAll(int $pageSize): SyncResult
@@ -246,7 +246,7 @@ class SyncApi implements LoggerAwareInterface
             $this->logger->info('Inactive students disabled via the config, skipping');
         }
 
-        return new SyncResult($res, $cursor->encode());
+        return new SyncResult($res, $cursor->encode(), true);
     }
 
     public function getAllFirstTime(): SyncResult
@@ -259,6 +259,6 @@ class SyncApi implements LoggerAwareInterface
         $cursor = $incrementalSyncResult->getCursor();
         $res = array_merge($result->getPersons(), $incrementalSyncResult->getPersons());
 
-        return new SyncResult($res, $cursor);
+        return new SyncResult($res, $cursor, true);
     }
 }

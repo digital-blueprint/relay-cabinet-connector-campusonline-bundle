@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "643b70ec653e551ef83d3e0f0e4cb6db",
+    "content-hash": "a5f40c548fd42ecdb9cfa99e7ea03aab",
     "packages": [
         {
             "name": "api-platform/core",
@@ -512,29 +512,29 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.2.16",
+            "version": "v0.2.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "cadf265c5b6d809497d7f85672e2846233c5c4e2"
+                "reference": "cad71b255b26628b7829d4c6ed0fd13e0f0c96e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/cadf265c5b6d809497d7f85672e2846233c5c4e2",
-                "reference": "cadf265c5b6d809497d7f85672e2846233c5c4e2",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/cad71b255b26628b7829d4c6ed0fd13e0f0c96e3",
+                "reference": "cad71b255b26628b7829d4c6ed0fd13e0f0c96e3",
                 "shasum": ""
             },
             "require": {
                 "api-platform/core": "^3.2",
                 "dbp/relay-base-person-bundle": "^0.2.26",
-                "dbp/relay-blob-bundle": "^0.1.40",
+                "dbp/relay-blob-bundle": "^0.1.48",
                 "dbp/relay-blob-library": "^0.2.10",
                 "dbp/relay-core-bundle": "^0.1.153",
                 "doctrine/collections": "^1.8 || ^2",
-                "doctrine/dbal": "^3.8",
+                "doctrine/dbal": "^3.8 || ^4.0",
                 "doctrine/doctrine-migrations-bundle": "^3.3",
                 "doctrine/migrations": "^3.5",
-                "doctrine/orm": "^2.18",
+                "doctrine/orm": "^2.18 || ^3.2",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
@@ -581,9 +581,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.16"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.21"
             },
-            "time": "2024-09-04T13:08:58+00:00"
+            "time": "2024-09-26T12:42:39+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",

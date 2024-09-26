@@ -11,7 +11,7 @@ class SyncResult implements PersonSyncResultInterface
     /**
      * @param array<string, array> $results
      */
-    public function __construct(private array $results, private string $cursor)
+    public function __construct(private array $results, private string $cursor, private bool $isFullSyncResult)
     {
     }
 
@@ -29,5 +29,10 @@ class SyncResult implements PersonSyncResultInterface
     public function getCursor(): string
     {
         return $this->cursor;
+    }
+
+    public function isFullSyncResult(): bool
+    {
+        return $this->isFullSyncResult;
     }
 }
