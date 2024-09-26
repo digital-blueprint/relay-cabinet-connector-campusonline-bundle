@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.13
+
+* Compatibility with newer cabinet bundle versions
+
 ## v0.3.12
 
 * Expose new studyAddressRegion/homeAddressRegion fields
