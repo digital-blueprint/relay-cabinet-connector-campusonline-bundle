@@ -417,6 +417,8 @@ class Student extends BaseResource
 
     /**
      * Example: "23W".
+     *
+     * Also called "Befristet von"
      */
     public function getTermStart(): ?string
     {
@@ -425,6 +427,8 @@ class Student extends BaseResource
 
     /**
      * Example: "24S".
+     *
+     * Also called "Befristet bis"
      */
     public function getTermEnd(): ?string
     {
