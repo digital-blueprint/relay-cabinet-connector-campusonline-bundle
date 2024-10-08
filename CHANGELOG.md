@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.3.14
+
+* Various field renames and type changes
+  * Make all IDs strings instead of ints
+  * Add identNumberObfuscated field
+  * studentPersonNumber -> studentPersonId
+  * studend.id is now the internal ID and not identNumberObfuscated
+  * termStart -> studyLimitStartSemester
+  * termEnd -> studyLimitEndSemester
+  * Add a nullable alpha3Code field to all countries/nationalities
+
 ## v0.3.13
 
 * Compatibility with newer cabinet bundle versions
