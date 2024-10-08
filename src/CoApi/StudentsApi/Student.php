@@ -30,6 +30,8 @@ class Student extends BaseResource
 
     /**
      * Example: "01020340".
+     *
+     * Also called "Identifikationsnummer"
      */
     public function getStudentId(): ?string
     {

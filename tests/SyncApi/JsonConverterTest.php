@@ -134,19 +134,19 @@ class JsonConverterTest extends TestCase
     ];
 
     private const EXPECTED = [
-        'id' => 'F06BCC80D6FC0BDE575B16FB2E3790D5',
+        'id' => '123123',
+        'identNumberObfuscated' => 'F06BCC80D6FC0BDE575B16FB2E3790D5',
         'webUrl' => 'https://dummy.at/dummy/wbStEvidenz.StEvi?pStPersonNr=123123',
         'syncDateTime' => '2024-06-13T11:01:15+00:00',
         'studentId' => '00712345',
         'givenName' => 'Max',
         'familyName' => 'Mustermann',
         'birthDate' => '1970-01-01',
-        'studentPersonNumber' => '123123',
         'studies' => [
             0 => [
-                'id' => 253324,
+                'id' => '253324',
+                'studentPersonId' => '123456',
                 'webUrl' => 'https://dummy.at/dummy/wbStmStudiendaten.wbStudiendetails?pStPersonNr=123456&pStStudiumNr=253324',
-                'studentPersonNumber' => 123456,
                 'key' => 'UF 066 921',
                 'type' => 'Masterstudium',
                 'name' => 'Masterstudium; Computer Science',
@@ -205,9 +205,9 @@ class JsonConverterTest extends TestCase
         ],
         'applications' => [
             0 => [
-                'id' => 12345,
+                'id' => '12345',
                 'studyId' => null,
-                'studentPersonNumber' => 123456,
+                'studentPersonId' => '123456',
                 'studyKey' => 'UF 033 678',
                 'studyName' => 'Bachelorstudium; Physik',
                 'studyType' => 'Bachelorstudium',

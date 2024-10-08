@@ -22,9 +22,9 @@ class JsonConverter
         foreach ($studies as $study) {
             Utils::updateMinSyncDateTime($study, $syncDateTime);
             $entry = [
-                'id' => $study->getStudyNumber(),
+                'id' => (string) $study->getStudyNumber(),
+                'studentPersonId' => (string) $study->getStudentPersonNumber(),
                 'webUrl' => $study->getWebUrl(),
-                'studentPersonNumber' => $study->getStudentPersonNumber(),
                 'key' => $study->getStudyKey(),
                 'type' => $study->getStudyType(),
                 'name' => $study->getStudyName(),
@@ -47,10 +47,11 @@ class JsonConverter
         $applicationsData = [];
         foreach ($applications as $application) {
             Utils::updateMinSyncDateTime($application, $syncDateTime);
+            $studyNumber = $application->getStudyNumber();
             $entry = [
-                'id' => $application->getApplicationNumber(),
-                'studyId' => $application->getStudyNumber(),
-                'studentPersonNumber' => $application->getStudentPersonNumber(),
+                'id' => (string) $application->getApplicationNumber(),
+                'studyId' => $studyNumber !== null ? (string) $studyNumber : null,
+                'studentPersonId' => (string) $application->getStudentPersonNumber(),
                 'studyKey' => $application->getStudyKey(),
                 'studyName' => $application->getStudyName(),
                 'studyType' => $application->getStudyType(),
@@ -68,14 +69,14 @@ class JsonConverter
         $syncDateTimeString = $syncDateTime->format(\DateTimeInterface::ATOM);
 
         $data = [
-            'id' => $student->getIdentNumberObfuscated(),
+            'id' => (string) $student->getStudentPersonNumber(),
+            'identNumberObfuscated' => $student->getIdentNumberObfuscated(),
             'webUrl' => $student->getWebUrl(),
             'syncDateTime' => $syncDateTimeString,
             'studentId' => $student->getStudentId(),
             'givenName' => $student->getGivenName(),
             'familyName' => $student->getFamilyName(),
             'birthDate' => $student->getBirthDate(),
-            'studentPersonNumber' => (string) $student->getStudentPersonNumber(),
             'studies' => $studiesData,
             'applications' => $applicationsData,
             'nationality' => $student->getNationality()->forJson(),
