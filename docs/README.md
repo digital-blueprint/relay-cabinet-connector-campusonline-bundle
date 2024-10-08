@@ -17,6 +17,18 @@ graph TB
     style B stroke-width:3px
 ```
 
+## Provided Data
+
+The provided data structure is a list of students, with the following relations embedded:
+
+```mermaid
+classDiagram
+    University --* "0..*" Student
+    Student --* "0..*" Study
+    Student --* "0..*" Application
+    Application --> "0..1" Study
+```
+
 ## Config
 
 Created via `./bin/console config:dump-reference dbp_relay_cabinet_connector_campusonline | sed '/^$/d'`
