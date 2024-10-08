@@ -129,8 +129,8 @@ class JsonConverterTest extends TestCase
         'APPLICANTQUALIFICATIONDATE' => [
             'value' => '1970-01-01',
         ],
-        'APPLICANTQUALIFICATIONSTATENR' => 40,
-        'APPLICANTQUALIFICATIONSTATE' => 'Bosnien und Herzegowina',
+        'APPLICANTQUALIFICATIONSTATENR' => 257,
+        'APPLICANTQUALIFICATIONSTATE' => 'Kosovo',
     ];
 
     private const EXPECTED = [
@@ -173,6 +173,7 @@ class JsonConverterTest extends TestCase
                 'qualificationDate' => '2010-01-01',
                 'qualificationState' => [
                     'key' => '168',
+                    'alpha3Code' => 'AUT',
                     'translations' => [
                         'de' => 'Österreich',
                         'en' => 'Austria',
@@ -214,10 +215,11 @@ class JsonConverterTest extends TestCase
                 'startSemester' => '21W',
                 'qualificationCertificateDate' => '1970-01-01',
                 'qualificationIssuingCountry' => [
-                    'key' => '40',
+                    'key' => '257',
+                    'alpha3Code' => null,
                     'translations' => [
-                        'de' => 'Bosnien und Herzegowina',
-                        'en' => 'Bosnia & Herzegovina',
+                        'de' => 'Kosovo',
+                        'en' => 'Kosovo',
                     ],
                 ],
                 'qualificationType' => [
@@ -231,6 +233,7 @@ class JsonConverterTest extends TestCase
         ],
         'nationality' => [
             'key' => '11',
+            'alpha3Code' => 'EGY',
             'translations' => [
                 'de' => 'Ägypten',
                 'en' => 'Egypt',
@@ -238,6 +241,7 @@ class JsonConverterTest extends TestCase
         ],
         'nationalitySecondary' => [
             'key' => '168',
+            'alpha3Code' => 'AUT',
             'translations' => [
                 'de' => 'Österreich',
                 'en' => 'Austria',
@@ -252,6 +256,7 @@ class JsonConverterTest extends TestCase
         ],
         'admissionQualificationState' => [
             'key' => '40',
+            'alpha3Code' => 'BIH',
             'translations' => [
                 'de' => 'Bosnien und Herzegowina',
                 'en' => 'Bosnia & Herzegovina',
@@ -266,6 +271,7 @@ class JsonConverterTest extends TestCase
         'homeAddressPostCode' => '8934',
         'homeAddressCountry' => [
             'key' => '11',
+            'alpha3Code' => 'EGY',
             'translations' => [
                 'de' => 'Ägypten',
                 'en' => 'Egypt',
@@ -279,6 +285,7 @@ class JsonConverterTest extends TestCase
         'studyAddressPostCode' => '4730',
         'studyAddressCountry' => [
             'key' => '11',
+            'alpha3Code' => 'EGY',
             'translations' => [
                 'de' => 'Ägypten',
                 'en' => 'Egypt',

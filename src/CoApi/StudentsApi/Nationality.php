@@ -34,6 +34,7 @@ class Nationality
     {
         return [
             'key' => (string) $this->value,
+            'alpha3Code' => $this->getAlpha3Code(),
             'translations' => [
                 'de' => $this->getName('de'),
                 'en' => $this->getName('en'),
