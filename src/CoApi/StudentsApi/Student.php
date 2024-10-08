@@ -422,7 +422,7 @@ class Student extends BaseResource
      *
      * Also called "Befristet von"
      */
-    public function getTermStart(): ?string
+    public function getStudyLimitStartSemester(): ?string
     {
         return $this->data['TERMSTART'];
     }
@@ -432,7 +432,7 @@ class Student extends BaseResource
      *
      * Also called "Befristet bis"
      */
-    public function getTermEnd(): ?string
+    public function getStudyLimitEndSemester(): ?string
     {
         return $this->data['TERMEND'];
     }

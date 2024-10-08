@@ -331,8 +331,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame('1223010170', $data->getSocialSecurityNumber());
         $this->assertSame('Kxl/ufp/HOufd8y/+3n6qZ1Cn7E=', $data->getSectorSpecificPersonalIdentifier());
         $this->assertSame('max.mustermann.temp@example.com', $data->getEmailAddressTemporary());
-        $this->assertSame('23W', $data->getTermStart());
-        $this->assertSame('24S', $data->getTermEnd());
+        $this->assertSame('23W', $data->getStudyLimitStartSemester());
+        $this->assertSame('24S', $data->getStudyLimitEndSemester());
         $this->assertSame('067612345677', $data->getTelephoneNumber());
         $this->assertSame('067612345678', $data->getHomeAddressTelephoneNumber());
         $this->assertSame('067612345676', $data->getStudyAddressTelephoneNumber());
@@ -411,8 +411,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame(null, $data->getSocialSecurityNumber());
         $this->assertSame(null, $data->getSectorSpecificPersonalIdentifier());
         $this->assertSame(null, $data->getEmailAddressTemporary());
-        $this->assertSame(null, $data->getTermStart());
-        $this->assertSame(null, $data->getTermEnd());
+        $this->assertSame(null, $data->getStudyLimitStartSemester());
+        $this->assertSame(null, $data->getStudyLimitEndSemester());
         $this->assertSame(null, $data->getTelephoneNumber());
         $this->assertSame(null, $data->getHomeAddressTelephoneNumber());
         $this->assertSame(null, $data->getStudyAddressTelephoneNumber());
