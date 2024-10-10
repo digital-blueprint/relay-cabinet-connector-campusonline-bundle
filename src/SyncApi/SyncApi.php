@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
 
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ApplicationsApi\Application;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Student;
+use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\Study;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -27,6 +29,36 @@ class SyncApi implements LoggerAwareInterface
         $this->pageSize = $config->getPageSize();
     }
 
+    /**
+     * Filter out Applications where the associated study is not available, which happens in case we filter out
+     * inactive studies. This avoids applications that reference non-existing study objects.
+     *
+     * @param Application[] $applications
+     * @param Study[]       $studies
+     *
+     * @return Application[]
+     */
+    private static function filterApplications(array $applications, array $studies): array
+    {
+        $filtered = [];
+        foreach ($applications as $application) {
+            $studyNumber = $application->getStudyNumber();
+            if ($studyNumber === null) {
+                // Not associated with a study, so just keep it.
+                $filtered[] = $application;
+                continue;
+            }
+            foreach ($studies as $study) {
+                if ($study->getStudyNumber() === $studyNumber) {
+                    $filtered[] = $application;
+                    continue 2;
+                }
+            }
+        }
+
+        return $filtered;
+    }
+
     private function getSingleForStudent(Student $student, ?Cursor $cursor): array
     {
         $api = $this->coApi;
@@ -43,6 +75,9 @@ class SyncApi implements LoggerAwareInterface
         }
         $studies = $filteredStudies;
         $applications = $api->getApplicationsApi()->getApplicationsForPersonNumber($nr);
+        if ($this->excludeInactive) {
+            $applications = self::filterApplications($applications, $studies);
+        }
         foreach ($applications as $application) {
             $cursor?->recordApplication($application);
         }
@@ -217,6 +252,15 @@ class SyncApi implements LoggerAwareInterface
             $inactiveStudies = $api->getStudiesApi()->getInactiveStudies($pageSize);
         } else {
             $this->logger->info('Inactive studies disabled via the config, skipping');
+        }
+
+        // In case we exclude inactive studies also filter out applications related to them,
+        // to avoid those relations being broken.
+        if ($this->excludeInactive) {
+            foreach ($applications as $studId => $entries) {
+                $studies = $activeStudies[$studId] ?? [];
+                $applications[$studId] = self::filterApplications($entries, $studies);
+            }
         }
 
         $this->logger->info('Fetching all active students');
