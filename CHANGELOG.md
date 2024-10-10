@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.15
+
+* When 'exclude_inactive' is enabled make sure to filter out inactive studies
+  and applications for inactive studies as well.
+
 ## v0.3.14
 
 * Various field renames and type changes
