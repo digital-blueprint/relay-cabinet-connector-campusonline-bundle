@@ -33,12 +33,15 @@ class SyncApi implements LoggerAwareInterface
         $cursor?->recordStudent($student);
         $nr = $student->getStudentPersonNumber();
         $studies = $api->getStudiesApi()->getStudiesForPersonNumber($nr);
+        $filteredStudies = [];
         foreach ($studies as $study) {
             if ($this->excludeInactive && !$study->isActive()) {
                 continue;
             }
             $cursor?->recordStudy($study);
+            $filteredStudies[] = $study;
         }
+        $studies = $filteredStudies;
         $applications = $api->getApplicationsApi()->getApplicationsForPersonNumber($nr);
         foreach ($applications as $application) {
             $cursor?->recordApplication($application);
