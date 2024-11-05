@@ -149,9 +149,9 @@ class SyncApi implements LoggerAwareInterface
         $newCursor = new Cursor($oldCursor);
 
         // Get all students that have changed
-        $this->logger->info('Checking for changed students', ['sync timestamp' => $oldCursor->lastSyncActiveStudents]);
+        $this->logger->info('Checking for changed students', ['sync timestamp' => $oldCursor->getLastSyncActiveStudents()]);
         $changedStudents = [];
-        foreach ($api->getStudentsApi()->getChangedStudentsSince($oldCursor->lastSyncActiveStudents) as $student) {
+        foreach ($api->getStudentsApi()->getChangedStudentsSince($oldCursor->getLastSyncActiveStudents()) as $student) {
             $newCursor->recordStudent($student);
             if ($newCursor->isStudentOutdated($student)) {
                 continue;
@@ -161,10 +161,10 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info(count($changedStudents).' changed students');
 
         // Get all students for applications that have changed
-        $this->logger->info('Checking for changed applications', ['sync timestamp' => $newCursor->lastSyncApplications]);
+        $this->logger->info('Checking for changed applications', ['sync timestamp' => $newCursor->getLastSyncApplications()]);
         $changedApplicationsCount = 0;
         $changedApplicationStudentsCount = 0;
-        foreach ($api->getApplicationsApi()->getChangedApplicationsSince($oldCursor->lastSyncApplications) as $nr => $entries) {
+        foreach ($api->getApplicationsApi()->getChangedApplicationsSince($oldCursor->getLastSyncApplications()) as $nr => $entries) {
             ++$changedApplicationStudentsCount;
             $anyNotOutdated = false;
             foreach ($entries as $application) {
@@ -181,10 +181,10 @@ class SyncApi implements LoggerAwareInterface
         $this->logger->info($changedApplicationsCount.' changed applications affecting '.$changedApplicationStudentsCount.' students');
 
         // Get all students for studies that have changed
-        $this->logger->info('Checking for changed studies', ['sync timestamp' => $oldCursor->lastSyncActiveStudies]);
+        $this->logger->info('Checking for changed studies', ['sync timestamp' => $oldCursor->getLastSyncActiveStudies()]);
         $changedStudiesCount = 0;
         $changedStudyStudentsCount = 0;
-        foreach ($api->getStudiesApi()->getChangedStudiesSince($oldCursor->lastSyncActiveStudies) as $nr => $entries) {
+        foreach ($api->getStudiesApi()->getChangedStudiesSince($oldCursor->getLastSyncActiveStudies()) as $nr => $entries) {
             ++$changedStudyStudentsCount;
             $anyNotOutdated = false;
             foreach ($entries as $study) {
@@ -236,7 +236,7 @@ class SyncApi implements LoggerAwareInterface
                 $cursor->recordApplication($application);
             }
         }
-        $this->logger->info(count($applications).' applications received', ['sync timestamp' => $cursor->lastSyncApplications]);
+        $this->logger->info(count($applications).' applications received', ['sync timestamp' => $cursor->getLastSyncApplications()]);
 
         $this->logger->info('Fetching all active studies');
         $activeStudies = $api->getStudiesApi()->getActiveStudies();
@@ -245,7 +245,7 @@ class SyncApi implements LoggerAwareInterface
                 $cursor->recordStudy($study);
             }
         }
-        $this->logger->info(count($activeStudies).' active studies received', ['sync timestamp' => $cursor->lastSyncActiveStudies]);
+        $this->logger->info(count($activeStudies).' active studies received', ['sync timestamp' => $cursor->getLastSyncActiveStudies()]);
         $inactiveStudies = [];
         if (!$this->excludeInactive) {
             $this->logger->info('Fetching all inactive studies');
@@ -275,7 +275,7 @@ class SyncApi implements LoggerAwareInterface
             $studentStudies = array_merge($studentStudies, $inactiveStudies[$nr] ?? []);
             $res[] = JsonConverter::convertToJsonObject($student, $studentStudies, $studentApplications);
         }
-        $this->logger->info($activeStudentCount.' active students received', ['sync timestamp' => $cursor->lastSyncActiveStudents]);
+        $this->logger->info($activeStudentCount.' active students received', ['sync timestamp' => $cursor->getLastSyncActiveStudents()]);
 
         if (!$this->excludeInactive) {
             $this->logger->info('Fetching all inactive students');

@@ -8,13 +8,20 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\ApplicationsApi\Applicati
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudentsApi\Student;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\Study;
 
+/**
+ * The cursor keeps track of two things for all three APIs:
+ *
+ * * The last sync date from full/delta sync, so we can continue using delta syncs
+ * * All the live data we fetched out-of-band, which is potentially newer than things we get from the full/delta sync,
+ *   So we don't go back in time if we do a delta sync after a live sync.
+ */
 class Cursor
 {
-    public ?\DateTimeInterface $lastSyncApplications = null;
+    private ?\DateTimeInterface $lastSyncApplications = null;
 
-    public ?\DateTimeInterface $lastSyncActiveStudies = null;
+    private ?\DateTimeInterface $lastSyncActiveStudies = null;
 
-    public ?\DateTimeInterface $lastSyncActiveStudents = null;
+    private ?\DateTimeInterface $lastSyncActiveStudents = null;
 
     /**
      * A mapping of StudentPersonNumber to the timestamp of the live data we got.
@@ -151,5 +158,20 @@ class Cursor
     public static function decode(string $value): Cursor
     {
         return unserialize($value);
+    }
+
+    public function getLastSyncApplications(): ?\DateTimeInterface
+    {
+        return $this->lastSyncApplications;
+    }
+
+    public function getLastSyncActiveStudies(): ?\DateTimeInterface
+    {
+        return $this->lastSyncActiveStudies;
+    }
+
+    public function getLastSyncActiveStudents(): ?\DateTimeInterface
+    {
+        return $this->lastSyncActiveStudents;
     }
 }
