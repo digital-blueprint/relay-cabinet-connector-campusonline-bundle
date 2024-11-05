@@ -17,30 +17,30 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\StudiesApi\Study;
  */
 class Cursor
 {
-    private ?\DateTimeInterface $lastSyncApplications = null;
+    private ?int $lastSyncApplications = null;
 
-    private ?\DateTimeInterface $lastSyncActiveStudies = null;
+    private ?int $lastSyncActiveStudies = null;
 
-    private ?\DateTimeInterface $lastSyncActiveStudents = null;
+    private ?int $lastSyncActiveStudents = null;
 
     /**
      * A mapping of StudentPersonNumber to the timestamp of the live data we got.
      *
-     * @var array<int, \DateTimeInterface>
+     * @var array<int, int>
      */
     protected array $liveStudents = [];
 
     /**
      * A mapping of StudentPersonNumber to the timestamp of the live data we got.
      *
-     * @var array<int, \DateTimeInterface>
+     * @var array<int, int>
      */
     protected array $liveStudies = [];
 
     /**
      * A mapping of StudentPersonNumber to the timestamp of the live data we got.
      *
-     * @var array<int, \DateTimeInterface>
+     * @var array<int, int>
      */
     protected array $liveApplications = [];
 
@@ -64,7 +64,7 @@ class Cursor
         }
         $liveTimestamp = $this->liveStudents[$student->getStudentPersonNumber()] ?? null;
 
-        return $liveTimestamp !== null && $student->getSyncTimestamp() <= $liveTimestamp;
+        return $liveTimestamp !== null && $student->getSyncTimestamp()->getTimestamp() <= $liveTimestamp;
     }
 
     /**
@@ -78,7 +78,7 @@ class Cursor
         }
         $liveTimestamp = $this->liveStudies[$study->getStudyNumber()] ?? null;
 
-        return $liveTimestamp !== null && $study->getSyncTimestamp() <= $liveTimestamp;
+        return $liveTimestamp !== null && $study->getSyncTimestamp()->getTimestamp() <= $liveTimestamp;
     }
 
     /**
@@ -92,33 +92,33 @@ class Cursor
         }
         $liveTimestamp = $this->liveApplications[$application->getApplicationNumber()] ?? null;
 
-        return $liveTimestamp !== null && $application->getSyncTimestamp() <= $liveTimestamp;
+        return $liveTimestamp !== null && $application->getSyncTimestamp()->getTimestamp() <= $liveTimestamp;
     }
 
     public function recordStudent(Student $student): void
     {
         if ($student->isLiveData()) {
-            $this->liveStudents[$student->getStudentPersonNumber()] = $student->getSyncTimestamp();
+            $this->liveStudents[$student->getStudentPersonNumber()] = $student->getSyncTimestamp()->getTimestamp();
         } elseif ($this->lastSyncActiveStudents === null) {
-            $this->lastSyncActiveStudents = $student->getSyncTimestamp();
+            $this->lastSyncActiveStudents = $student->getSyncTimestamp()->getTimestamp();
         }
     }
 
     public function recordStudy(Study $study): void
     {
         if ($study->isLiveData()) {
-            $this->liveStudies[$study->getStudyNumber()] = $study->getSyncTimestamp();
+            $this->liveStudies[$study->getStudyNumber()] = $study->getSyncTimestamp()->getTimestamp();
         } elseif ($this->lastSyncActiveStudies === null) {
-            $this->lastSyncActiveStudies = $study->getSyncTimestamp();
+            $this->lastSyncActiveStudies = $study->getSyncTimestamp()->getTimestamp();
         }
     }
 
     public function recordApplication(Application $application): void
     {
         if ($application->isLiveData()) {
-            $this->liveApplications[$application->getApplicationNumber()] = $application->getSyncTimestamp();
+            $this->liveApplications[$application->getApplicationNumber()] = $application->getSyncTimestamp()->getTimestamp();
         } elseif ($this->lastSyncApplications === null) {
-            $this->lastSyncApplications = $application->getSyncTimestamp();
+            $this->lastSyncApplications = $application->getSyncTimestamp()->getTimestamp();
         }
     }
 
@@ -134,44 +134,63 @@ class Cursor
         // While at it, remove outdated entries.
         // Records of live students which are older than the last non-live sync date
         if ($this->lastSyncActiveStudents !== null) {
-            $this->liveStudents = array_filter($this->liveStudents, function (\DateTimeInterface $timestamp) {
-                return $timestamp->getTimestamp() > $this->lastSyncActiveStudents->getTimestamp();
+            $this->liveStudents = array_filter($this->liveStudents, function (int $timestamp) {
+                return $timestamp > $this->lastSyncActiveStudents;
             });
         }
         if ($this->lastSyncActiveStudies !== null) {
-            $this->liveStudies = array_filter($this->liveStudies, function (\DateTimeInterface $timestamp) {
-                return $timestamp->getTimestamp() > $this->lastSyncActiveStudies->getTimestamp();
+            $this->liveStudies = array_filter($this->liveStudies, function (int $timestamp) {
+                return $timestamp > $this->lastSyncActiveStudies;
             });
         }
         if ($this->lastSyncApplications !== null) {
-            $this->liveApplications = array_filter($this->liveApplications, function (\DateTimeInterface $timestamp) {
-                return $timestamp->getTimestamp() > $this->lastSyncApplications->getTimestamp();
+            $this->liveApplications = array_filter($this->liveApplications, function (int $timestamp) {
+                return $timestamp > $this->lastSyncApplications;
             });
         }
     }
 
     public function encode(): string
     {
-        return serialize($this);
+        $data = [
+            'lastSyncApplications' => $this->lastSyncApplications,
+            'lastSyncActiveStudies' => $this->lastSyncActiveStudies,
+            'lastSyncActiveStudents' => $this->lastSyncActiveStudents,
+            'liveStudents' => $this->liveStudents,
+            'liveStudies' => $this->liveStudies,
+            'liveApplications' => $this->liveApplications,
+        ];
+
+        return json_encode($data, JSON_THROW_ON_ERROR);
     }
 
     public static function decode(string $value): Cursor
     {
-        return unserialize($value);
+        $data = json_decode($value, true, flags: JSON_THROW_ON_ERROR);
+        $cursor = new self();
+
+        $cursor->lastSyncApplications = $data['lastSyncApplications'];
+        $cursor->lastSyncActiveStudies = $data['lastSyncActiveStudies'];
+        $cursor->lastSyncActiveStudents = $data['lastSyncActiveStudents'];
+        $cursor->liveStudents = $data['liveStudents'];
+        $cursor->liveStudies = $data['liveStudies'];
+        $cursor->liveApplications = $data['liveApplications'];
+
+        return $cursor;
     }
 
     public function getLastSyncApplications(): ?\DateTimeInterface
     {
-        return $this->lastSyncApplications;
+        return $this->lastSyncApplications !== null ? \DateTimeImmutable::createFromFormat('U', (string) $this->lastSyncApplications) : null;
     }
 
     public function getLastSyncActiveStudies(): ?\DateTimeInterface
     {
-        return $this->lastSyncActiveStudies;
+        return $this->lastSyncActiveStudies !== null ? \DateTimeImmutable::createFromFormat('U', (string) $this->lastSyncActiveStudies) : null;
     }
 
     public function getLastSyncActiveStudents(): ?\DateTimeInterface
     {
-        return $this->lastSyncActiveStudents;
+        return $this->lastSyncActiveStudents !== null ? \DateTimeImmutable::createFromFormat('U', (string) $this->lastSyncActiveStudents) : null;
     }
 }

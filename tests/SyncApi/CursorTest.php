@@ -21,6 +21,12 @@ class CursorTest extends TestCase
         $this->assertNotNull($new);
     }
 
+    public function testDecodeGarbage()
+    {
+        $this->expectException(\Exception::class);
+        Cursor::decode('afdsfsf,sdfsd,fs,fds,fdsf[.');
+    }
+
     public function testRecordStudent()
     {
         $baseApi = new BaseApi(new Connection('https://dummy.at/dummy', 'foo', 'bar'), 'bla', new \DateTimeZone('Europe/London'));
