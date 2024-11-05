@@ -109,7 +109,7 @@ class Cursor
     public function recordApplication(Application $application): void
     {
         if ($application->isLiveData()) {
-            $this->liveApplications[$application->getStudentPersonNumber()] = $application->getSyncTimestamp();
+            $this->liveApplications[$application->getApplicationNumber()] = $application->getSyncTimestamp();
         } elseif ($this->lastSyncApplications === null) {
             $this->lastSyncApplications = $application->getSyncTimestamp();
         }
