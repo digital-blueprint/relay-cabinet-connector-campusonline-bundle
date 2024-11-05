@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.16
+
+* Fix book keeping of live application updates
+* Change cursor serialization to use JSON instead of serialize/unserialize
+
 ## v0.3.15
 
 * When 'exclude_inactive' is enabled make sure to filter out inactive studies
