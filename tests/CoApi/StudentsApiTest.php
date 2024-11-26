@@ -344,7 +344,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('Ägypten', $data->getStudyAddressCountryString());
         $this->assertSame('21W', $data->getImmatriculationSemester());
         $this->assertSame('some note', $data->getNote());
-        $this->assertSame(true, $data->isActive());
+        $this->assertSame(false, $data->isActive());
         $this->assertSame(1718280034, $data->getSyncTimestamp()->getTimestamp());
         $this->assertSame(true, $data->isLiveData());
         $this->assertSame('Steiermark', $data->getHomeAddressRegion());
@@ -377,7 +377,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
         $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());
         $this->assertSame('Bosnien und Herzegowina', $data->getAdmissionQualificationStateString());
-        $this->assertSame(false, $data->isActive());
+        $this->assertSame(true, $data->isActive());
         $this->assertSame(1718280034, $data->getSyncTimestamp()->getTimestamp());
         $this->assertSame(true, $data->isLiveData());
 

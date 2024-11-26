@@ -514,7 +514,7 @@ class Student extends BaseResource
      */
     public function isActive(): bool
     {
-        return $this->getExmatriculationDate() !== null;
+        return $this->getExmatriculationDate() === null;
     }
 
     /**
