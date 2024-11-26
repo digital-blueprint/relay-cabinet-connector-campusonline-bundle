@@ -104,7 +104,7 @@ class SyncCommand extends Command implements LoggerAwareInterface
             $res = $sync->getAllSince($cursor);
         }
 
-        $io->info('Synced '.count($res->getPersons()).' persons');
+        $io->info('Synced '.count($res->getPersons()).' persons. Full sync: '.($res->isFullSyncResult() ? 'yes' : 'no'));
 
         $item->set($res->getCursor());
         $item->expiresAfter(3600 * 24);
