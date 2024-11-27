@@ -120,7 +120,7 @@ class JsonConverterTest extends TestCase
         'TIMESTAMP' => '13.06.2024T12:01:15',
         'BEWERBUNGNR' => 12345,
         'STPERSONNR' => 123456,
-        'STSTUDIUMNR' => null,
+        'STSTUDIUMNR' => 253324,
         'APPLICANTSTARTOFSTUDY' => '21W',
         'APPLICANTSTUDYTYPE' => 'Bachelorstudium',
         'APPLICANTSTUDYNAME' => 'Bachelorstudium; Physik',
@@ -129,8 +129,8 @@ class JsonConverterTest extends TestCase
         'APPLICANTQUALIFICATIONDATE' => [
             'value' => '1970-01-01',
         ],
-        'APPLICANTQUALIFICATIONSTATENR' => 257,
-        'APPLICANTQUALIFICATIONSTATE' => 'Kosovo',
+        'APPLICANTQUALIFICATIONSTATENR' => 168,
+        'APPLICANTQUALIFICATIONSTATE' => 'Österreich',
     ];
 
     private const EXPECTED = [
@@ -207,7 +207,7 @@ class JsonConverterTest extends TestCase
         'applications' => [
             0 => [
                 'id' => '12345',
-                'studyId' => null,
+                'studyId' => '253324',
                 'studentPersonId' => '123456',
                 'studyKey' => 'UF 033 678',
                 'studyName' => 'Bachelorstudium; Physik',
@@ -215,11 +215,11 @@ class JsonConverterTest extends TestCase
                 'startSemester' => '21W',
                 'qualificationCertificateDate' => '1970-01-01',
                 'qualificationIssuingCountry' => [
-                    'key' => '257',
-                    'alpha3Code' => null,
+                    'key' => '168',
+                    'alpha3Code' => 'AUT',
                     'translations' => [
-                        'de' => 'Kosovo',
-                        'en' => 'Kosovo',
+                        'de' => 'Österreich',
+                        'en' => 'Austria',
                     ],
                 ],
                 'qualificationType' => [
