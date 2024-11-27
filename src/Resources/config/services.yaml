@@ -15,6 +15,12 @@ services:
     calls:
       - setCache: [ '@dbp.relay.cabinet_connector_campusonline.cache.sync' ]
 
+  Dbp\Relay\CabinetConnectorCampusonlineBundle\Command\SyncOneCommand:
+    autowire: true
+    autoconfigure: true
+    calls:
+      - setCache: [ '@dbp.relay.cabinet_connector_campusonline.cache.sync' ]
+
   dbp.relay.cabinet_connector_campusonline.cache.sync:
     parent: cache.app
     tags:

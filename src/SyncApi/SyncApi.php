@@ -85,51 +85,18 @@ class SyncApi implements LoggerAwareInterface
         return JsonConverter::convertToJsonObject($student, $studies, $applications);
     }
 
-    /**
-     * Return a JSON object for a single student given a StPersonNr.
-     */
-    public function getSingleForPersonNumber(int $studentPersonNumber): ?array
-    {
-        $api = $this->coApi;
-
-        $student = $api->getStudentsApi()->getStudentForPersonNumber($studentPersonNumber);
-        if ($student === null) {
-            return null;
-        }
-        if ($this->excludeInactive && !$student->isActive()) {
-            return null;
-        }
-
-        return $this->getSingleForStudent($student, null);
-    }
-
-    /**
-     * Return a JSON object for a single student given a IdentNrObfuscated.
-     */
-    public function getSingleForObfuscatedId(string $obfuscatedId): ?array
-    {
-        $api = $this->coApi;
-
-        $student = $api->getStudentsApi()->getStudentForObfuscatedId($obfuscatedId);
-        if ($student === null) {
-            return null;
-        }
-        if ($this->excludeInactive && !$student->isActive()) {
-            return null;
-        }
-
-        return $this->getSingleForStudent($student, null);
-    }
-
-    public function getSome(array $ids, ?string $cursor = null): SyncResult
+    public function getSome(array $ids, ?string $cursor = null, bool $usePersonNumber = false): SyncResult
     {
         $newCursor = ($cursor !== null) ? Cursor::decode($cursor) : new Cursor();
         $api = $this->coApi->getStudentsApi();
 
         $res = [];
         foreach ($ids as $id) {
-            $student = $api->getStudentForObfuscatedId($id);
+            $student = $usePersonNumber ? $api->getStudentForPersonNumber($id) : $api->getStudentForObfuscatedId($id);
             if ($student !== null) {
+                if ($this->excludeInactive && !$student->isActive()) {
+                    continue;
+                }
                 $res[$id] = $this->getSingleForStudent($student, $newCursor);
             }
         }

@@ -43,7 +43,7 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
             $cacheMiddleWare = new CacheMiddleware(
                 new GreedyCacheStrategy(
                     new Psr6CacheStorage($this->cachePool),
-                    3600 * 24.
+                    $this->config->getCacheTtl()
                 )
             );
 

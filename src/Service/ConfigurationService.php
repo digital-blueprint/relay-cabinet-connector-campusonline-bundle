@@ -56,6 +56,11 @@ class ConfigurationService
         return $this->config['internal']['cache'];
     }
 
+    public function getCacheTtl(): int
+    {
+        return 3600 * 24;
+    }
+
     /**
      * The timezone for the timestamps returned by the CO API.
      */

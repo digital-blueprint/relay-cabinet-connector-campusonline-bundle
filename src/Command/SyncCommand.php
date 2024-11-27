@@ -84,7 +84,7 @@ class SyncCommand extends Command implements LoggerAwareInterface
             $cacheMiddleWare = new CacheMiddleware(
                 new GreedyCacheStrategy(
                     new Psr6CacheStorage($this->cachePool),
-                    3600 * 24.
+                    $this->config->getCacheTtl()
                 )
             );
 
@@ -107,7 +107,7 @@ class SyncCommand extends Command implements LoggerAwareInterface
         $io->info('Synced '.count($res->getPersons()).' persons. Full sync: '.($res->isFullSyncResult() ? 'yes' : 'no'));
 
         $item->set($res->getCursor());
-        $item->expiresAfter(3600 * 24);
+        $item->expiresAfter($this->config->getCacheTtl());
         $this->cachePool->save($item);
 
         return Command::SUCCESS;

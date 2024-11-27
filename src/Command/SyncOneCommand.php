@@ -7,6 +7,11 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Command;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\CoApi\CoApi;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\SyncApi;
+use GuzzleHttp\HandlerStack;
+use Kevinrob\GuzzleCache\CacheMiddleware;
+use Kevinrob\GuzzleCache\Storage\Psr6CacheStorage;
+use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
@@ -28,6 +33,8 @@ class SyncOneCommand extends Command implements LoggerAwareInterface
     private $clientHandler;
     private ?string $token;
 
+    private ?CacheItemPoolInterface $cachePool;
+
     public function __construct(ConfigurationService $config)
     {
         parent::__construct();
@@ -44,6 +51,11 @@ class SyncOneCommand extends Command implements LoggerAwareInterface
         $this->addArgument('obfuscated-id', InputArgument::REQUIRED, 'obfuscated id');
     }
 
+    public function setCache(?CacheItemPoolInterface $cachePool)
+    {
+        $this->cachePool = $cachePool;
+    }
+
     public function setClientHandler(?callable $handler, string $token): void
     {
         $this->clientHandler = $handler;
@@ -54,6 +66,13 @@ class SyncOneCommand extends Command implements LoggerAwareInterface
     {
         $io = new SymfonyStyle($input, $output);
         $obfuscatedId = $input->getArgument('obfuscated-id');
+
+        $item = $this->cachePool->getItem('cursor');
+        $cursor = null;
+        if ($item->isHit()) {
+            $cursor = $item->get();
+        }
+
         $config = $this->config;
 
         $api = new CoApi($config);
@@ -62,20 +81,40 @@ class SyncOneCommand extends Command implements LoggerAwareInterface
             $api->setClientHandler($this->clientHandler, $this->token);
         }
 
-        $sync = new SyncApi($api, $config);
-        $data = $sync->getSingleForObfuscatedId($obfuscatedId);
-        if ($data === null && is_numeric($obfuscatedId)) {
-            $data = $sync->getSingleForPersonNumber((int) $obfuscatedId);
+        if ($this->config->getCacheEnabled()) {
+            // Cache everything for now to make development easier
+            $cacheMiddleWare = new CacheMiddleware(
+                new GreedyCacheStrategy(
+                    new Psr6CacheStorage($this->cachePool),
+                    $this->config->getCacheTtl()
+                )
+            );
+
+            $stack = HandlerStack::create();
+            $stack->push($cacheMiddleWare, 'cache');
+
+            $api->setClientHandler($stack, null);
         }
 
-        if ($data === null) {
+        $sync = new SyncApi($api, $config);
+        $res = $sync->getSome([$obfuscatedId], $cursor);
+        if ($res->getPersons() === [] && is_numeric($obfuscatedId)) {
+            $res = $sync->getSome([$obfuscatedId], $cursor, usePersonNumber: true);
+        }
+
+        if ($res->getPersons() === []) {
             $io->getErrorStyle()->error('student data not found');
 
             return Command::FAILURE;
         }
 
+        $data = array_values($res->getPersons())[0];
         $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $output->writeln($json);
+
+        $item->set($res->getCursor());
+        $item->expiresAfter($this->config->getCacheTtl());
+        $this->cachePool->save($item);
 
         return Command::SUCCESS;
     }
