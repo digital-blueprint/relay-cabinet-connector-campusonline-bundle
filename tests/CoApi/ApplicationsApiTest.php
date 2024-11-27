@@ -61,6 +61,7 @@ class ApplicationsApiTest extends TestCase
         $config = new ConfigurationService();
         $config->setConfig([
             'api_url' => '',
+            'api_time_zone' => 'Europe/Vienna',
             'client_id' => '',
             'client_secret' => '',
             'data_service_name_applications' => '',

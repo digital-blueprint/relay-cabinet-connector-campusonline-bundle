@@ -61,8 +61,7 @@ class ConfigurationService
      */
     public function getApiTimeZone(): \DateTimeZone
     {
-        // XXX: hardcode this for now, maybe make it configurable in the future
-        return new \DateTimeZone('Europe/Vienna');
+        return new \DateTimeZone($this->config['api_time_zone']);
     }
 
     /**
