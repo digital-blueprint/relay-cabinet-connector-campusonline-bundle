@@ -48,12 +48,12 @@ class ConfigurationService
      */
     public function getExcludeInactive(): bool
     {
-        return $this->config['exclude_inactive'];
+        return $this->config['internal']['exclude_inactive'];
     }
 
     public function getCacheEnabled(): bool
     {
-        return $this->config['cache'];
+        return $this->config['internal']['cache'];
     }
 
     /**

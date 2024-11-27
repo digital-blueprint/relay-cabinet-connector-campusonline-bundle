@@ -35,8 +35,10 @@ class SyncApiTest extends TestCase
             'client_id' => '',
             'client_secret' => '',
             'data_service_name_students' => '',
-            'exclude_inactive' => false,
             'page_size' => 123,
+            'internal' => [
+                'exclude_inactive' => false,
+            ],
         ]);
         $this->config = $config;
         $this->api = new CoApi($config);
