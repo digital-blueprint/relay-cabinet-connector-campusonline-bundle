@@ -21,6 +21,9 @@ class SyncApi implements LoggerAwareInterface
     private bool $excludeInactive;
     private int $pageSize;
 
+    // Hard to say what a good number here is..
+    private const MAX_INCREMENTAL_SYNC = 200;
+
     public function __construct(CoApi $coApi, ConfigurationService $config)
     {
         $this->coApi = $coApi;
@@ -127,6 +130,15 @@ class SyncApi implements LoggerAwareInterface
         }
         $this->logger->info(count($changedStudents).' changed students');
 
+        // In case there are too many changes it means that the last sync has been a long time ago, or something is broken,
+        // or on the CO side of things a script changed many entries. Since this would mean that we would fetch all those
+        // entries separately and since we don't want to hammer CO, fall back to a full sync in that case.
+        if (count($changedStudents) > self::MAX_INCREMENTAL_SYNC) {
+            $this->logger->warning('Too many changed students (>'.self::MAX_INCREMENTAL_SYNC.'), falling back to a full sync.');
+
+            return $this->getAll();
+        }
+
         // Get all students for applications that have changed
         $this->logger->info('Checking for changed applications', ['sync timestamp' => $newCursor->getLastSyncApplications()]);
         $changedApplicationsCount = 0;
@@ -189,9 +201,10 @@ class SyncApi implements LoggerAwareInterface
         return new SyncResult($res, $newCursor->encode(), false);
     }
 
-    private function getAll(int $pageSize): SyncResult
+    public function getAll(): SyncResult
     {
         $api = $this->coApi;
+        $pageSize = $this->pageSize;
         $cursor = new Cursor();
 
         $this->logger->info('Starting a full sync');
@@ -261,18 +274,5 @@ class SyncApi implements LoggerAwareInterface
         }
 
         return new SyncResult($res, $cursor->encode(), true);
-    }
-
-    public function getAllFirstTime(): SyncResult
-    {
-        $result = $this->getAll($this->pageSize);
-
-        // Since the sync takes so long and things might have changed since the start, we trigger one
-        // incremental sync right away
-        $incrementalSyncResult = $this->getAllSince($result->getCursor());
-        $cursor = $incrementalSyncResult->getCursor();
-        $res = array_merge($result->getPersons(), $incrementalSyncResult->getPersons());
-
-        return new SyncResult($res, $cursor, true);
     }
 }

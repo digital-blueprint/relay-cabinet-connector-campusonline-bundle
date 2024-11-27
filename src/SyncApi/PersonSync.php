@@ -62,7 +62,7 @@ class PersonSync implements PersonSyncInterface, LoggerAwareInterface
     public function getAllPersons(?string $cursor = null): PersonSyncResultInterface
     {
         if ($cursor === null) {
-            return $this->getSyncApi()->getAllFirstTime();
+            return $this->getSyncApi()->getAll();
         } else {
             return $this->getSyncApi()->getAllSince($cursor);
         }
