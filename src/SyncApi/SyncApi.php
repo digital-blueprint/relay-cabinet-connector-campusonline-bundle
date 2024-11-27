@@ -93,10 +93,10 @@ class SyncApi implements LoggerAwareInterface
         $api = $this->coApi;
 
         $student = $api->getStudentsApi()->getStudentForPersonNumber($studentPersonNumber);
-        if ($this->excludeInactive && !$student->isActive()) {
+        if ($student === null) {
             return null;
         }
-        if ($student === null) {
+        if ($this->excludeInactive && !$student->isActive()) {
             return null;
         }
 
@@ -111,10 +111,10 @@ class SyncApi implements LoggerAwareInterface
         $api = $this->coApi;
 
         $student = $api->getStudentsApi()->getStudentForObfuscatedId($obfuscatedId);
-        if ($this->excludeInactive && !$student->isActive()) {
+        if ($student === null) {
             return null;
         }
-        if ($student === null) {
+        if ($this->excludeInactive && !$student->isActive()) {
             return null;
         }
 
