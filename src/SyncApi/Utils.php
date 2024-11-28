@@ -11,6 +11,8 @@ class Utils
     /**
      * Allows finding the earliest timestamp of a set of resources by passing them all in on after
      * the other.
+     *
+     * @param-out \DateTimeInterface $minDateTime
      */
     public static function updateMinSyncDateTime(BaseResource $resource, ?\DateTimeInterface &$minDateTime): void
     {
