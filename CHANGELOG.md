@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.3.17
+
 * Fix partial students syncs when exclude_inactive is enabled
 * sync command: show if the sync was a full one or not
 * config: add "api_time_zone" option to set the timezone for the CO server
