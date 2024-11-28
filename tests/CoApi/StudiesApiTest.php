@@ -222,7 +222,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame('20S', $study->getStudyImmatriculationSemester());
         $this->assertSame('24S', $study->getStudyExmatriculationSemester());
         $this->assertSame('Master-/Diplomst.eigene Univ.', $study->getStudyQualificationTypeString());
-        $this->assertSame(true, $study->isActive());
+        $this->assertSame(false, $study->isActive());
         $this->assertSame(true, $study->isLiveData());
         $this->assertSame(1718276895, $study->getSyncTimestamp()->getTimestamp());
     }
@@ -256,7 +256,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame(null, $study->getStudyImmatriculationSemester());
         $this->assertSame(null, $study->getStudyExmatriculationSemester());
         $this->assertSame(null, $study->getStudyQualificationTypeString());
-        $this->assertSame(false, $study->isActive());
+        $this->assertSame(true, $study->isActive());
         $this->assertSame(true, $study->isLiveData());
         $this->assertSame(1718276895, $study->getSyncTimestamp()->getTimestamp());
     }

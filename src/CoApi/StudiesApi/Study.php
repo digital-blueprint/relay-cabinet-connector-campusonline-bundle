@@ -121,7 +121,7 @@ class Study extends BaseResource
      */
     public function isActive(): bool
     {
-        return $this->getStudyExmatriculationDate() !== null;
+        return $this->getStudyExmatriculationDate() === null;
     }
 
     /**
