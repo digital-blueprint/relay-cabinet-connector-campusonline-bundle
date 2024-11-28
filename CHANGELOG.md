@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+* Fix partial students syncs when exclude_inactive is enabled
+* sync command: show if the sync was a full one or not
+* config: add "api_time_zone" option to set the timezone for the CO server
+* config: move exclude_inactive and cache into an "internal" section
+* sync-one command: use caching if enabled
+* sync-one command: integrate with the sync cursor, like the PHP API does
+* partial sync: fall back to a full sync in case there are too many changes (>200 currently)
+* Various documentation updates
+
 ## v0.3.16
 
 * Fix book keeping of live application updates
