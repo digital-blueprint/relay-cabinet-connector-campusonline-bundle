@@ -9,7 +9,7 @@
         "api-platform/core": "^3.2",
         "dbp/relay-cabinet-bundle": "^0.2.21",
         "dbp/relay-core-bundle": "^0.1.156",
-        "kevinrob/guzzle-cache-middleware": "^5.1",
+        "kevinrob/guzzle-cache-middleware": "^6.0",
         "league/uri": "^7.4",
         "symfony/config": "^6.4",
         "symfony/dependency-injection": "^6.4",
