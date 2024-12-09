@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Add support for kevinrob/guzzle-cache-middleware v6
+
 ## v0.3.17
 
 * Fix partial students syncs when exclude_inactive is enabled
