@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.3.18
+
 * Add support for kevinrob/guzzle-cache-middleware v6
 
 ## v0.3.17
