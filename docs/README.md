@@ -17,6 +17,9 @@ graph TB
     style B stroke-width:3px
 ```
 
+The connector depends on a custom made CO API for efficiently fetching student
+data including incremental updates.
+
 ## Documentation
 
 * [Bundle Configuration](./config.md)

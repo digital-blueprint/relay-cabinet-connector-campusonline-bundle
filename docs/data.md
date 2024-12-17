@@ -217,3 +217,64 @@ possible values. Please see the source for more info.
   "webUrl": "https://dummy.at/dummy/wbStEvidenz.StEvi?pStPersonNr=123123"
 }
 ```
+
+## Enumerated Values / Translations
+
+As seen in the example above, enums come in the form of:
+
+```json
+{
+  "myField": {
+    "key": "42",
+    "translations": {
+      "de": "Deutsch",
+      "en": "English"
+    }
+  }
+}
+```
+
+Where "key" is a unique value, and the translations objects contains the
+translated text value for that key. The text representations and translations
+are partly hard-coded in the source code and need to be kept in sync with CO. In
+case a value is not known a text value of the following form will be generated:
+
+```json
+{
+  "myField": {
+    "key": "42",
+    "translations": {
+      "de": "42 (Unbekannter Wert)",
+      "en": "42 (unknown value)"
+    }
+  }
+}
+```
+
+In some cases the APIs return German text in addition to the key, in which case
+we will fall back to that if the key is not known.
+
+```json
+{
+  "myField": {
+    "key": "42",
+    "translations": {
+      "de": "Deutsch",
+      "en": "42 (unknown value)"
+    }
+  }
+}
+```
+
+Known/Potential issues:
+
+* For some fields the API doesn't provide a unique key ("personalStatus" for
+  example), in which case we simply use the German text as the key. This means
+  the key might not be stable and could change in the future.
+* For some other fields ("tuitionExemptionType" for example) we currently don't
+  know the possible range of values and their textual representation which is
+  why they are currently just simple text fields and not enums. This might
+  change in the future.
+* It's not clear which keys are generally available in every CO instance and
+  which are custom to the specific installation for every fields. We currently
+  assume that all keys are available in every CO instance.
