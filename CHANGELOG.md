@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## v0.3.19
+
+* Drop support for PHP 8.1
+* Remove dependency on api-platform
+
 ## v0.3.18
 
 * Add support for kevinrob/guzzle-cache-middleware v6
