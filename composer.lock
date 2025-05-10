@@ -532,16 +532,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.2.39",
+            "version": "v0.2.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "44d667a09002a501e0975c11e1f256e1f65063dd"
+                "reference": "ef3a5ccedb218b6899e154cc52f9eade2e2941c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/44d667a09002a501e0975c11e1f256e1f65063dd",
-                "reference": "44d667a09002a501e0975c11e1f256e1f65063dd",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/ef3a5ccedb218b6899e154cc52f9eade2e2941c4",
+                "reference": "ef3a5ccedb218b6899e154cc52f9eade2e2941c4",
                 "shasum": ""
             },
             "require": {
@@ -585,11 +585,12 @@
                 "phpstan/phpstan": "^2.0.0",
                 "phpstan/phpstan-phpunit": "^2.0.0",
                 "phpstan/phpstan-symfony": "^2.0.0",
-                "phpunit/phpunit": "^10.1",
+                "phpunit/phpunit": "^11.1",
                 "symfony/browser-kit": "^6.4",
                 "symfony/error-handler": "^6.4",
                 "symfony/monolog-bridge": "^6.4",
-                "symfony/phpunit-bridge": "^7.0.4"
+                "symfony/phpunit-bridge": "^7.0.4",
+                "symfony/runtime": "^7.2"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -603,9 +604,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.39"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.2.41"
             },
-            "time": "2025-04-17T13:55:22+00:00"
+            "time": "2025-05-08T14:21:58+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
