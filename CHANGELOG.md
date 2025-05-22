@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.3.20
+
+* Update cabinet bundle
+
 ## v0.3.19
 
 * Drop support for PHP 8.1
