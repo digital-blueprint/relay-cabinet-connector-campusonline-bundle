@@ -534,16 +534,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.3.0",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "0862b7b96dc2b53b5992566150356c7d19d37990"
+                "reference": "5c0a507b5a662f4758b4cefd2cdd77714d5f797e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/0862b7b96dc2b53b5992566150356c7d19d37990",
-                "reference": "0862b7b96dc2b53b5992566150356c7d19d37990",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/5c0a507b5a662f4758b4cefd2cdd77714d5f797e",
+                "reference": "5c0a507b5a662f4758b4cefd2cdd77714d5f797e",
                 "shasum": ""
             },
             "require": {
@@ -606,9 +606,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.0"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.2"
             },
-            "time": "2025-05-22T17:12:46+00:00"
+            "time": "2025-06-05T13:15:29+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
@@ -9546,16 +9546,16 @@
     "packages-dev": [
         {
             "name": "captainhook/captainhook",
-            "version": "5.25.4",
+            "version": "5.25.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/captainhook-git/captainhook.git",
-                "reference": "c1e8d7adf3d43ac4b388b25a04496a47c6bbe694"
+                "reference": "7b0feb07ae328c83c458175fe19e5cb55634b1fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/captainhook-git/captainhook/zipball/c1e8d7adf3d43ac4b388b25a04496a47c6bbe694",
-                "reference": "c1e8d7adf3d43ac4b388b25a04496a47c6bbe694",
+                "url": "https://api.github.com/repos/captainhook-git/captainhook/zipball/7b0feb07ae328c83c458175fe19e5cb55634b1fb",
+                "reference": "7b0feb07ae328c83c458175fe19e5cb55634b1fb",
                 "shasum": ""
             },
             "require": {
@@ -9618,7 +9618,7 @@
             ],
             "support": {
                 "issues": "https://github.com/captainhook-git/captainhook/issues",
-                "source": "https://github.com/captainhook-git/captainhook/tree/5.25.4"
+                "source": "https://github.com/captainhook-git/captainhook/tree/5.25.5"
             },
             "funding": [
                 {
@@ -9626,7 +9626,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-01T15:20:18+00:00"
+            "time": "2025-06-07T07:44:19+00:00"
         },
         {
             "name": "captainhook/secrets",
