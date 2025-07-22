@@ -6,21 +6,21 @@ namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi;
 
 use Dbp\Relay\CabinetBundle\PersonSync\PersonSyncResultInterface;
 
-class SyncResult implements PersonSyncResultInterface
+readonly class SyncResult implements PersonSyncResultInterface
 {
     /**
-     * @param array<string, array> $results
+     * @param array[] $persons
      */
-    public function __construct(private array $results, private string $cursor, private bool $isFullSyncResult)
+    public function __construct(private array $persons, private string $cursor, private bool $isFullSyncResult)
     {
     }
 
     /**
-     * @return array<string, array>
+     * @return array[]
      */
     public function getPersons(): array
     {
-        return $this->results;
+        return $this->persons;
     }
 
     /**

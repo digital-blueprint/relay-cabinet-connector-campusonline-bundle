@@ -17,16 +17,14 @@ class SyncApi implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    private CoApi $coApi;
     private bool $excludeInactive;
     private int $pageSize;
 
     // Hard to say what a good number here is..
     private const MAX_INCREMENTAL_SYNC = 200;
 
-    public function __construct(CoApi $coApi, ConfigurationService $config)
+    public function __construct(private readonly CoApi $coApi, ConfigurationService $config)
     {
-        $this->coApi = $coApi;
         $this->logger = new NullLogger();
         $this->excludeInactive = $config->getExcludeInactive();
         $this->pageSize = $config->getPageSize();
