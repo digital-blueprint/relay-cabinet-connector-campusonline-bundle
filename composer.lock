@@ -536,16 +536,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.3.6",
+            "version": "v0.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "6866a758c88ae8fbece2e7a9ae2a5f65dd8e85b8"
+                "reference": "74b18959f3261f3f130cf1a7aa4e6b812f5125d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/6866a758c88ae8fbece2e7a9ae2a5f65dd8e85b8",
-                "reference": "6866a758c88ae8fbece2e7a9ae2a5f65dd8e85b8",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/74b18959f3261f3f130cf1a7aa4e6b812f5125d9",
+                "reference": "74b18959f3261f3f130cf1a7aa4e6b812f5125d9",
                 "shasum": ""
             },
             "require": {
@@ -608,9 +608,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.6"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.7"
             },
-            "time": "2025-08-13T13:54:40+00:00"
+            "time": "2025-08-19T12:51:21+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
@@ -11158,16 +11158,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.52",
+            "version": "10.5.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5be558244941fba07788b6bb42dc5fc84429580c"
+                "reference": "32768472ebfb6969e6c7399f1c7b09009723f653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5be558244941fba07788b6bb42dc5fc84429580c",
-                "reference": "5be558244941fba07788b6bb42dc5fc84429580c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/32768472ebfb6969e6c7399f1c7b09009723f653",
+                "reference": "32768472ebfb6969e6c7399f1c7b09009723f653",
                 "shasum": ""
             },
             "require": {
@@ -11239,7 +11239,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.52"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.53"
             },
             "funding": [
                 {
@@ -11263,7 +11263,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-16T05:17:33+00:00"
+            "time": "2025-08-20T14:40:06+00:00"
         },
         {
             "name": "react/cache",
