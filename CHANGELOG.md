@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## v0.3.22
+
+- Minor translation updates
+- Move to phpunit 11
+
 ## v0.3.21
 
 - Fix phpdoc type
