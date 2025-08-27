@@ -290,7 +290,7 @@ class StudentsApiTest extends TestCase
         $this->assertSame('13.06.2024T14:00:34', $data->getSyncTimestampString());
 
         $this->assertSame('1970-01-01', $data->getBirthDate());
-        $this->assertSame('male', $data->getGender()->getName());
+        $this->assertSame('Male', $data->getGender()->getName());
         $this->assertSame('Männlich', $data->getGenderString());
         $this->assertSame('Ägypten', $data->getNationalityString());
         $this->assertSame(123123, $data->getStudentPersonNumber());
@@ -318,8 +318,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame('max.mustermann@student.tugraz.at', $data->getEmailAddressUniversity());
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
         $this->assertSame('max.mustermann@example.com', $data->getEmailAddressConfirmed());
-        $this->assertSame('pre-registration', $data->getPersonalStatus()->getName());
-        $this->assertSame('not admitted', $data->getStudentStatus()->getName());
+        $this->assertSame('Pre-Registration', $data->getPersonalStatus()->getName());
+        $this->assertSame('Not Admitted', $data->getStudentStatus()->getName());
         $this->assertSame('nicht zugelassen', $data->getStudentStatusString());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
         $this->assertSame('ex lege (EZ)', $data->getExmatriculationStatus()->getName());
@@ -362,7 +362,7 @@ class StudentsApiTest extends TestCase
 
         // These seem to be always present (based on manual testing only)
         $this->assertSame('1970-01-01', $data->getBirthDate());
-        $this->assertSame('male', $data->getGender()->getName());
+        $this->assertSame('Male', $data->getGender()->getName());
         $this->assertSame('Männlich', $data->getGenderString());
         $this->assertSame(11, $data->getNationality()->value);
         $this->assertSame('Ägypten', $data->getNationalityString());
@@ -372,8 +372,8 @@ class StudentsApiTest extends TestCase
         $this->assertSame('F06BCC80D6FC0BDE575B16FB2E3790D5', $data->getIdentNumberObfuscated());
         $this->assertSame('02', $data->getAdmissionQualificationType()->value);
         $this->assertSame('Humanistisches Gymnasium', $data->getAdmissionQualificationTypeString());
-        $this->assertSame('pre-registration', $data->getPersonalStatus()->getName());
-        $this->assertSame('nicht zugelassen', $data->getStudentStatus()->getName('de'));
+        $this->assertSame('Pre-Registration', $data->getPersonalStatus()->getName());
+        $this->assertSame('Nicht Zugelassen', $data->getStudentStatus()->getName('de'));
         $this->assertSame('nicht zugelassen', $data->getStudentStatusString());
         $this->assertSame('2010-12-24', $data->getImmatriculationDate());
         $this->assertSame('BIH', $data->getAdmissionQualificationState()->getAlpha3Code());

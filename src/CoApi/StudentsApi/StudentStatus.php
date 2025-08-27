@@ -13,19 +13,19 @@ class StudentStatus
     private const TRANSLATIONS = [
         'A' => [
             'de' => 'Außerordentlich',
-            'en' => 'extraordinary',
+            'en' => 'Extraordinary',
         ],
         'M' => [
             'de' => 'Mitbelegend',
-            'en' => 'co-registered',
+            'en' => 'Co-Registered',
         ],
         'E' => [
-            'de' => 'nicht zugelassen',
-            'en' => 'not admitted',
+            'de' => 'Nicht Zugelassen',
+            'en' => 'Not Admitted',
         ],
         'O' => [
             'de' => 'Ordentlich',
-            'en' => 'regular',
+            'en' => 'Regular',
         ],
     ];
     private ?array $fallbackTranslations;

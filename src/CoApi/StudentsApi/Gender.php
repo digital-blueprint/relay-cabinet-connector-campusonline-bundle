@@ -13,31 +13,31 @@ class Gender
     private const TRANSLATIONS = [
         'M' => [
             'de' => 'Männlich',
-            'en' => 'male',
+            'en' => 'Male',
         ],
         'W' => [
             'de' => 'Weiblich',
-            'en' => 'female',
+            'en' => 'Female',
         ],
         'X' => [
             'de' => 'Divers', // (called "intersex" in the CO translation).
-            'en' => 'non-binary',
+            'en' => 'Non-Binary',
         ],
         'U' => [
             'de' => 'Unbekannt',
-            'en' => 'unknown',
+            'en' => 'Unknown',
         ],
         'O' => [
             'de' => 'Offen',
-            'en' => 'open',
+            'en' => 'Open',
         ],
         'I' => [
             'de' => 'Inter',
-            'en' => 'inter',
+            'en' => 'Inter',
         ],
         'K' => [
             'de' => 'Kein Eintrag',
-            'en' => 'no record',
+            'en' => 'No Record',
         ],
     ];
 

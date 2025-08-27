@@ -299,14 +299,14 @@ class JsonConverterTest extends TestCase
             'key' => 'Voranmeldung',
             'translations' => [
                 'de' => 'Voranmeldung',
-                'en' => 'pre-registration',
+                'en' => 'Pre-Registration',
             ],
         ],
         'studentStatus' => [
             'key' => 'E',
             'translations' => [
-                'de' => 'nicht zugelassen',
-                'en' => 'not admitted',
+                'de' => 'Nicht Zugelassen',
+                'en' => 'Not Admitted',
             ],
         ],
         'tuitionStatus' => 'Ausländer gleichgestellt',
@@ -333,7 +333,7 @@ class JsonConverterTest extends TestCase
             'key' => 'M',
             'translations' => [
                 'de' => 'Männlich',
-                'en' => 'male',
+                'en' => 'Male',
             ],
         ],
         'note' => 'some note',

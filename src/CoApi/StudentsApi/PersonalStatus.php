@@ -13,31 +13,31 @@ class PersonalStatus
     private const TRANSLATIONS = [
         'Einschreibung offen' => [
             'de' => 'Einschreibung offen',
-            'en' => 'enrollment open',
+            'en' => 'Enrollment Open',
         ],
         'externe Person' => [
-            'de' => 'externe Person',
-            'en' => ' external person',
+            'de' => 'Externe Person',
+            'en' => 'External Person',
         ],
         'gültige/r Studierende/r' => [
-            'de' => 'gültige/r Studierende/r',
-            'en' => 'valid student',
+            'de' => 'Gültige/r Studierende/r',
+            'en' => 'Valid Student',
         ],
         'Studienberechtigungsprüfung' => [
             'de' => 'Studienberechtigungsprüfung',
-            'en' => 'university entrance exam',
+            'en' => 'University Entrance Exam',
         ],
         'Testdaten' => [
             'de' => 'Testdaten',
-            'en' => 'test data',
+            'en' => 'Test Data',
         ],
         'Voranmeldung' => [
             'de' => 'Voranmeldung',
-            'en' => 'pre-registration',
+            'en' => 'Pre-Registration',
         ],
         'Voranmeldung ohne Hochschulstatistik' => [
             'de' => 'Voranmeldung ohne Hochschulstatistik',
-            'en' => 'pre-registration without university statistics',
+            'en' => 'Pre-Registration without University Statistics',
         ],
     ];
 

@@ -34,6 +34,7 @@ class ExmatriculationStatus
         ],
         'MNTC' => [
             'de' => 'Schließung (MNTC)',
+            'en' => 'degree program closing (MNTC)',
         ],
         'MSL' => [
             'de' => 'keine Mindeststudienleistung (MSL)',
