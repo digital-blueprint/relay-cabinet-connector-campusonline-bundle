@@ -38,6 +38,7 @@ class SyncApiTest extends TestCase
             'page_size' => 123,
             'internal' => [
                 'exclude_inactive' => false,
+                'incremental_sync_threshold' => 200,
             ],
         ]);
         $this->config = $config;

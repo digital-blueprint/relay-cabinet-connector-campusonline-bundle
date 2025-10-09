@@ -27,6 +27,8 @@ dbp_relay_cabinet_connector_campusonline:
         exclude_inactive:     false # Example: 'true'
         # Enable caching for easier development
         cache:                false # Example: 'true'
+        # threshold for when to force a full sync
+        incremental_sync_threshold: 200
 ```
 
 * `page_size` needs to be adjusted depending on the server/database performance

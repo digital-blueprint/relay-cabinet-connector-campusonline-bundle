@@ -19,15 +19,14 @@ class SyncApi implements LoggerAwareInterface
 
     private bool $excludeInactive;
     private int $pageSize;
-
-    // Hard to say what a good number here is..
-    private const MAX_INCREMENTAL_SYNC = 200;
+    private int $incrementalSyncThreshold;
 
     public function __construct(private readonly CoApi $coApi, ConfigurationService $config)
     {
         $this->logger = new NullLogger();
         $this->excludeInactive = $config->getExcludeInactive();
         $this->pageSize = $config->getPageSize();
+        $this->incrementalSyncThreshold = $config->getIncrementalSyncThreshold();
     }
 
     /**
@@ -131,8 +130,8 @@ class SyncApi implements LoggerAwareInterface
         // In case there are too many changes it means that the last sync has been a long time ago, or something is broken,
         // or on the CO side of things a script changed many entries. Since this would mean that we would fetch all those
         // entries separately and since we don't want to hammer CO, fall back to a full sync in that case.
-        if (count($changedStudents) > self::MAX_INCREMENTAL_SYNC) {
-            $this->logger->warning('Too many changed students (>'.self::MAX_INCREMENTAL_SYNC.'), falling back to a full sync.');
+        if (count($changedStudents) > $this->incrementalSyncThreshold) {
+            $this->logger->warning('Too many changed students (>'.$this->incrementalSyncThreshold.'), falling back to a full sync.');
 
             return $this->getAll();
         }

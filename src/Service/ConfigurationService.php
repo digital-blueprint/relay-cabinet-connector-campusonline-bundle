@@ -56,6 +56,16 @@ class ConfigurationService
         return $this->config['internal']['cache'];
     }
 
+    /**
+     * If an incremental sync returns more changed entries than
+     * returned here then we force a full sync instead. This is to avoid
+     * us hammering the API with requests for the related resources.
+     */
+    public function getIncrementalSyncThreshold(): int
+    {
+        return $this->config['internal']['incremental_sync_threshold'];
+    }
+
     public function getCacheTtl(): int
     {
         return 3600 * 24;
