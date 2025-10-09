@@ -47,7 +47,7 @@ class SyncCommand extends Command implements LoggerAwareInterface
     {
         $this->setName('dbp:relay:cabinet-connector-campusonline:sync');
         $this->setDescription('Run a sync');
-        $this->addOption('--full', mode: InputOption::VALUE_NONE);
+        $this->addOption('--full', mode: InputOption::VALUE_NONE, description: 'Force a full sync');
     }
 
     public function setCache(?CacheItemPoolInterface $cachePool)

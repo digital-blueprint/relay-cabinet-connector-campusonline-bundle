@@ -23,5 +23,6 @@ data including incremental updates.
 ## Documentation
 
 * [Bundle Configuration](./config.md)
+* [CLI Commands](./cli-commands.md)
 * [Provided Student Data](./data.md)
 * [CAMPUSonline API Details](./co-api.md)
