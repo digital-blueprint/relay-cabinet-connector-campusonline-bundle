@@ -8,7 +8,7 @@ use Dbp\Relay\CabinetConnectorCampusonlineBundle\Service\ConfigurationService;
 use Dbp\Relay\CoreBundle\Extension\ExtensionTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class DbpRelayCabinetConnectorCampusonlineExtension extends ConfigurableExtension
@@ -17,11 +17,11 @@ class DbpRelayCabinetConnectorCampusonlineExtension extends ConfigurableExtensio
 
     public function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader(
+        $loader = new PhpFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
-        $loader->load('services.yaml');
+        $loader->load('services.php');
 
         $definition = $container->getDefinition(ConfigurationService::class);
         $definition->addMethodCall('setConfig', [$mergedConfig]);
