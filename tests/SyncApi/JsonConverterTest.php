@@ -155,7 +155,7 @@ class JsonConverterTest extends TestCase
                     'key' => 'I',
                     'translations' => [
                         'de' => 'gemeldet',
-                        'en' => 'gemeldet',
+                        'en' => 'registered',
                     ],
                 ],
                 'curriculumVersion' => '2022W',

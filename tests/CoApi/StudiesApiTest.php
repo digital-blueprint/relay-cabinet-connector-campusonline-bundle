@@ -209,7 +209,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame('2010-01-01', $study->getStudyQualificationDate());
         $this->assertSame('Österreich', $study->getStudyQualificationStateString());
         $this->assertSame('AUT', $study->getStudyQualificationState()->getAlpha3Code());
-        $this->assertSame('gemeldet', $study->getStudyStatus()->getName());
+        $this->assertSame('registered', $study->getStudyStatus()->getName());
         $this->assertSame('gemeldet', $study->getStudyStatusString());
         $this->assertSame('41', $study->getStudyQualificationType()->value);
         $this->assertSame('EZ', $study->getStudyExmatriculationType()->value);
@@ -217,7 +217,6 @@ class StudiesApiTest extends TestCase
         $this->assertSame(2, count($study->getAdditionalCertificates()->items));
         $this->assertSame('EDG', $study->getAdditionalCertificates()->items[0]->value);
         $this->assertSame('EGR', $study->getAdditionalCertificates()->items[1]->value);
-        $this->assertSame('gemeldet', $study->getStudyStatusString());
         $this->assertSame('auf Antrag', $study->getStudyExmatriculationTypeString());
         $this->assertSame('20S', $study->getStudyImmatriculationSemester());
         $this->assertSame('24S', $study->getStudyExmatriculationSemester());
@@ -247,7 +246,7 @@ class StudiesApiTest extends TestCase
         $this->assertSame(null, $study->getStudyQualificationDate());
         $this->assertSame(null, $study->getStudyQualificationStateString());
         $this->assertSame(null, $study->getStudyQualificationState());
-        $this->assertSame('gemeldet', $study->getStudyStatus()->getName());
+        $this->assertSame('registered', $study->getStudyStatus()->getName());
         $this->assertSame(null, $study->getStudyQualificationType());
         $this->assertSame(null, $study->getStudyExmatriculationType());
         $this->assertSame([], $study->getAdditionalCertificates()->items);

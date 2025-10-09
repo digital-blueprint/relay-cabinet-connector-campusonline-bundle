@@ -94,7 +94,7 @@ class ApiValueTypesTest extends TestCase
 
     public function testStudyStatus()
     {
-        $this->assertSame('logisch gelöscht', (new StudyStatus('G'))->getName());
+        $this->assertSame('logically deleted', (new StudyStatus('G'))->getName());
         $this->assertSame('unknown value (Ö)', (new StudyStatus('Ö'))->getName());
     }
 }

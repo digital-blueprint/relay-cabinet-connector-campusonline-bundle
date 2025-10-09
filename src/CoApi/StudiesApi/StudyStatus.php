@@ -14,48 +14,62 @@ class StudyStatus
         ],
         'a' => [
             'de' => 'noch nicht gemeldet - Studienphase begonnen',
+            'en' => 'acceptance of study place',
         ],
         'B' => [
             'de' => 'gemeldet - Neueinschreibung',
+            'en' => 're-enrollment',
         ],
         'E' => [
             'de' => 'gemeldet - Ersteinschreibung',
+            'en' => 'first enrollment',
         ],
         'I' => [
             'de' => 'gemeldet',
+            'en' => 'registered',
         ],
         'o' => [
             'de' => 'noch nicht gemeldet - Studium offen',
         ],
         'R' => [
             'de' => 'Rücktritt von Meldung',
+            'en' => 'withdrawal of enrollment',
         ],
         'U' => [
             'de' => 'beurlaubt',
+            'en' => 'on leave',
         ],
         'V' => [
             'de' => 'Verzicht auf Studienplatz',
+            'en' => 'temporarily admitted',
         ],
         'X' => [
             'de' => 'geschlossen (Abschluss u./o. keine Fortsetzung möglich)',
+            'en' => 'closed (completed or continuation not possible)',
         ],
         'y' => [
             'de' => 'noch nicht gemeldet - fortzusetzen (erschwert zu öffnen)',
+            'en' => 'to continue',
         ],
         'Y' => [
             'de' => 'geschlossen (erschwert zu öffnen)',
+            'en' => 'closed (no re-admission)',
         ],
         'z' => [
             'de' => 'noch nicht gemeldet - fortzusetzen',
+            'en' => 'to continue',
         ],
         'Z' => [
             'de' => 'geschlossen (Antrag oder ex lege)',
+            'en' => 'closed (request or ex lege)',
         ],
         'f' => [
             'de' => 'fehler',
+            'en' => 'error',
         ],
         'G' => [
             'de' => 'logisch gelöscht',
+            'en' => 'logically deleted',
         ],
     ];
 
