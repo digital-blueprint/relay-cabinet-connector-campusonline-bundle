@@ -41,3 +41,17 @@ dbp_relay_cabinet_connector_campusonline:
 
 * `internal.exclude_inactive` and `internal.cache` are only useful for testing
   and development and should not be used in production.
+
+## Health Checks
+
+To make sure the bundle configuration is correct you can run the bundle health checks via:
+
+```bash
+$ ./bin/console dbp:relay:core:check-health --only=cabinet-connector-campusonline
+[cabinet-connector-campusonline]
+  Check if the students API works: [SUCCESS]
+  Check if the studies API works: [SUCCESS]
+  Check if the applications API works: [SUCCESS]
+```
+
+It will try to connect to all three CO APIs
