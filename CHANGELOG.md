@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v0.3.24
+
+- Added some english translation for studyStatus
+- Added documentation for the CLI commands and health checks
+- Added new internal config option `incremental_sync_threshold`
+
 ## v0.3.23
 
 - Add support for kevinrob/guzzle-cache-middleware v7
