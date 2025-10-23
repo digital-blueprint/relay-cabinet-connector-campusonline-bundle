@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.3.25
+
+- minor fixes
+
 ## v0.3.24
 
 - Added some english translation for studyStatus
