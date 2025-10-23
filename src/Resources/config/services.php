@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace Dbp\Relay\CabinetConnectorCampusonlineBundle\Resources\config;
 
 use Dbp\Relay\CabinetBundle\PersonSync\PersonSyncInterface;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Command\SyncCommand;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\Command\SyncOneCommand;
 use Dbp\Relay\CabinetConnectorCampusonlineBundle\SyncApi\PersonSync;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
