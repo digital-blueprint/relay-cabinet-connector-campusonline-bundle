@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.3.26
+
+- Add support for Symfony 7
+
 ## v0.3.25
 
 - minor fixes
