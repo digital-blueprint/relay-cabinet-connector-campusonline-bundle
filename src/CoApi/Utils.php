@@ -59,15 +59,14 @@ class Utils
         if (isset($translations[$value])) {
             if (isset($translations[$value][$locale])) {
                 return $translations[$value][$locale];
-            } else {
-                return $translations[$value][$fallbackLocale];
             }
-        } else {
-            if (isset($fallback[$locale])) {
-                return $fallback[$locale].' ('.$value.')';
-            } else {
-                return $fallback[$fallbackLocale].' ('.$value.')';
-            }
+
+            return $translations[$value][$fallbackLocale];
         }
+        if (isset($fallback[$locale])) {
+            return $fallback[$locale].' ('.$value.')';
+        }
+
+        return $fallback[$fallbackLocale].' ('.$value.')';
     }
 }
