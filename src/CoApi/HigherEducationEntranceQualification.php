@@ -257,9 +257,8 @@ class HigherEducationEntranceQualification
     {
         if (preg_match('/^(\d+) - (.*)/', $string, $matches)) {
             return new self($matches[1], [$locale => $matches[2]]);
-        } else {
-            throw new \RuntimeException('Invalid format');
         }
+        throw new \RuntimeException('Invalid format');
     }
 
     public function getName(string $locale = 'en'): string
