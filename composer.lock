@@ -1300,16 +1300,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.3.14",
+            "version": "v0.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "060437bf043dcacc5d4c28bf0bd05cc1f77aca2d"
+                "reference": "83252ef8aa00a7f22df7bdd299578f42be083275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/060437bf043dcacc5d4c28bf0bd05cc1f77aca2d",
-                "reference": "060437bf043dcacc5d4c28bf0bd05cc1f77aca2d",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/83252ef8aa00a7f22df7bdd299578f42be083275",
+                "reference": "83252ef8aa00a7f22df7bdd299578f42be083275",
                 "shasum": ""
             },
             "require": {
@@ -1374,22 +1374,22 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.14"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.15"
             },
-            "time": "2026-02-26T14:46:00+00:00"
+            "time": "2026-03-04T14:14:01+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "v0.1.229",
+            "version": "v0.1.231",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-core-bundle.git",
-                "reference": "fea333e28ccc4bfb20c7fc6178c18c256aa72427"
+                "reference": "ff8968f5f092004dcc2e8e9796b3c2168f56dd08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/fea333e28ccc4bfb20c7fc6178c18c256aa72427",
-                "reference": "fea333e28ccc4bfb20c7fc6178c18c256aa72427",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/ff8968f5f092004dcc2e8e9796b3c2168f56dd08",
+                "reference": "ff8968f5f092004dcc2e8e9796b3c2168f56dd08",
                 "shasum": ""
             },
             "require": {
@@ -1486,9 +1486,9 @@
             "description": "The core bundle of the Relay API gateway",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-core-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.229"
+                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.231"
             },
-            "time": "2026-02-12T09:41:50+00:00"
+            "time": "2026-03-03T09:57:07+00:00"
         },
         {
             "name": "dbp/relay-verity-bundle",
