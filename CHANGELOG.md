@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.3.27
+
+- Fix slow sync in case many studies/applications change at once.
+
 ## v0.3.26
 
 - Add support for Symfony 7
