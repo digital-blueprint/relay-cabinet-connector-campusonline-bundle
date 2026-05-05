@@ -127,15 +127,6 @@ class SyncApi implements LoggerAwareInterface
         }
         $this->logger->info(count($changedStudents).' changed students');
 
-        // In case there are too many changes it means that the last sync has been a long time ago, or something is broken,
-        // or on the CO side of things a script changed many entries. Since this would mean that we would fetch all those
-        // entries separately and since we don't want to hammer CO, fall back to a full sync in that case.
-        if (count($changedStudents) > $this->incrementalSyncThreshold) {
-            $this->logger->warning('Too many changed students (>'.$this->incrementalSyncThreshold.'), falling back to a full sync.');
-
-            return $this->getAll();
-        }
-
         // Get all students for applications that have changed
         $this->logger->info('Checking for changed applications', ['sync timestamp' => $newCursor->getLastSyncApplications()]);
         $changedApplicationsCount = 0;
@@ -175,6 +166,15 @@ class SyncApi implements LoggerAwareInterface
             }
         }
         $this->logger->info($changedStudiesCount.' changed studies affecting '.$changedStudyStudentsCount.' students');
+
+        // In case there are too many changes it means that the last sync has been a long time ago, or something is broken,
+        // or on the CO side of things a script changed many entries. Since this would mean that we would fetch all those
+        // entries separately and since we don't want to hammer CO, fall back to a full sync in that case.
+        if (count($changedStudents) > $this->incrementalSyncThreshold) {
+            $this->logger->warning('Too many changed students (>'.$this->incrementalSyncThreshold.'), falling back to a full sync.');
+
+            return $this->getAll();
+        }
 
         $this->logger->info('Fetching related data for all '.count($changedStudents).' affected students');
         $res = [];
