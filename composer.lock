@@ -1300,16 +1300,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.3.15",
+            "version": "v0.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "83252ef8aa00a7f22df7bdd299578f42be083275"
+                "reference": "e67f0dc6ae14cb856e9510dcd5dbbe71c1054f13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/83252ef8aa00a7f22df7bdd299578f42be083275",
-                "reference": "83252ef8aa00a7f22df7bdd299578f42be083275",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/e67f0dc6ae14cb856e9510dcd5dbbe71c1054f13",
+                "reference": "e67f0dc6ae14cb856e9510dcd5dbbe71c1054f13",
                 "shasum": ""
             },
             "require": {
@@ -1374,9 +1374,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.15"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.16"
             },
-            "time": "2026-03-04T14:14:01+00:00"
+            "time": "2026-05-12T13:44:22+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
