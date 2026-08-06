@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add support for guzzlehttp/guzzle v8 and kevinrob/guzzle-cache-middleware v8
+
 ## v0.3.27
 
 - Fix slow sync in case many studies/applications change at once.
