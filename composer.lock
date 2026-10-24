@@ -1298,16 +1298,16 @@
         },
         {
             "name": "dbp/relay-cabinet-bundle",
-            "version": "v0.3.23",
+            "version": "v0.3.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-cabinet-bundle.git",
-                "reference": "1d31d167221c71d0056da6da45091fde9632a4f6"
+                "reference": "1e9831978dfab70ad72485977d87f2b480cd2c68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/1d31d167221c71d0056da6da45091fde9632a4f6",
-                "reference": "1d31d167221c71d0056da6da45091fde9632a4f6",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-cabinet-bundle/zipball/1e9831978dfab70ad72485977d87f2b480cd2c68",
+                "reference": "1e9831978dfab70ad72485977d87f2b480cd2c68",
                 "shasum": ""
             },
             "require": {
@@ -1369,9 +1369,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-cabinet-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.23"
+                "source": "https://github.com/digital-blueprint/relay-cabinet-bundle/tree/v0.3.24"
             },
-            "time": "2026-09-23T11:19:33+00:00"
+            "time": "2026-10-19T14:41:18+00:00"
         },
         {
             "name": "dbp/relay-core-bundle",
@@ -6026,16 +6026,16 @@
         },
         {
             "name": "symfony/expression-language",
-            "version": "v7.4.18",
+            "version": "v7.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/expression-language.git",
-                "reference": "b73866506ff02800836a40fa1f95614a71064f35"
+                "reference": "51c52817a02119ecd46a3369a2b38fc7f24dbf5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/expression-language/zipball/b73866506ff02800836a40fa1f95614a71064f35",
-                "reference": "b73866506ff02800836a40fa1f95614a71064f35",
+                "url": "https://api.github.com/repos/symfony/expression-language/zipball/51c52817a02119ecd46a3369a2b38fc7f24dbf5e",
+                "reference": "51c52817a02119ecd46a3369a2b38fc7f24dbf5e",
                 "shasum": ""
             },
             "require": {
@@ -6070,7 +6070,7 @@
             "description": "Provides an engine that can compile and evaluate expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/expression-language/tree/v7.4.18"
+                "source": "https://github.com/symfony/expression-language/tree/v7.4.21"
             },
             "funding": [
                 {
@@ -6090,7 +6090,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-30T00:47:26+00:00"
+            "time": "2026-10-09T13:57:53+00:00"
         },
         {
             "name": "symfony/filesystem",
